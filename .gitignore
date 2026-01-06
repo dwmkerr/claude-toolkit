@@ -1,0 +1,11 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude Code local settings
+.claude/settings.local.json
+
+# Scratch/temp files
+scratch/
+*.tmp
+*.log

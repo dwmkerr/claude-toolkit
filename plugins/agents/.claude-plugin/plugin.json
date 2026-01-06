@@ -1,0 +1,7 @@
+{
+  "name": "agents",
+  "description": "Introspect agent invocations in your Claude Code session",
+  "author": {
+    "name": "dwmkerr"
+  }
+}

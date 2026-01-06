@@ -1,0 +1,7 @@
+{
+  "name": "skills",
+  "description": "Introspect skills and agents in your Claude Code session",
+  "author": {
+    "name": "dwmkerr"
+  }
+}
