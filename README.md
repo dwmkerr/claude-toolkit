@@ -46,6 +46,7 @@ Uninstall if needed:
 |-------|-------------|
 | `research` | Structured research methodology with evidence requirements |
 | `claude-code-hook-development` | Create hooks for guardrails, automations, and policy enforcement |
+| `skill-development` | Create effective Claude Code skills |
 
 ### Agents
 
