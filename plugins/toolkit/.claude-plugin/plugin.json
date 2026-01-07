@@ -1,0 +1,7 @@
+{
+  "name": "toolkit",
+  "description": "General purpose Claude Code toolkit with research agents, skills, and introspection commands",
+  "author": {
+    "name": "dwmkerr"
+  }
+}
