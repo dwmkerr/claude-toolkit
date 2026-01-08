@@ -67,13 +67,17 @@ Review PR #$1 with priority $2 and assign to $3
 
 ## Dynamic Content
 
-**Bash execution** (prefix with `!`):
-```markdown
-Current branch: !`git branch --show-current`
-Recent commits: !`git log --oneline -5`
-```
+<!-- NOTE: Avoid isolated special chars in backticks due to bug #12762 -->
+<!-- See: https://github.com/anthropics/claude-code/issues/12762 -->
 
-**File references** (prefix with `@`):
+**Bash execution** (prefix with exclamation mark):
+```text
+Current branch: EXCLAMATION`git branch --show-current`
+Recent commits: EXCLAMATION`git log --oneline -5`
+```
+Replace EXCLAMATION with the exclamation mark character - workaround for [bug #12762](https://github.com/anthropics/claude-code/issues/12762).
+
+**File references** (prefix with at-sign):
 ```markdown
 Review the implementation in @src/utils/helpers.js
 ```

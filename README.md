@@ -20,15 +20,21 @@ cd claude-toolkit
 
 Then install locally:
 
-```
-/plugin marketplace add ./
-/plugin install toolkit@claude-toolkit
+```bash
+claude plugin marketplace add ./
+claude plugin install toolkit@claude-toolkit
+
+# Or in Claude, use:
+# /plugin marketplace add ./
+# /plugin install toolkit@claude-toolkit
 ```
 
 Uninstall if needed:
 
-```
-/plugin marketplace remove claude-toolkit
+```bash
+claude plugin marketplace remove claude-toolkit
+# Or in Claude:
+# /plugin marketplace remove claude-toolkit
 ```
 
 ## Contents
@@ -37,10 +43,13 @@ Uninstall if needed:
 
 #### `/toolkit:skill-history`
 
-> Which skills have been used in this session?
+This is useful for troubleshooting whether Claude has actually invoked or missed skills, and in response to what queries.
 
-- Searches session log for skill invocations
-- Shows timestamp, skill name, and trigger
+> /toolkit:skill-history
+
+![Screenshot of Skill History](./docs/examples/skill-history/skill-history.png)
+
+See [skill history examples](./docs/examples/skill-history).
 
 #### `/toolkit:agent-history`
 
