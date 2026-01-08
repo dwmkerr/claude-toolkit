@@ -2,32 +2,19 @@
 
 Track which skills Claude invokes during a session.
 
-## The Problem
-
-Claude sometimes misses skills or invokes unexpected ones. Without visibility, debugging is difficult:
-
-![Claude misses a skill](./skill-miss.png)
-
-## The Solution
-
-Use `/toolkit:skill-history` to see exactly what skills were invoked:
-
-![Skill history output](./skill-history.png)
-
-## Usage
-
 ```
 /toolkit:skill-history
 ```
 
-This searches the session log and displays:
-- Timestamp of each skill invocation
-- Skill name
-- What triggered it
+Claude sometimes misses skills or invokes unexpected ones. Without visibility, debugging is difficult. In the example below Claude Code clearly missed the skill call for 'chainsaw' before it was explicitly prompted:
 
-## How It Works
+![Claude misses a skill](./skill-miss.png)
 
-The command uses `grepsession.sh` to efficiently search the session JSONL file for skill invocations, avoiding the need to load the entire (often large) session file.
+You can use the `/toolkit:skill-history` command to check what skills have actually been run, and in response to what messages:
+
+![Skill history output](./skill-history.png)
+
+A shell script [`grepsession.sh`](../../../plugins/toolkit/scripts/grepsession.sh) is used to consistently find skill calls without blowing tokens - this provides enough context for Claude to look at adjacent messages from the session log if needed. Without this script it can take many iterations for Claude to find the right session log, and it will fill up context trying to do so.
 
 ## See Also
 

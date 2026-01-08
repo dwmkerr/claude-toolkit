@@ -45,8 +45,6 @@ claude plugin marketplace remove claude-toolkit
 
 This is useful for troubleshooting whether Claude has actually invoked or missed skills, and in response to what queries.
 
-> /toolkit:skill-history
-
 ![Screenshot of Skill History](./docs/examples/skill-history/skill-history.png)
 
 See [skill history examples](./docs/examples/skill-history).
