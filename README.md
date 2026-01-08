@@ -20,15 +20,21 @@ cd claude-toolkit
 
 Then install locally:
 
-```
-/plugin marketplace add ./
-/plugin install toolkit@claude-toolkit
+```bash
+claude plugin marketplace add ./
+claude plugin install toolkit@claude-toolkit
+
+# Or in Claude, use:
+# /plugin marketplace add ./
+# /plugin install toolkit@claude-toolkit
 ```
 
 Uninstall if needed:
 
-```
-/plugin marketplace remove claude-toolkit
+```bash
+claude plugin marketplace remove claude-toolkit
+# Or in Claude:
+# /plugin marketplace remove claude-toolkit
 ```
 
 ## Contents

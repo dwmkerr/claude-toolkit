@@ -89,9 +89,10 @@ Review PR #$1 with priority $2 and assign to $3
 
 ### Bash Command Execution
 
-Execute bash commands before the slash command runs using the `!` prefix. The output is included in the command context. You must include `allowed-tools` with the Bash tool.
+<!-- NOTE: Avoid isolated special chars in backticks due to bug #12762 -->
+Execute bash commands before the slash command runs using the exclamation mark (!) prefix. The output is included in the command context. You must include `allowed-tools` with the Bash tool.
 
-```markdown
+```text
 ---
 allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*)
 description: Create a git commit
@@ -99,19 +100,21 @@ description: Create a git commit
 
 ## Context
 
-- Current git status: !`git status`
-- Current git diff: !`git diff HEAD`
-- Current branch: !`git branch --show-current`
-- Recent commits: !`git log --oneline -10`
+- Current git status: EXCLAMATION_MARK`git status`
+- Current git diff: EXCLAMATION_MARK`git diff HEAD`
+- Current branch: EXCLAMATION_MARK`git branch --show-current`
+- Recent commits: EXCLAMATION_MARK`git log --oneline -10`
 
 ## Your task
 
 Based on the above changes, create a single git commit.
 ```
 
+**Note**: Replace EXCLAMATION_MARK with the exclamation mark character in actual commands. Workaround for [bug #12762](https://github.com/anthropics/claude-code/issues/12762).
+
 ### File References
 
-Include file contents in commands using the `@` prefix:
+Include file contents in commands using the at-sign (@) prefix:
 
 ```markdown
 # Reference a specific file

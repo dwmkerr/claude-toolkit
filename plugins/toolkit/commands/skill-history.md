@@ -13,7 +13,7 @@ Show which skills were invoked during the current Claude Code session.
 1. **Use Bash to run grepsession.sh**
 
    ```bash
-   ./scripts/grepsession.sh '"name":"Skill"'
+   ${CLAUDE_PLUGIN_ROOT}/scripts/grepsession.sh '"name":"Skill"'
    ```
 
    This outputs matching lines with line numbers from the current session.
@@ -49,7 +49,7 @@ Show which skills were invoked during the current Claude Code session.
 3. **If you need more context**
 
    ```bash
-   ./scripts/grepsession.sh '"name":"Skill"' -C 5
+   ${CLAUDE_PLUGIN_ROOT}/scripts/grepsession.sh '"name":"Skill"' -C 5
    ```
 
    Or use Read tool with offset/limit on the session file.
