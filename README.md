@@ -43,10 +43,13 @@ claude plugin marketplace remove claude-toolkit
 
 #### `/toolkit:skill-history`
 
-> Which skills have been used in this session?
+This is useful for troubleshooting whether Claude has actually invoked or missed skills, and in response to what queries.
 
-- Searches session log for skill invocations
-- Shows timestamp, skill name, and trigger
+> /toolkit:skill-history
+
+![Screenshot of Skill History](./docs/examples/skill-history/skill-history.png)
+
+See [skill history examples](./docs/examples/skill-history).
 
 #### `/toolkit:agent-history`
 
