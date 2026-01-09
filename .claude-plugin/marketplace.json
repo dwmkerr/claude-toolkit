@@ -8,7 +8,7 @@
       "name": "toolkit",
       "source": "./plugins/toolkit",
       "description": "General purpose Claude Code toolkit with research agents, skills, and introspection commands",
-      "version": "0.1.1"
+      "version": "0.1.2"
     }
   ]
 }

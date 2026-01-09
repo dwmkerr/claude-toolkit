@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/dwmkerr/claude-toolkit/compare/v0.1.1...v0.1.2) (2026-01-09)
+
+
+### Features
+
+* add Claude Code 2.1.0 features to skills documentation ([#8](https://github.com/dwmkerr/claude-toolkit/issues/8)) ([577e0aa](https://github.com/dwmkerr/claude-toolkit/commit/577e0aab8e3a980fda87d4be305c431f38dee48f))
+
 ## [0.1.1](https://github.com/dwmkerr/claude-toolkit/compare/v0.1.0...v0.1.1) (2026-01-08)
 
 
