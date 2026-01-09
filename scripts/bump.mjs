@@ -43,7 +43,7 @@ function main() {
     console.log(`\nNo cache to clear`);
   }
 
-  console.log(`\nDone. Run: /plugin update skills@claude-toolkit`);
+  console.log(`\nDone. Skills auto-reload from Claude Code 2.1.0 onwards.`);
 }
 
 main();
