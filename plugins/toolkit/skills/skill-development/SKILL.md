@@ -36,6 +36,8 @@ skill-name/
 ---
 name: my-skill-name
 description: This skill should be used when the user asks to "do X", "create Y", or mentions Z. Be specific about triggers.
+context: fork          # Optional: run in isolated context (prevents side effects)
+user-invocable: true   # Optional: show in slash command menu (default: true)
 ---
 ```
 
@@ -48,6 +50,10 @@ description: This skill should be used when the user asks to "do X", "create Y",
 - Max 1024 characters
 - Third person ("This skill..." not "I can...")
 - Include WHAT it does AND WHEN to use it
+
+**Optional fields:**
+- `context: fork` - Run skill in isolated sub-agent context, preventing unintended side effects on main agent state
+- `user-invocable: false` - Hide from slash command menu (skills are visible by default)
 
 ## Writing Effective Descriptions
 
@@ -79,6 +85,10 @@ See [api-reference.md](./references/api-reference.md)
 ```
 
 Claude loads reference files only when needed.
+
+## Hot Reload
+
+Skills in `~/.claude/skills` or `.claude/skills` are hot-reloaded - changes take effect immediately without restarting Claude Code. This enables rapid iteration during development.
 
 ## Checklist
 
