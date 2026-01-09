@@ -42,6 +42,7 @@ argument-hint: [filename] [options]
 description: What this command does
 model: claude-3-5-haiku-20241022
 disable-model-invocation: false
+context: fork
 ---
 ```
 
@@ -52,6 +53,7 @@ disable-model-invocation: false
 | `description` | Brief description (required for SlashCommand tool) |
 | `model` | Specific model to use |
 | `disable-model-invocation` | Prevent programmatic invocation |
+| `context: fork` | Run in isolated sub-agent context, preventing side effects on main agent state |
 
 ## Arguments
 

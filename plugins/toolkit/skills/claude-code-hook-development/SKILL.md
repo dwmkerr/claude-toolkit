@@ -82,6 +82,15 @@ For PreToolUse/PostToolUse/PermissionRequest:
 - `mcp__<server>__<tool>` - MCP tools
 - Regex patterns supported
 
+### Wildcard Permissions
+
+Use wildcards for flexible matching patterns:
+- `Bash(npm *)` - Match any npm command
+- `Bash(*-h*)` - Match commands containing `-h`
+- `Bash(git:*)` - Match any git subcommand
+
+This reduces configuration overhead and avoids mismatched permissions blocking legitimate workflows.
+
 ## Script Template
 
 ```bash
