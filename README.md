@@ -98,6 +98,14 @@ See [skill history examples](./docs/examples/skill-history).
 - Configures frontmatter (allowed-tools, argument-hint)
 - Supports `$ARGUMENTS` and positional `$1`, `$2` params
 
+#### `claude-code-statusline-development`
+
+> Create a custom statusline showing git branch and context usage
+
+- Creates shell scripts for `statusLine` in `.claude/settings.json`
+- Provides JSON schema reference for session data
+- Examples for git info, context percentage, cost tracking
+
 ### Agents
 
 #### `researcher`
