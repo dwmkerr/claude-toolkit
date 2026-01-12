@@ -115,6 +115,14 @@ See [skill history examples](./docs/examples/skill-history).
 - YAML templates for eval tasks
 - Roadmap for building evals from scratch
 
+#### `shell-script-development`
+
+> Create a bash script for deployment
+
+- Consistent shebang and safety options
+- Color output conventions
+- Status message patterns (success, error, warning)
+
 ### Agents
 
 #### `researcher`
