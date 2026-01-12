@@ -10,10 +10,10 @@ A minimal statusline showing model name and current directory.
 #!/bin/bash
 input=$(cat)
 
-MODEL=$(echo "$input" | jq -r '.model.display_name')
-DIR=$(echo "$input" | jq -r '.workspace.current_dir')
+model=$(echo "$input" | jq -r '.model.display_name')
+dir=$(echo "$input" | jq -r '.workspace.current_dir')
 
-echo "[$MODEL] ${DIR##*/}"
+echo "[$model] ${dir##*/}"
 ```
 
 ## Output
@@ -28,15 +28,15 @@ echo "[$MODEL] ${DIR##*/}"
 #!/bin/bash
 input=$(cat)
 
-MODEL=$(echo "$input" | jq -r '.model.display_name')
-DIR=$(echo "$input" | jq -r '.workspace.current_dir')
+model=$(echo "$input" | jq -r '.model.display_name')
+dir=$(echo "$input" | jq -r '.workspace.current_dir')
 
 # Colors
 blue=$(tput setaf 4)
 bold=$(tput bold)
 reset=$(tput sgr0)
 
-echo "${bold}${blue}[$MODEL]${reset} ${DIR##*/}"
+echo "${bold}${blue}[$model]${reset} ${dir##*/}"
 ```
 
 ## Python Version

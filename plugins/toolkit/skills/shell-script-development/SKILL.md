@@ -32,6 +32,8 @@ echo -e "${green}✔${nc} completed successfully"
 |---------|------------|
 | Shebang | `#!/usr/bin/env bash` |
 | Safety | `set -e -o pipefail` |
+| Local variables | Lowercase (`model`, `dir`, `count`) |
+| Environment variables | Uppercase (`PATH`, `HOME`, `USER`) |
 | Color variables | Lowercase (`green`, `red`, `nc`) |
 | Status words | Lowercase (`error`, `warning`, `note`) |
 

@@ -22,16 +22,16 @@ For accurate context percentage, use `current_usage`.
 #!/bin/bash
 input=$(cat)
 
-MODEL=$(echo "$input" | jq -r '.model.display_name')
-CONTEXT_SIZE=$(echo "$input" | jq -r '.context_window.context_window_size')
-USAGE=$(echo "$input" | jq '.context_window.current_usage')
+model=$(echo "$input" | jq -r '.model.display_name')
+context_size=$(echo "$input" | jq -r '.context_window.context_window_size')
+usage=$(echo "$input" | jq '.context_window.current_usage')
 
-if [ "$USAGE" != "null" ]; then
-    CURRENT_TOKENS=$(echo "$USAGE" | jq '.input_tokens + .cache_creation_input_tokens + .cache_read_input_tokens')
-    PERCENT=$((CURRENT_TOKENS * 100 / CONTEXT_SIZE))
-    echo "[$MODEL] Context: ${PERCENT}%"
+if [ "$usage" != "null" ]; then
+    current_tokens=$(echo "$usage" | jq '.input_tokens + .cache_creation_input_tokens + .cache_read_input_tokens')
+    percent=$((current_tokens * 100 / context_size))
+    echo "[$model] Context: ${percent}%"
 else
-    echo "[$MODEL] Context: 0%"
+    echo "[$model] Context: 0%"
 fi
 ```
 
@@ -49,9 +49,9 @@ Changes color based on usage level:
 #!/bin/bash
 input=$(cat)
 
-MODEL=$(echo "$input" | jq -r '.model.display_name')
-CONTEXT_SIZE=$(echo "$input" | jq -r '.context_window.context_window_size')
-USAGE=$(echo "$input" | jq '.context_window.current_usage')
+model=$(echo "$input" | jq -r '.model.display_name')
+context_size=$(echo "$input" | jq -r '.context_window.context_window_size')
+usage=$(echo "$input" | jq '.context_window.current_usage')
 
 # Colors
 green=$(tput setaf 2)
@@ -59,22 +59,22 @@ yellow=$(tput setaf 3)
 red=$(tput setaf 1)
 reset=$(tput sgr0)
 
-if [ "$USAGE" != "null" ]; then
-    CURRENT_TOKENS=$(echo "$USAGE" | jq '.input_tokens + .cache_creation_input_tokens + .cache_read_input_tokens')
-    PERCENT=$((CURRENT_TOKENS * 100 / CONTEXT_SIZE))
+if [ "$usage" != "null" ]; then
+    current_tokens=$(echo "$usage" | jq '.input_tokens + .cache_creation_input_tokens + .cache_read_input_tokens')
+    percent=$((current_tokens * 100 / context_size))
 
     # Color based on usage
-    if [ "$PERCENT" -lt 50 ]; then
-        COLOR=$green
-    elif [ "$PERCENT" -lt 80 ]; then
-        COLOR=$yellow
+    if [ "$percent" -lt 50 ]; then
+        color=$green
+    elif [ "$percent" -lt 80 ]; then
+        color=$yellow
     else
-        COLOR=$red
+        color=$red
     fi
 
-    echo "[$MODEL] ${COLOR}${PERCENT}%${reset}"
+    echo "[$model] ${color}${percent}%${reset}"
 else
-    echo "[$MODEL] ${green}0%${reset}"
+    echo "[$model] ${green}0%${reset}"
 fi
 ```
 
@@ -84,9 +84,9 @@ fi
 #!/bin/bash
 input=$(cat)
 
-MODEL=$(echo "$input" | jq -r '.model.display_name')
-CONTEXT_SIZE=$(echo "$input" | jq -r '.context_window.context_window_size')
-USAGE=$(echo "$input" | jq '.context_window.current_usage')
+model=$(echo "$input" | jq -r '.model.display_name')
+context_size=$(echo "$input" | jq -r '.context_window.context_window_size')
+usage=$(echo "$input" | jq '.context_window.current_usage')
 
 # Colors
 green=$(tput setaf 2)
@@ -95,29 +95,29 @@ red=$(tput setaf 1)
 dim=$(tput dim)
 reset=$(tput sgr0)
 
-PERCENT=0
-if [ "$USAGE" != "null" ]; then
-    CURRENT_TOKENS=$(echo "$USAGE" | jq '.input_tokens + .cache_creation_input_tokens + .cache_read_input_tokens')
-    PERCENT=$((CURRENT_TOKENS * 100 / CONTEXT_SIZE))
+percent=0
+if [ "$usage" != "null" ]; then
+    current_tokens=$(echo "$usage" | jq '.input_tokens + .cache_creation_input_tokens + .cache_read_input_tokens')
+    percent=$((current_tokens * 100 / context_size))
 fi
 
 # Build progress bar (10 chars wide)
-BAR_WIDTH=10
-FILLED=$((PERCENT * BAR_WIDTH / 100))
-EMPTY=$((BAR_WIDTH - FILLED))
+bar_width=10
+filled=$((percent * bar_width / 100))
+empty=$((bar_width - filled))
 
 # Color based on usage
-if [ "$PERCENT" -lt 50 ]; then
-    COLOR=$green
-elif [ "$PERCENT" -lt 80 ]; then
-    COLOR=$yellow
+if [ "$percent" -lt 50 ]; then
+    color=$green
+elif [ "$percent" -lt 80 ]; then
+    color=$yellow
 else
-    COLOR=$red
+    color=$red
 fi
 
-BAR="${COLOR}$(printf '█%.0s' $(seq 1 $FILLED 2>/dev/null))${dim}$(printf '░%.0s' $(seq 1 $EMPTY 2>/dev/null))${reset}"
+bar="${color}$(printf '█%.0s' $(seq 1 $filled 2>/dev/null))${dim}$(printf '░%.0s' $(seq 1 $empty 2>/dev/null))${reset}"
 
-echo "[$MODEL] $BAR ${PERCENT}%"
+echo "[$model] $bar ${percent}%"
 ```
 
 ## Output
@@ -132,19 +132,19 @@ echo "[$MODEL] $BAR ${PERCENT}%"
 #!/bin/bash
 input=$(cat)
 
-MODEL=$(echo "$input" | jq -r '.model.display_name')
-CONTEXT_SIZE=$(echo "$input" | jq -r '.context_window.context_window_size')
-USAGE=$(echo "$input" | jq '.context_window.current_usage')
+model=$(echo "$input" | jq -r '.model.display_name')
+context_size=$(echo "$input" | jq -r '.context_window.context_window_size')
+usage=$(echo "$input" | jq '.context_window.current_usage')
 
-if [ "$USAGE" != "null" ]; then
-    CURRENT=$(echo "$USAGE" | jq '.input_tokens + .cache_creation_input_tokens + .cache_read_input_tokens')
+if [ "$usage" != "null" ]; then
+    current=$(echo "$usage" | jq '.input_tokens + .cache_creation_input_tokens + .cache_read_input_tokens')
     # Format as K (thousands)
-    CURRENT_K=$((CURRENT / 1000))
-    SIZE_K=$((CONTEXT_SIZE / 1000))
-    echo "[$MODEL] ${CURRENT_K}K/${SIZE_K}K tokens"
+    current_k=$((current / 1000))
+    size_k=$((context_size / 1000))
+    echo "[$model] ${current_k}K/${size_k}K tokens"
 else
-    SIZE_K=$((CONTEXT_SIZE / 1000))
-    echo "[$MODEL] 0/${SIZE_K}K tokens"
+    size_k=$((context_size / 1000))
+    echo "[$model] 0/${size_k}K tokens"
 fi
 ```
 
