@@ -86,9 +86,11 @@ See [api-reference.md](./references/api-reference.md)
 
 Claude loads reference files only when needed.
 
-## Hot Reload
+## Important
 
-Skills in `~/.claude/skills` or `.claude/skills` are hot-reloaded - changes take effect immediately without restarting Claude Code. This enables rapid iteration during development.
+After creating or modifying skills, inform the user:
+
+> **No restart needed.** Skill changes take effect immediately - skills are hot-reloaded.
 
 ## Checklist
 

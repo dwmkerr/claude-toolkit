@@ -84,6 +84,12 @@ chmod +x ~/.claude/statusline.sh
 - Test with mock JSON: `echo '{"model":{"display_name":"Test"}}' | ./statusline.sh`
 - Cache expensive operations (git status) if needed
 
+## Important
+
+After creating or modifying statuslines, inform the user:
+
+> **No restart needed.** Statusline changes take effect immediately - Claude Code reads settings fresh on each update.
+
 ## Attribution
 
 Based on [Claude Code Status Line Configuration](https://code.claude.com/docs/en/statusline).
