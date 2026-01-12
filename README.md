@@ -106,6 +106,15 @@ See [skill history examples](./docs/examples/skill-history).
 - Provides JSON schema reference for session data
 - Examples for git info, context percentage, cost tracking
 
+#### `anthropic-evaluations`
+
+> Create an evaluation suite for my coding agent
+
+- Defines grader types (code-based, model-based, human)
+- Patterns for coding, conversational, research, and computer use agents
+- YAML templates for eval tasks
+- Roadmap for building evals from scratch
+
 ### Agents
 
 #### `researcher`
