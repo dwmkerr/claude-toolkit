@@ -98,14 +98,13 @@ See [skill history examples](./docs/examples/skill-history).
 - Configures frontmatter (allowed-tools, argument-hint)
 - Supports `$ARGUMENTS` and positional `$1`, `$2` params
 
-#### `anthropic-evaluations`
+#### `claude-code-statusline-development`
 
-> Create an evaluation suite for my coding agent
+> Create a custom statusline showing git branch and context usage
 
-- Defines grader types (code-based, model-based, human)
-- Patterns for coding, conversational, research, and computer use agents
-- YAML templates for eval tasks
-- Roadmap for building evals from scratch
+- Creates shell scripts for `statusLine` in `.claude/settings.json`
+- Provides JSON schema reference for session data
+- Examples for git info, context percentage, cost tracking
 
 ### Agents
 
