@@ -1,0 +1,53 @@
+# Coding Agent Evaluation Template
+# Based on Anthropic's "Demystifying evals for AI agents"
+# https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents
+
+task:
+  id: "fix-auth-bypass_1"
+  desc: "Fix authentication bypass when password field is empty and ..."
+
+graders:
+  # Primary: Unit tests for correctness
+  - type: deterministic_tests
+    required:
+      - test_empty_pw_rejected.py
+      - test_null_pw_rejected.py
+
+  # Secondary: Code quality assessment
+  - type: llm_rubric
+    rubric: prompts/code_quality.md
+
+  # Tertiary: Static analysis
+  - type: static_analysis
+    commands:
+      - ruff    # Linting
+      - mypy    # Type checking
+      - bandit  # Security scanning
+
+  # Verify outcome in environment
+  - type: state_check
+    expect:
+      security_logs:
+        event_type: "auth_blocked"
+
+  # Optional: Verify tool usage (use sparingly)
+  - type: tool_calls
+    required:
+      - tool: read_file
+        params:
+          path: "src/auth/*"
+      - tool: edit_file
+      - tool: run_tests
+
+tracked_metrics:
+  - type: transcript
+    metrics:
+      - n_turns
+      - n_toolcalls
+      - n_total_tokens
+
+  - type: latency
+    metrics:
+      - time_to_first_token
+      - output_tokens_per_sec
+      - time_to_last_token

@@ -1,0 +1,50 @@
+# Conversational Agent Evaluation Template
+# Based on Anthropic's "Demystifying evals for AI agents"
+# https://www.anthropic.com/engineering/demystifying-evals-for-ai-agents
+
+task:
+  id: "support-refund_1"
+  desc: "Handle refund request from frustrated customer"
+
+graders:
+  # Primary: Communication quality and behavior
+  - type: llm_rubric
+    rubric: prompts/support_quality.md
+    assertions:
+      - "Agent showed empathy for customer's frustration"
+      - "Resolution was clearly explained"
+      - "Agent's response grounded in fetch_policy tool results"
+
+  # Verify actual outcomes in environment
+  - type: state_check
+    expect:
+      tickets:
+        status: resolved
+      refunds:
+        status: processed
+
+  # Verify required workflow steps
+  - type: tool_calls
+    required:
+      - tool: verify_identity
+      - tool: process_refund
+        params:
+          amount: "<=100"
+      - tool: send_confirmation
+
+  # Efficiency constraint
+  - type: transcript
+    max_turns: 10
+
+tracked_metrics:
+  - type: transcript
+    metrics:
+      - n_turns
+      - n_toolcalls
+      - n_total_tokens
+
+  - type: latency
+    metrics:
+      - time_to_first_token
+      - output_tokens_per_sec
+      - time_to_last_token
