@@ -37,3 +37,9 @@ color: purple
 ### Permission Denial Resilience
 
 Subagents continue after permission denial rather than stopping entirely. When a subagent hits a permissions wall, it tries alternative approaches automatically. This makes autonomous workflows more resilient and reduces the need for human intervention.
+
+## Important
+
+After creating or modifying agents, inform the user:
+
+> **No restart needed.** Agent changes take effect immediately - agents are hot-reloaded.

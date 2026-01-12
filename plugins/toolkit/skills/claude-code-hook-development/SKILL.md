@@ -111,6 +111,12 @@ fi
 exit 0
 ```
 
+## Important
+
+After creating or modifying hooks, inform the user:
+
+> **No restart needed.** Hook changes take effect immediately - Claude Code reads settings fresh on each tool invocation.
+
 ## Attribution
 
 Examples adapted from [Steve Kinney's Claude Code Hook Examples](https://stevekinney.com/courses/ai-development/claude-code-hook-examples).
