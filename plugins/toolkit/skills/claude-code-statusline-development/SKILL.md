@@ -61,14 +61,14 @@ See [JSON Schema](./references/json-schema.md) for complete structure.
 input=$(cat)
 
 # Extract values using jq
-MODEL=$(echo "$input" | jq -r '.model.display_name')
-DIR=$(echo "$input" | jq -r '.workspace.current_dir')
+model=$(echo "$input" | jq -r '.model.display_name')
+dir=$(echo "$input" | jq -r '.workspace.current_dir')
 
 # Colors via tput
 blue=$(tput setaf 4)
 reset=$(tput sgr0)
 
-echo "${blue}[$MODEL]${reset} ${DIR##*/}"
+echo "${blue}[$model]${reset} ${dir##*/}"
 ```
 
 Make executable:

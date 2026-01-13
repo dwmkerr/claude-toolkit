@@ -10,13 +10,13 @@ Display session costs, duration, and code changes.
 #!/bin/bash
 input=$(cat)
 
-MODEL=$(echo "$input" | jq -r '.model.display_name')
-COST=$(echo "$input" | jq -r '.cost.total_cost_usd')
+model=$(echo "$input" | jq -r '.model.display_name')
+cost=$(echo "$input" | jq -r '.cost.total_cost_usd')
 
 # Format cost to 4 decimal places
-COST_FMT=$(printf "%.4f" "$COST")
+cost_fmt=$(printf "%.4f" "$cost")
 
-echo "[$MODEL] \$${COST_FMT}"
+echo "[$model] \$${cost_fmt}"
 ```
 
 ## Output
@@ -31,16 +31,16 @@ echo "[$MODEL] \$${COST_FMT}"
 #!/bin/bash
 input=$(cat)
 
-MODEL=$(echo "$input" | jq -r '.model.display_name')
-ADDED=$(echo "$input" | jq -r '.cost.total_lines_added')
-REMOVED=$(echo "$input" | jq -r '.cost.total_lines_removed')
+model=$(echo "$input" | jq -r '.model.display_name')
+added=$(echo "$input" | jq -r '.cost.total_lines_added')
+removed=$(echo "$input" | jq -r '.cost.total_lines_removed')
 
 # Colors
 green=$(tput setaf 2)
 red=$(tput setaf 1)
 reset=$(tput sgr0)
 
-echo "[$MODEL] ${green}+${ADDED}${reset} ${red}-${REMOVED}${reset}"
+echo "[$model] ${green}+${added}${reset} ${red}-${removed}${reset}"
 ```
 
 ## Output
@@ -55,11 +55,11 @@ echo "[$MODEL] ${green}+${ADDED}${reset} ${red}-${REMOVED}${reset}"
 #!/bin/bash
 input=$(cat)
 
-MODEL=$(echo "$input" | jq -r '.model.display_name')
-COST=$(echo "$input" | jq -r '.cost.total_cost_usd')
-DURATION=$(echo "$input" | jq -r '.cost.total_duration_ms')
-ADDED=$(echo "$input" | jq -r '.cost.total_lines_added')
-REMOVED=$(echo "$input" | jq -r '.cost.total_lines_removed')
+model=$(echo "$input" | jq -r '.model.display_name')
+cost=$(echo "$input" | jq -r '.cost.total_cost_usd')
+duration=$(echo "$input" | jq -r '.cost.total_duration_ms')
+added=$(echo "$input" | jq -r '.cost.total_lines_added')
+removed=$(echo "$input" | jq -r '.cost.total_lines_removed')
 
 # Colors
 green=$(tput setaf 2)
@@ -68,15 +68,15 @@ dim=$(tput dim)
 reset=$(tput sgr0)
 
 # Format cost
-COST_FMT=$(printf "%.3f" "$COST")
+cost_fmt=$(printf "%.3f" "$cost")
 
 # Format duration as minutes:seconds
-DURATION_SEC=$((DURATION / 1000))
-MINS=$((DURATION_SEC / 60))
-SECS=$((DURATION_SEC % 60))
-TIME_FMT=$(printf "%d:%02d" "$MINS" "$SECS")
+duration_sec=$((duration / 1000))
+mins=$((duration_sec / 60))
+secs=$((duration_sec % 60))
+time_fmt=$(printf "%d:%02d" "$mins" "$secs")
 
-echo "[$MODEL] \$${COST_FMT} ${dim}${TIME_FMT}${reset} ${green}+${ADDED}${reset}/${red}-${REMOVED}${reset}"
+echo "[$model] \$${cost_fmt} ${dim}${time_fmt}${reset} ${green}+${added}${reset}/${red}-${removed}${reset}"
 ```
 
 ## Output
@@ -91,19 +91,19 @@ echo "[$MODEL] \$${COST_FMT} ${dim}${TIME_FMT}${reset} ${green}+${ADDED}${reset}
 #!/bin/bash
 input=$(cat)
 
-MODEL=$(echo "$input" | jq -r '.model.display_name')
-COST=$(echo "$input" | jq -r '.cost.total_cost_usd')
-DURATION=$(echo "$input" | jq -r '.cost.total_duration_ms')
+model=$(echo "$input" | jq -r '.model.display_name')
+cost=$(echo "$input" | jq -r '.cost.total_cost_usd')
+duration=$(echo "$input" | jq -r '.cost.total_duration_ms')
 
-COST_FMT=$(printf "%.3f" "$COST")
+cost_fmt=$(printf "%.3f" "$cost")
 
 # Calculate cost per minute
-if [ "$DURATION" -gt 0 ]; then
-    RATE=$(echo "scale=4; $COST / ($DURATION / 60000)" | bc)
-    RATE_FMT=$(printf "%.3f" "$RATE")
-    echo "[$MODEL] \$${COST_FMT} (\$${RATE_FMT}/min)"
+if [ "$duration" -gt 0 ]; then
+    rate=$(echo "scale=4; $cost / ($duration / 60000)" | bc)
+    rate_fmt=$(printf "%.3f" "$rate")
+    echo "[$model] \$${cost_fmt} (\$${rate_fmt}/min)"
 else
-    echo "[$MODEL] \$${COST_FMT}"
+    echo "[$model] \$${cost_fmt}"
 fi
 ```
 
@@ -119,10 +119,10 @@ fi
 #!/bin/bash
 input=$(cat)
 
-MODEL=$(echo "$input" | jq -r '.model.display_name')
-COST=$(echo "$input" | jq -r '.cost.total_cost_usd')
-CONTEXT_SIZE=$(echo "$input" | jq -r '.context_window.context_window_size')
-USAGE=$(echo "$input" | jq '.context_window.current_usage')
+model=$(echo "$input" | jq -r '.model.display_name')
+cost=$(echo "$input" | jq -r '.cost.total_cost_usd')
+context_size=$(echo "$input" | jq -r '.context_window.context_window_size')
+usage=$(echo "$input" | jq '.context_window.current_usage')
 
 # Colors
 green=$(tput setaf 2)
@@ -131,24 +131,24 @@ red=$(tput setaf 1)
 dim=$(tput dim)
 reset=$(tput sgr0)
 
-COST_FMT=$(printf "%.3f" "$COST")
+cost_fmt=$(printf "%.3f" "$cost")
 
-PERCENT=0
-if [ "$USAGE" != "null" ]; then
-    CURRENT=$(echo "$USAGE" | jq '.input_tokens + .cache_creation_input_tokens + .cache_read_input_tokens')
-    PERCENT=$((CURRENT * 100 / CONTEXT_SIZE))
+percent=0
+if [ "$usage" != "null" ]; then
+    current=$(echo "$usage" | jq '.input_tokens + .cache_creation_input_tokens + .cache_read_input_tokens')
+    percent=$((current * 100 / context_size))
 fi
 
 # Color context based on usage
-if [ "$PERCENT" -lt 50 ]; then
-    CTX_COLOR=$green
-elif [ "$PERCENT" -lt 80 ]; then
-    CTX_COLOR=$yellow
+if [ "$percent" -lt 50 ]; then
+    ctx_color=$green
+elif [ "$percent" -lt 80 ]; then
+    ctx_color=$yellow
 else
-    CTX_COLOR=$red
+    ctx_color=$red
 fi
 
-echo "[$MODEL] \$${COST_FMT} ${dim}|${reset} ${CTX_COLOR}${PERCENT}%${reset}"
+echo "[$model] \$${cost_fmt} ${dim}|${reset} ${ctx_color}${percent}%${reset}"
 ```
 
 ## Output

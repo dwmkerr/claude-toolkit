@@ -10,19 +10,19 @@ Displays current directory and git branch when inside a repository.
 #!/bin/bash
 input=$(cat)
 
-MODEL=$(echo "$input" | jq -r '.model.display_name')
-CURRENT_DIR=$(echo "$input" | jq -r '.workspace.current_dir')
+model=$(echo "$input" | jq -r '.model.display_name')
+current_dir=$(echo "$input" | jq -r '.workspace.current_dir')
 
 # Get git branch if in a repo
-GIT_BRANCH=""
-if cd "$CURRENT_DIR" 2>/dev/null && git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-    BRANCH=$(git branch --show-current 2>/dev/null)
-    if [ -n "$BRANCH" ]; then
-        GIT_BRANCH=" | $BRANCH"
+git_branch=""
+if cd "$current_dir" 2>/dev/null && git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    branch=$(git branch --show-current 2>/dev/null)
+    if [ -n "$branch" ]; then
+        git_branch=" | $branch"
     fi
 fi
 
-echo "[$MODEL] ${CURRENT_DIR##*/}$GIT_BRANCH"
+echo "[$model] ${current_dir##*/}$git_branch"
 ```
 
 ## Output
@@ -39,7 +39,7 @@ Based on dwmkerr's dotfiles statusline:
 #!/bin/bash
 input=$(cat)
 
-CURRENT_DIR=$(echo "$input" | jq -r '.workspace.current_dir')
+current_dir=$(echo "$input" | jq -r '.workspace.current_dir')
 
 # Colors
 blue=$(tput setaf 4)
@@ -49,11 +49,11 @@ dim=$(tput dim)
 reset=$(tput sgr0)
 
 # Truncate path to last 3 folders, replace $HOME with ~
-pwd_display=$(echo "${CURRENT_DIR/#$HOME/~}" | rev | cut -d'/' -f1-3 | rev)
+pwd_display=$(echo "${current_dir/#$HOME/~}" | rev | cut -d'/' -f1-3 | rev)
 
 # Get git branch
 git_info=""
-if cd "$CURRENT_DIR" 2>/dev/null && git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+if cd "$current_dir" 2>/dev/null && git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
     branch=$(git branch --show-current 2>/dev/null)
     if [ -n "$branch" ]; then
         git_info=" ${green}${branch}${reset}"
@@ -75,7 +75,7 @@ echo "${bold}${blue}${pwd_display}${reset}${git_info} ${dim}? for help${reset}"
 #!/bin/bash
 input=$(cat)
 
-CURRENT_DIR=$(echo "$input" | jq -r '.workspace.current_dir')
+current_dir=$(echo "$input" | jq -r '.workspace.current_dir')
 
 # Colors
 green=$(tput setaf 2)
@@ -83,7 +83,7 @@ yellow=$(tput setaf 3)
 reset=$(tput sgr0)
 
 git_info=""
-if cd "$CURRENT_DIR" 2>/dev/null && git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+if cd "$current_dir" 2>/dev/null && git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
     branch=$(git branch --show-current 2>/dev/null)
     if [ -n "$branch" ]; then
         # Check for uncommitted changes
@@ -95,7 +95,7 @@ if cd "$CURRENT_DIR" 2>/dev/null && git rev-parse --is-inside-work-tree >/dev/nu
     fi
 fi
 
-echo "${CURRENT_DIR##*/}${git_info}"
+echo "${current_dir##*/}${git_info}"
 ```
 
 ## Output
