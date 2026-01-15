@@ -123,6 +123,15 @@ See [skill history examples](./docs/examples/skill-history).
 - Color output conventions
 - Status message patterns (success, error, warning)
 
+#### `claude-code-plugin-development`
+
+> Create a plugin that bundles my hooks and commands
+
+- Creates plugin structure with `.claude-plugin/plugin.json`
+- Bundles commands, agents, skills, hooks, MCP/LSP servers
+- CLI commands for install, enable, disable, update
+- Debugging guide with `claude --debug`
+
 ### Agents
 
 #### `researcher`
