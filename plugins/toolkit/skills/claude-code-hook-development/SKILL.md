@@ -111,11 +111,48 @@ fi
 exit 0
 ```
 
-## Important
+## Critical: Activating Hook Changes
 
-After creating or modifying hooks, inform the user:
+Hooks are **snapshotted at startup**. After creating or modifying hooks:
 
-> **No restart needed.** Hook changes take effect immediately - Claude Code reads settings fresh on each tool invocation.
+> **⚠️ Changes won't take effect until you either:**
+> 1. **Restart Claude Code** (exit and re-run `claude`), OR
+> 2. **Run `/hooks`** to review and apply the updated configuration
+>
+> This is a security feature - it prevents malicious hook modifications from affecting your current session.
+
+### Verifying Hooks Are Loaded
+
+After restart, run `/hooks` to confirm your hook appears in the list. If it doesn't show up:
+- Check JSON syntax in settings file
+- Verify file is in correct location (`.claude/settings.json`)
+- Look for `disableAllHooks: true` in any settings file
+
+## Troubleshooting
+
+### Hook Not Triggering
+
+1. **Did you restart?** Hooks are snapshotted at startup - run `/hooks` or restart Claude Code
+2. **Check `/hooks` output** - Your hook should be listed with correct matcher
+3. **Validate JSON** - Run `cat .claude/settings.json | jq .` to check syntax
+4. **Check matcher** - Tool names are case-sensitive (`Bash` not `bash`)
+
+### Testing Hooks Safely
+
+When creating hooks that block operations (like preventing push to main):
+
+1. **Test on a safe branch first** - Modify the hook to block a test branch
+2. **Verify the block works** - Attempt the blocked operation
+3. **Update to production config** - Change to block the actual target (e.g., main)
+4. **Restart and verify** - Run `/hooks` to confirm the updated hook is loaded
+
+### Debugging
+
+Use `claude --debug` to see hook execution details, or add logging to your hook:
+
+```bash
+echo "[DEBUG] Hook triggered: $cmd" >> /tmp/hook-debug.log
+```
 
 ## Attribution
 
