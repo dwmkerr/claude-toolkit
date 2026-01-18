@@ -92,6 +92,30 @@ claude plugin uninstall <plugin>
 claude --debug
 ```
 
+## Common Issues
+
+**Plugin installed but commands don't appear?**
+
+The plugin may be disabled. Check `~/.claude/settings.json`:
+
+```json
+"enabledPlugins": {
+  "my-plugin@my-marketplace": false  // ← Disabled!
+}
+```
+
+Fix with: `claude plugin enable my-plugin@my-marketplace` then restart Claude Code.
+
+**Local changes not picked up?**
+
+Use `claude plugin update <plugin>` or do a full reinstall:
+
+```bash
+claude plugin marketplace remove my-marketplace
+claude plugin marketplace add ./
+claude plugin install my-plugin@my-marketplace
+```
+
 ## Important
 
 After creating or modifying plugins, inform the user:

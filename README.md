@@ -9,6 +9,11 @@ Add the marketplace and install the plugin:
 ```
 /plugin marketplace add dwmkerr/claude-toolkit
 /plugin install toolkit@claude-toolkit
+
+# It commands don't appear after install, ensure the plugin is enabled.
+/plugin enable toolkit@claude-toolkit
+
+# Then restart.
 ```
 
 For local development:
@@ -27,6 +32,11 @@ claude plugin install toolkit@claude-toolkit
 # Or in Claude, use:
 # /plugin marketplace add ./
 # /plugin install toolkit@claude-toolkit
+```
+
+If commands don't appear after install, enable the plugin:
+
+```bash
 ```
 
 Uninstall if needed:
@@ -55,6 +65,15 @@ See [skill history examples](./docs/examples/skill-history).
 
 - Searches session log for agent spawns
 - Shows timestamp, agent name, and task
+
+#### `/toolkit:ghpr`
+
+> Open or create a pull request for my current branch
+
+- Opens existing PR in browser if one exists
+- Creates new PR with confirmation if none exists
+- Infers PR type from branch name (`feat/`, `fix/`, `chore/`, etc.)
+- Checks for relevant project skills for conventions
 
 ### Skills
 
