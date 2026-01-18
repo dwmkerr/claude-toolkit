@@ -92,6 +92,33 @@ claude plugin uninstall <plugin>
 claude --debug
 ```
 
+## Permissions
+
+**Problem:** Using `!` backticks to run plugin scripts fails with permission error:
+
+```
+Error: Bash command permission check failed for pattern
+"!`${CLAUDE_PLUGIN_ROOT}/scripts/my-script.sh 2>&1 || true`":
+This Bash command contains multiple operations.
+```
+
+**Cause:** `!` backticks have their own permission model separate from `allowed-tools`. Complex commands or scripts fail.
+
+**Solution:** Use the Bash tool instead of `!` backticks for scripts:
+
+```yaml
+---
+allowed-tools: Bash(${CLAUDE_PLUGIN_ROOT}/scripts/my-script.sh:*)
+---
+
+Run the script:
+    ```bash
+    ${CLAUDE_PLUGIN_ROOT}/scripts/my-script.sh
+    ```
+```
+
+Simple git commands still work with `!` backticks: `!`git branch --show-current``
+
 ## Common Issues
 
 **Plugin installed but commands don't appear?**
