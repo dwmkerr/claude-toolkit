@@ -150,15 +150,15 @@ claude plugin marketplace add ./
 claude plugin install toolkit@claude-toolkit
 ```
 
-### Updating After Changes
-
+If you change the files, bump the version with `make bump`, bust the cache and reinstall then re-open Claude. There might be a cleaner way but this seems to work consistently:
 Bust the cache and reinstall:
 
 ```bash
+make bump
 rm -rf ~/.claude/plugins/cache/claude-toolkit && claude plugin install toolkit@claude-toolkit
 ```
 
-### Uninstall
+Uninstall with:
 
 ```bash
 claude plugin marketplace remove claude-toolkit
