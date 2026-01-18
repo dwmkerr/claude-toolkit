@@ -4,37 +4,15 @@ General purpose Claude Code toolkit with research agents, skills, and introspect
 
 ## Quickstart
 
-Add the marketplace and install the plugin:
-
 ```
 /plugin marketplace add dwmkerr/claude-toolkit
 /plugin install toolkit@claude-toolkit
 ```
 
-For local development:
+If commands don't appear, enable and restart:
 
-```bash
-git clone https://github.com/dwmkerr/claude-toolkit.git
-cd claude-toolkit
 ```
-
-Then install locally:
-
-```bash
-claude plugin marketplace add ./
-claude plugin install toolkit@claude-toolkit
-
-# Or in Claude, use:
-# /plugin marketplace add ./
-# /plugin install toolkit@claude-toolkit
-```
-
-Uninstall if needed:
-
-```bash
-claude plugin marketplace remove claude-toolkit
-# Or in Claude:
-# /plugin marketplace remove claude-toolkit
+/plugin enable toolkit@claude-toolkit
 ```
 
 ## Contents
@@ -55,6 +33,23 @@ See [skill history examples](./docs/examples/skill-history).
 
 - Searches session log for agent spawns
 - Shows timestamp, agent name, and task
+
+#### `/toolkit:ghpr`
+
+> Open or create a pull request for my current branch
+
+- Opens existing PR in browser if one exists
+- Creates new PR with confirmation if none exists
+- Infers PR type from branch name (`feat/`, `fix/`, `chore/`, etc.)
+- Checks for relevant project skills for conventions
+
+Example, when no PR exists:
+
+![Screenshot of ghpr when the PR doesn't exist](./docs/ghpr/ghpr-doesnt-exist.png)
+
+And when it does. The browser opens automatically:
+
+![Screenshot of ghpr when the PR exists](./docs/ghpr/ghpr-exists.png)
 
 ### Skills
 
@@ -141,6 +136,33 @@ See [skill history examples](./docs/examples/skill-history).
 - Searches web for documentation and repos
 - Clones GitHub repos to `/tmp` for examination
 - Presents options with pros/cons and sources
+
+## Developer Guide
+
+### Local Development
+
+Clone and install from local source:
+
+```bash
+git clone https://github.com/dwmkerr/claude-toolkit.git
+cd claude-toolkit
+claude plugin marketplace add ./
+claude plugin install toolkit@claude-toolkit
+```
+
+If you change the files, bump the version with `make bump`, bust the cache and reinstall then re-open Claude. There might be a cleaner way but this seems to work consistently:
+Bust the cache and reinstall:
+
+```bash
+make bump
+rm -rf ~/.claude/plugins/cache/claude-toolkit && claude plugin install toolkit@claude-toolkit
+```
+
+Uninstall with:
+
+```bash
+claude plugin marketplace remove claude-toolkit
+```
 
 ## License
 
