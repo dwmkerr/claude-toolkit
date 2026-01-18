@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/dwmkerr/claude-toolkit/compare/v0.1.2...v0.1.3) (2026-01-18)
+
+
+### Features
+
+* add ghpr slash command ([#18](https://github.com/dwmkerr/claude-toolkit/issues/18)) ([ba7acf2](https://github.com/dwmkerr/claude-toolkit/commit/ba7acf205c8963386a00abccdea1979ed11626e5))
+
 ## [0.1.2](https://github.com/dwmkerr/claude-toolkit/compare/v0.1.1...v0.1.2) (2026-01-15)
 
 
