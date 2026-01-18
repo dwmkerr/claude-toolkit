@@ -4,47 +4,15 @@ General purpose Claude Code toolkit with research agents, skills, and introspect
 
 ## Quickstart
 
-Add the marketplace and install the plugin:
-
 ```
 /plugin marketplace add dwmkerr/claude-toolkit
 /plugin install toolkit@claude-toolkit
+```
 
-# It commands don't appear after install, ensure the plugin is enabled.
+If commands don't appear, enable and restart:
+
+```
 /plugin enable toolkit@claude-toolkit
-
-# Then restart.
-```
-
-For local development:
-
-```bash
-git clone https://github.com/dwmkerr/claude-toolkit.git
-cd claude-toolkit
-```
-
-Then install locally:
-
-```bash
-claude plugin marketplace add ./
-claude plugin install toolkit@claude-toolkit
-
-# Or in Claude, use:
-# /plugin marketplace add ./
-# /plugin install toolkit@claude-toolkit
-```
-
-If commands don't appear after install, enable the plugin:
-
-```bash
-```
-
-Uninstall if needed:
-
-```bash
-claude plugin marketplace remove claude-toolkit
-# Or in Claude:
-# /plugin marketplace remove claude-toolkit
 ```
 
 ## Contents
@@ -168,6 +136,33 @@ And when it does. The browser opens automatically:
 - Searches web for documentation and repos
 - Clones GitHub repos to `/tmp` for examination
 - Presents options with pros/cons and sources
+
+## Developer Guide
+
+### Local Development
+
+Clone and install from local source:
+
+```bash
+git clone https://github.com/dwmkerr/claude-toolkit.git
+cd claude-toolkit
+claude plugin marketplace add ./
+claude plugin install toolkit@claude-toolkit
+```
+
+### Updating After Changes
+
+Bust the cache and reinstall:
+
+```bash
+rm -rf ~/.claude/plugins/cache/claude-toolkit && claude plugin install toolkit@claude-toolkit
+```
+
+### Uninstall
+
+```bash
+claude plugin marketplace remove claude-toolkit
+```
 
 ## License
 
