@@ -75,6 +75,14 @@ See [skill history examples](./docs/examples/skill-history).
 - Infers PR type from branch name (`feat/`, `fix/`, `chore/`, etc.)
 - Checks for relevant project skills for conventions
 
+Example, when no PR exists:
+
+![Screenshot of ghpr when the PR doesn't exist](./docs/ghpr/ghpr-doesnt-exist.png)
+
+And when it does. The browser opens automatically:
+
+![Screenshot of ghpr when the PR exists](./docs/ghpr/ghpr-exists.png)
+
 ### Skills
 
 #### `research`
