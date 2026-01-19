@@ -118,6 +118,15 @@ And when it does. The browser opens automatically:
 - Color output conventions
 - Status message patterns (success, error, warning)
 
+#### `release-please-development`
+
+> Set up release-please for automated versioning
+
+- Single package pattern for simple repos
+- Multi-package pattern for monorepos with independent versions
+- Configuration for Helm charts, npm packages, and more
+- GitHub workflow with conditional jobs per package
+
 #### `claude-code-plugin-development`
 
 > Create a plugin that bundles my hooks and commands
