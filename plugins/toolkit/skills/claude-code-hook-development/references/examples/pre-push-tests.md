@@ -227,6 +227,52 @@ exit 0
 
 ---
 
+# Example: Require Confirmation Before Push
+
+Run checks then require user confirmation via permission dialog. Uses JSON output with `permissionDecision: "ask"` (see [hook-events.md](../hook-events.md#permission-decisions)).
+
+## Script
+
+`.claude/hooks/pre-push-confirm.sh`:
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+cmd=$(jq -r '.tool_input.command // ""')
+
+# Only intercept git push
+if ! echo "$cmd" | grep -Eq '\bgit\s+push\b'; then
+  exit 0
+fi
+
+# Block pushes to main/master
+if echo "$cmd" | grep -Eq '\bgit\s+push\s+(origin\s+)?(main|master)\b'; then
+  echo "BLOCKED: Direct push to main/master not allowed." >&2
+  exit 2
+fi
+
+# Run build
+echo "Running build..." >&2
+if ! npm run build >&2 2>&1; then
+  echo "Build failed." >&2
+  exit 2
+fi
+
+# Require user confirmation via permission dialog
+cat <<EOF
+{
+  "hookSpecificOutput": {
+    "hookEventName": "PreToolUse",
+    "permissionDecision": "ask",
+    "permissionDecisionReason": "Build passed. Confirm push."
+  }
+}
+EOF
+```
+
+---
+
 # Tips
 
 1. **Test scripts manually first** - Run your script with sample JSON input

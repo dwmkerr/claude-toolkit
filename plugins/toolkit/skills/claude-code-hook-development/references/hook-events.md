@@ -37,25 +37,63 @@ Runs before tool executes. Can block, allow, or modify tool calls.
 }
 ```
 
-### Output (JSON)
+### Output
+
+**Exit codes (simple):**
+- `exit 0` - Allow the tool call
+- `exit 2` - Block with stderr message shown to Claude
+
+**JSON output (advanced):** Output to stdout for finer control.
+
+#### Allow (auto-approve)
 
 ```json
 {
   "hookSpecificOutput": {
     "hookEventName": "PreToolUse",
     "permissionDecision": "allow",
-    "permissionDecisionReason": "Auto-approved safe command",
+    "permissionDecisionReason": "Auto-approved safe command"
+  }
+}
+```
+
+#### Ask (require user confirmation)
+
+```json
+{
+  "hookSpecificOutput": {
+    "hookEventName": "PreToolUse",
+    "permissionDecision": "ask",
+    "permissionDecisionReason": "Confirm before proceeding"
+  }
+}
+```
+
+#### Deny (block)
+
+```json
+{
+  "hookSpecificOutput": {
+    "hookEventName": "PreToolUse",
+    "permissionDecision": "deny",
+    "permissionDecisionReason": "Operation not permitted"
+  }
+}
+```
+
+#### Modify tool input
+
+```json
+{
+  "hookSpecificOutput": {
+    "hookEventName": "PreToolUse",
+    "permissionDecision": "allow",
     "updatedInput": {
       "command": "npm test --coverage"
     }
   }
 }
 ```
-
-Decisions:
-- `allow` - Bypass permission system
-- `deny` - Block tool call, reason shown to Claude
-- `ask` - Show permission dialog to user
 
 ---
 
