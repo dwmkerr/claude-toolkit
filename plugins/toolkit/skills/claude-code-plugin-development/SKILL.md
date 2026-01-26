@@ -36,6 +36,54 @@ my-plugin/
 
 **Important:** Components go at plugin root, NOT inside `.claude-plugin/`. Only `plugin.json` belongs in `.claude-plugin/`.
 
+## Marketplace Structure
+
+A marketplace can contain multiple plugins. The marketplace root has its own `.claude-plugin/marketplace.json`:
+
+```
+my-marketplace/
+├── .claude-plugin/
+│   └── marketplace.json     # Lists all plugins in this marketplace
+├── plugins/
+│   ├── plugin-a/
+│   │   ├── .claude-plugin/
+│   │   │   └── plugin.json
+│   │   └── skills/
+│   └── plugin-b/
+│       ├── .claude-plugin/
+│       │   └── plugin.json
+│       └── commands/
+```
+
+### marketplace.json
+
+```json
+{
+  "name": "my-marketplace",
+  "owner": {
+    "name": "author-name"
+  },
+  "plugins": [
+    {
+      "name": "plugin-a",
+      "source": "./plugins/plugin-a",
+      "description": "First plugin description",
+      "version": "1.0.0"
+    },
+    {
+      "name": "plugin-b",
+      "source": "./plugins/plugin-b",
+      "description": "Second plugin description",
+      "version": "0.2.0"
+    }
+  ]
+}
+```
+
+**Critical:** When adding a new plugin to a marketplace:
+1. Add it to `marketplace.json` or it won't be installable
+2. If using release-please, add a jsonpath entry to the config for the new plugin's version
+
 ## Minimal plugin.json
 
 ```json
@@ -157,4 +205,6 @@ Before finalizing a plugin:
 - [ ] Components at plugin root (not in `.claude-plugin/`)
 - [ ] All paths use `${CLAUDE_PLUGIN_ROOT}` variable
 - [ ] Scripts are executable (`chmod +x`)
+- [ ] If part of a marketplace, plugin is listed in `marketplace.json`
+- [ ] If using release-please, add jsonpath for new plugin version in config
 - [ ] Test with `claude --debug` to verify loading

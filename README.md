@@ -1,8 +1,10 @@
 # claude-toolkit
 
-General purpose Claude Code toolkit with research agents, skills, and introspection commands.
+General purpose Claude Code `toolkit` plugin for skill/hook/agent development, research, skill analysis, Github quality of life and more.
 
 ## Quickstart
+
+Add the marketplace and install:
 
 ```
 /plugin marketplace add dwmkerr/claude-toolkit
@@ -13,9 +15,44 @@ If commands don't appear, enable and restart:
 
 ```
 /plugin enable toolkit@claude-toolkit
+
+# Or bust the cache in a terminal if stuff's still not loading...
+# rm -rf ~/.claude/plugins/cache
 ```
 
-## Contents
+<!-- vim-markdown-toc GFM -->
+
+- [The `toolkit` Plugin](#the-toolkit-plugin)
+    - [Commands](#commands)
+        - [`/toolkit:skill-history`](#toolkitskill-history)
+        - [`/toolkit:agent-history`](#toolkitagent-history)
+        - [`/toolkit:ghpr`](#toolkitghpr)
+    - [Skills](#skills)
+        - [`research`](#research)
+        - [`claude-code-hook-development`](#claude-code-hook-development)
+        - [`skill-development`](#skill-development)
+        - [`agent-development`](#agent-development)
+        - [`claude-code-slash-commands`](#claude-code-slash-commands)
+        - [`claude-code-statusline-development`](#claude-code-statusline-development)
+        - [`anthropic-evaluations`](#anthropic-evaluations)
+        - [`shell-script-development`](#shell-script-development)
+        - [`release-please-development`](#release-please-development)
+        - [`claude-code-plugin-development`](#claude-code-plugin-development)
+    - [Agents](#agents)
+        - [`researcher`](#researcher)
+- [The `dwmkerr` Plugin](#the-dwmkerr-plugin)
+    - [Skills](#skills-1)
+        - [`my-repos`](#my-repos)
+- [Developer Guide](#developer-guide)
+    - [Local Development](#local-development)
+- [Further Reading](#further-reading)
+- [License](#license)
+
+<!-- vim-markdown-toc -->
+
+## The `toolkit` Plugin
+
+This plugin is general purpose and should be useful for anyone.
 
 ### Commands
 
@@ -153,6 +190,25 @@ See [github.com/dwmkerr/effective-shell](https://github.com/dwmkerr/effective-sh
 - Clones GitHub repos to `/tmp` for examination
 - Presents options with pros/cons and sources
 
+## The `dwmkerr` Plugin
+
+Personal plugin for dwmkerr-specific workflows.
+
+```
+/plugin install dwmkerr@claude-toolkit
+```
+
+### Skills
+
+#### `my-repos`
+
+> Check my repo effective-shell for the pipes chapter
+
+- Locates repos in `~/repos/github/dwmkerr/` or `~/repos/github/mckinsey/`
+- Checks local first, stashes changes if needed for branch switching
+- Uses `gh` CLI to find remote repos if not local
+- Clones missing repos to the standard location
+
 ## Developer Guide
 
 ### Local Development
@@ -179,6 +235,7 @@ Uninstall with:
 ```bash
 claude plugin marketplace remove claude-toolkit
 ```
+
 
 ## Further Reading
 
