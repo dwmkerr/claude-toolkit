@@ -120,6 +120,37 @@ Use `extra-files` to update versions in arbitrary files:
 }
 ```
 
+## Claude Code Plugin Marketplaces
+
+For marketplaces with multiple plugins sharing a single version:
+
+```json
+{
+  "release-type": "simple",
+  "packages": {
+    ".": {
+      "changelog-path": "CHANGELOG.md",
+      "extra-files": [
+        {
+          "type": "json",
+          "path": ".claude-plugin/marketplace.json",
+          "jsonpath": "$.plugins[0].version"
+        },
+        {
+          "type": "json",
+          "path": ".claude-plugin/marketplace.json",
+          "jsonpath": "$.plugins[1].version"
+        }
+      ]
+    }
+  }
+}
+```
+
+Add a jsonpath entry for each plugin in the marketplace. When adding new plugins, update both:
+1. `.claude-plugin/marketplace.json` - add the plugin entry
+2. `.github/release-please-config.json` - add jsonpath for the new plugin's version
+
 ## Conventional Commits
 
 Release-please uses commit prefixes to determine version bumps:
