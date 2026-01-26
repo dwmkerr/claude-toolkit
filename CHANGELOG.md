@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.1.3](https://github.com/dwmkerr/claude-toolkit/compare/v0.1.2...v0.1.3) (2026-01-26)
+
+
+### Features
+
+* add dwmkerr personal plugin with my-repos skill ([#23](https://github.com/dwmkerr/claude-toolkit/issues/23)) ([89d2881](https://github.com/dwmkerr/claude-toolkit/commit/89d2881de562937539679ea51a9be2761c4a9bc5))
+* add ghpr slash command ([#18](https://github.com/dwmkerr/claude-toolkit/issues/18)) ([ba7acf2](https://github.com/dwmkerr/claude-toolkit/commit/ba7acf205c8963386a00abccdea1979ed11626e5))
+* add project-setup skill for new GitHub repos ([#24](https://github.com/dwmkerr/claude-toolkit/issues/24)) ([6d261f9](https://github.com/dwmkerr/claude-toolkit/commit/6d261f98d3ae74c65760627f10521d6d5d7c1b77))
+* add release-please-development skill ([#21](https://github.com/dwmkerr/claude-toolkit/issues/21)) ([3aab7f3](https://github.com/dwmkerr/claude-toolkit/commit/3aab7f36a3530d65cdd44b2fd3092bd2e27b3efb))
+
 ## [0.1.2](https://github.com/dwmkerr/claude-toolkit/compare/v0.1.1...v0.1.2) (2026-01-15)
 
 
