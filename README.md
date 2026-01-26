@@ -43,6 +43,7 @@ If commands don't appear, enable and restart:
 - [The `dwmkerr` Plugin](#the-dwmkerr-plugin)
     - [Skills](#skills-1)
         - [`my-repos`](#my-repos)
+        - [`project-setup`](#project-setup)
 - [Developer Guide](#developer-guide)
     - [Local Development](#local-development)
 - [Further Reading](#further-reading)
@@ -208,6 +209,15 @@ Personal plugin for dwmkerr-specific workflows.
 - Checks local first, stashes changes if needed for branch switching
 - Uses `gh` CLI to find remote repos if not local
 - Clones missing repos to the standard location
+
+#### `project-setup`
+
+> Create a new project called config-validator
+
+- Creates private GitHub repo with description
+- Configures squash merges only, branch protection
+- Enables GitHub Actions to create PRs
+- Adds MIT license and basic README
 
 ## Developer Guide
 
