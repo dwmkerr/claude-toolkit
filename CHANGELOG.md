@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/dwmkerr/claude-toolkit/compare/v0.1.3...v0.1.4) (2026-02-01)
+
+
+### Bug Fixes
+
+* run project setup as a subagent ([91569aa](https://github.com/dwmkerr/claude-toolkit/commit/91569aab34ffeb393b535680ede612ae19bfc1ac))
+
 ## [0.1.3](https://github.com/dwmkerr/claude-toolkit/compare/v0.1.2...v0.1.3) (2026-01-26)
 
 
