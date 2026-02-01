@@ -219,6 +219,8 @@ Personal plugin for dwmkerr-specific workflows.
 - Enables GitHub Actions to create PRs
 - Adds MIT license and basic README
 
+![Screenshot of the Project Setup skill](./docs/project-setup/project-setup-skill-screenshot.png)
+
 ## Developer Guide
 
 ### Local Development
