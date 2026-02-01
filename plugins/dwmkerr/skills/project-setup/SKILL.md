@@ -1,6 +1,8 @@
 ---
 name: project-setup
 description: Create a new GitHub project with standard configuration. Use when user asks to "create a project", "set up a new repo", "initialize a repository", or wants to start a new GitHub project.
+# Run as subagent so setup executes autonomously
+context: fork
 ---
 
 # Project Setup

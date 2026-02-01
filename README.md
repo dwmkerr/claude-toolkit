@@ -219,6 +219,8 @@ Personal plugin for dwmkerr-specific workflows.
 - Enables GitHub Actions to create PRs
 - Adds MIT license and basic README
 
+This skill runs as a subagent (`context: fork`) as only the final output is needed for the current agent.
+
 ![Screenshot of the Project Setup skill](./docs/project-setup/project-setup-skill-screenshot.png)
 
 ## Developer Guide
