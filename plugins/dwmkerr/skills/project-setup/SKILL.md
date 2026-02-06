@@ -15,8 +15,9 @@ Create a new GitHub repository with standard dwmkerr project configuration.
 2. **Branch protection** - prevent direct push to main
 3. **Squash merges only** for pull requests
 4. **Actions can create PRs** enabled
-5. **MIT License**
-6. **Basic README** with intro and quickstart
+5. **GitHub Pages** enabled (Actions-based deployment)
+6. **MIT License**
+7. **Basic README** with intro and quickstart
 
 ## Setup Process
 
@@ -49,21 +50,24 @@ gh api repos/dwmkerr/<repo-name>/actions/permissions/workflow \
   --method PUT \
   --field can_approve_pull_request_reviews=true \
   --field default_workflow_permissions=write
+
+# Enable GitHub Pages with Actions-based deployment
+gh api repos/dwmkerr/<repo-name>/pages \
+  --method POST \
+  --field "build_type=workflow"
 ```
 
-### 3. Set Up Branch Protection
+### 3. Set Up Branch Protection Ruleset
 
 ```bash
-gh api repos/dwmkerr/<repo-name>/branches/main/protection \
-  --method PUT \
-  --field "required_pull_request_reviews[dismiss_stale_reviews]=false" \
-  --field "required_pull_request_reviews[require_code_owner_reviews]=false" \
-  --field "required_pull_request_reviews[required_approving_review_count]=0" \
-  --field "enforce_admins=false" \
-  --field "required_linear_history=true" \
-  --field "allow_force_pushes=false" \
-  --field "allow_deletions=false" \
-  --field "restrictions=null"
+gh api repos/dwmkerr/<repo-name>/rulesets \
+  --method POST \
+  --field name=main \
+  --field target=branch \
+  --field enforcement=active \
+  --field 'conditions[ref_name][include][]=~DEFAULT_BRANCH' \
+  --field 'rules[][type]=pull_request' \
+  --field 'rules[][type]=deletion'
 ```
 
 ### 4. Create MIT License
