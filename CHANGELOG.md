@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.1.4](https://github.com/dwmkerr/claude-toolkit/compare/v0.1.3...v0.1.4) (2026-02-13)
+
+
+### Features
+
+* add git branch with context remaining statusline example ([#27](https://github.com/dwmkerr/claude-toolkit/issues/27)) ([da49920](https://github.com/dwmkerr/claude-toolkit/commit/da4992007d8351f9892baa9c3ef1114870efae15))
+* improve project-setup skill with rulesets and pages ([#26](https://github.com/dwmkerr/claude-toolkit/issues/26)) ([dc2172c](https://github.com/dwmkerr/claude-toolkit/commit/dc2172c83a3dd726d1516604bfcc08b7a717b04d))
+
+
+### Bug Fixes
+
+* run project setup as a subagent ([91569aa](https://github.com/dwmkerr/claude-toolkit/commit/91569aab34ffeb393b535680ede612ae19bfc1ac))
+
 ## [0.1.3](https://github.com/dwmkerr/claude-toolkit/compare/v0.1.2...v0.1.3) (2026-01-26)
 
 
