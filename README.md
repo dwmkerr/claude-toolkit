@@ -146,6 +146,10 @@ See [github.com/dwmkerr/effective-shell](https://github.com/dwmkerr/effective-sh
 - Provides JSON schema reference for session data
 - Examples for git info, context percentage, cost tracking
 
+After running this example, you'll have a statusline similar to the below:
+
+![Example of statusline output](./docs/statusline/gitinfocontext-statusline-screenshot.png)
+
 #### `anthropic-evaluations`
 
 > Create an evaluation suite for my coding agent
