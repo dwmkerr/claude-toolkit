@@ -16,6 +16,7 @@ You MUST read the reference files for detailed schemas and examples:
 - [Example: Git-Aware](./references/example-git-aware.md) - Git branch and status
 - [Example: Context Usage](./references/example-context-usage.md) - Context window percentage
 - [Example: Cost Tracking](./references/example-cost-tracking.md) - Session costs and tokens
+- [Example: Clickable Folder](./references/example-clickable-folder.md) - OSC 8 hyperlink to open folder
 
 ## Configuration
 
