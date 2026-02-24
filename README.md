@@ -121,6 +121,7 @@ See [github.com/dwmkerr/effective-shell](https://github.com/dwmkerr/effective-sh
 - Creates `SKILL.md` with frontmatter
 - Organizes references in subdirectories
 - Follows progressive disclosure pattern
+- Incorporates best practices from [The Complete Guide to Building Skills for Claude](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf) — covering skill categories, reusable patterns, testing strategies, and troubleshooting
 
 #### `agent-development`
 
