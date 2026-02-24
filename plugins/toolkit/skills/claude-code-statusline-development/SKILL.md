@@ -1,6 +1,7 @@
 ---
 name: claude-code-statusline-development
 description: This skill should be used when the user asks to "create a statusline", "customize the status line", "add a custom prompt", or mentions Claude Code statusline. Also suggest when the user wants to display git branch, context usage, model name, or session costs at the bottom of Claude Code.
+allowed-tools: Read, Grep
 ---
 
 # Claude Code Statusline Development

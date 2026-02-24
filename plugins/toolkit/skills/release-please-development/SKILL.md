@@ -1,6 +1,7 @@
 ---
 name: release-please-development
 description: This skill should be used when the user asks to "set up release please", "configure automated releases", "manage version numbers", "add changelog automation", or mentions release-please, semantic versioning, or monorepo versioning.
+allowed-tools: Read, Grep
 ---
 
 # Release Please Development
