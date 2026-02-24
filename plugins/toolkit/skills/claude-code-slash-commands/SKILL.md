@@ -1,6 +1,7 @@
 ---
 name: claude-code-slash-commands
 description: This skill should be used when the user asks to "create a command", "write a slash command", "build a plugin command", or wants to add custom commands to Claude Code.
+allowed-tools: Read, Grep
 ---
 
 # Slash Command Development
