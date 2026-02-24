@@ -38,6 +38,7 @@ If commands don't appear, enable and restart:
         - [`shell-script-development`](#shell-script-development)
         - [`release-please-development`](#release-please-development)
         - [`claude-code-plugin-development`](#claude-code-plugin-development)
+        - [`learn-and-improve`](#learn-and-improve)
     - [Agents](#agents)
         - [`researcher`](#researcher)
 - [The `dwmkerr` Plugin](#the-dwmkerr-plugin)
@@ -185,6 +186,15 @@ After running this example, you'll have a statusline similar to the below:
 - Bundles commands, agents, skills, hooks, MCP/LSP servers
 - CLI commands for install, enable, disable, update
 - Debugging guide with `claude --debug`
+
+#### `learn-and-improve`
+
+> That skill kept asking for permissions — fix my setup so it doesn't happen again
+
+- Analyzes conversation history for friction (permission prompts, missed skills, agent failures)
+- Searches settings, CLAUDE.md, plugins, hooks, and MCP config
+- Proposes targeted fixes at the right scope (user, project, or local)
+- Supports permission rules, CLAUDE.md entries, skill/agent tweaks, hook config, and plugin PRs
 
 ### Agents
 
