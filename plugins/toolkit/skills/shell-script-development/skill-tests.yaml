@@ -1,0 +1,15 @@
+skill: toolkit:shell-script-development
+model: haiku
+
+tests:
+  - id: create-bash-script
+    prompt: "create a bash script to backup my database"
+    should_trigger: true
+
+  - id: write-shell-script
+    prompt: "write a shell script that monitors disk usage"
+    should_trigger: true
+
+  - id: unrelated-react
+    prompt: "add a new React component for user profiles"
+    should_trigger: false
