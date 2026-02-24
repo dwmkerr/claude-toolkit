@@ -75,6 +75,10 @@ user-invocable: true   # Optional: show in slash command menu (default: true)
 **Optional fields:**
 - `context: fork` - Run skill in isolated sub-agent context, preventing unintended side effects on main agent state
 - `user-invocable: false` - Hide from slash command menu (skills are visible by default)
+- `allowed-tools` - Restrict which tools the skill can use (e.g., `"Bash(python:*) Bash(npm:*) WebFetch"`)
+- `license` - e.g., MIT, Apache-2.0
+- `compatibility` - Environment requirements (1-500 chars)
+- `metadata` - Custom key-value pairs (author, version, mcp-server)
 
 ## Writing Effective Descriptions
 

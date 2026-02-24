@@ -134,6 +134,8 @@ CRITICAL: Before calling create_project, verify:
 
 **Advanced technique:** For critical validations, bundle a script that performs checks programmatically. Code is deterministic; language interpretation isn't.
 
+**Performance notes placement:** Adding instructions like "Take your time", "Do not skip validation steps" is more effective in user prompts than in SKILL.md.
+
 ### Large Context Issues
 
 Responses feel slow or degraded:

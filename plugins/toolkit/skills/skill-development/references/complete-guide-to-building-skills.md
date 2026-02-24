@@ -81,6 +81,7 @@ Qualitative:
 |-------|----------|-------|
 | name | Yes | kebab-case, no spaces/capitals, must match folder name |
 | description | Yes | WHAT + WHEN, under 1024 chars, include trigger phrases |
+| allowed-tools | No | Restrict tool access, e.g. `"Bash(python:*) Bash(npm:*) WebFetch"` |
 | license | No | e.g., MIT, Apache-2.0 |
 | compatibility | No | 1-500 chars, environment requirements |
 | metadata | No | Custom key-value pairs (author, version, mcp-server) |
