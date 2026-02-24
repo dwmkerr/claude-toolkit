@@ -195,6 +195,7 @@ After running this example, you'll have a statusline similar to the below:
 - Searches settings, CLAUDE.md, plugins, hooks, and MCP config
 - Proposes targeted fixes at the right scope (user, project, or local)
 - Supports permission rules, CLAUDE.md entries, skill/agent tweaks, hook config, and plugin PRs
+- **Self-improving** — every verified fix is recorded back into the skill as an example, so it gets better at diagnosing similar problems over time. Fork the plugin to accumulate your own improvement history
 
 ### Agents
 

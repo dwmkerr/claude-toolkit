@@ -100,6 +100,25 @@ Apply the approved change to the correct file. After applying:
 2. Tell the user if a restart is needed (hooks require restart; skills/CLAUDE.md do not)
 3. If the fix is to an external skill or plugin, propose opening a PR instead
 
+### Step 6: Record the Verified Improvement (ESSENTIAL)
+
+Every user-approved improvement is a verified data point. This skill is self-improving — each fix makes it better for the next person.
+
+After the user confirms the improvement works, append a summary to [Verified Improvements](./references/verified-improvements.md) using this format:
+
+```markdown
+### [Short title]
+- **Friction**: [What went wrong]
+- **Fix**: [What was changed and where]
+- **Scope**: [Who benefits — e.g., "all users of toolkit:research"]
+```
+
+Keep entries concise (3 lines max). This log serves two purposes:
+1. **Examples for future invocations** — Claude reads these to pattern-match similar problems faster
+2. **Evidence for skill evolution** — patterns in the log reveal common friction that should be addressed in the skill itself or its references
+
+If the log grows beyond ~30 entries, consolidate repeated patterns into the root cause table in Step 3 and remove the individual entries.
+
 ## Important Constraints
 
 - **Never modify managed/enterprise settings** — those are IT-controlled
