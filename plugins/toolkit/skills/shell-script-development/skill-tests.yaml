@@ -3,7 +3,7 @@ model: haiku
 
 tests:
   - id: create-bash-script
-    prompt: "create a bash script to backup my database"
+    prompt: "create a bash script that backs up a PostgreSQL database to a local directory"
     should_trigger: true
 
   - id: write-shell-script
