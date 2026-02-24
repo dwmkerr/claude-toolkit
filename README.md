@@ -1,5 +1,7 @@
 # claude-toolkit
 
+[![Skill Tests](https://img.shields.io/github/actions/workflow/status/dwmkerr/claude-toolkit/skill-tests.yaml?label=skill%20tests)](https://github.com/dwmkerr/claude-toolkit/actions/workflows/skill-tests.yaml)
+
 General purpose Claude Code `toolkit` plugin for skill/hook/agent development, research, skill analysis, Github quality of life and more.
 
 ## Quickstart
