@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.5](https://github.com/dwmkerr/claude-toolkit/compare/v0.1.4...v0.1.5) (2026-02-24)
+
+
+### Features
+
+* enhance skill-development with planning, patterns, testing, and troubleshooting ([#31](https://github.com/dwmkerr/claude-toolkit/issues/31)) ([ed9d475](https://github.com/dwmkerr/claude-toolkit/commit/ed9d475552373629363139e240df3f5dc526fdda))
+
 ## [0.1.4](https://github.com/dwmkerr/claude-toolkit/compare/v0.1.3...v0.1.4) (2026-02-13)
 
 
