@@ -190,3 +190,19 @@ Friction reported
 └── Recurring across sessions?
     └── Auto memory MEMORY.md
 ```
+
+## Choosing the Right Scope
+
+When an improvement could live in multiple places, consider who benefits:
+
+| Scope | Best For | Trade-off |
+|-------|----------|-----------|
+| External skill/agent PR | Behavior everyone hits — the fix ships to all users | Requires upstream review, slower to land |
+| Personal skill/agent | Your workflows that span all projects | Only benefits you, but no review needed |
+| User settings (`~/.claude/settings.json`) | Permissions and preferences you always want | Applies everywhere — be sure it's universally wanted |
+| User CLAUDE.md (`~/.claude/CLAUDE.md`) | Coding conventions you always follow | Every project sees these instructions |
+| Project shared (`.claude/settings.json`, `CLAUDE.md`) | Team conventions and project architecture | Committed to repo — team must agree |
+| Project local (`.claude/settings.local.json`) | Personal overrides for one project | Narrowest reach — lowest risk, lowest reuse |
+| Auto memory (`MEMORY.md`) | Learnings that persist across sessions | Ephemeral — first 200 lines only, one project |
+
+Improvements to shared skills and agents have the highest potential reach since they benefit every user across every project. But the right scope depends on whether the fix is universally applicable or specific to the user's context.

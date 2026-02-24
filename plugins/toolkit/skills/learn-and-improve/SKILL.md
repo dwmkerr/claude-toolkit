@@ -68,21 +68,29 @@ Common root causes and their fixes — see [Improvement Types](./references/impr
 
 ### Step 4: Propose Improvements
 
-Present a clear proposal with:
+For each proposed improvement, present:
 
 1. **What to change** — the specific file and content
 2. **Why** — how this fixes the reported issue
-3. **Scope** — whether this is user-level, project-level, or skill-level
+3. **Who benefits** — see the table below to explain the reach of the improvement
 4. **Risk** — any trade-offs (e.g., "this auto-allows all npm commands")
 
-Use `AskUserQuestion` to confirm before making changes:
+**Explain the reach of each improvement type to help the user decide:**
 
-```
-Where should this improvement live?
-- User-level (~/.claude/settings.json) — applies to all projects
-- Project-level (.claude/settings.json) — shared with team
-- Project-local (.claude/settings.local.json) — just for you, this project
-```
+| Improvement Type | Best For | Who Benefits |
+|-----------------|----------|--------------|
+| Skill fix (external plugin) | Fixing behavior everyone hits — opens a PR upstream | All users of the skill |
+| Skill fix (personal skill) | Your custom workflows across all projects | You, all projects |
+| Agent fix (external plugin) | Agents that hit permission walls or use wrong model | All users of the agent |
+| User-level settings | Permission rules and preferences that apply everywhere | You, all projects |
+| User-level CLAUDE.md | Coding conventions and instructions you always want | You, all projects |
+| Project-shared settings | Team permissions and conventions | Your team, one project |
+| Project-shared CLAUDE.md | Architecture notes, project-specific patterns | Your team, one project |
+| Project-local settings | Personal overrides for one project | Just you, one project |
+| Hook | Automating repetitive steps (formatting, tests, safety) | Depends on scope |
+| Auto memory | Session learnings that don't belong in CLAUDE.md | You, one project |
+
+When an improvement could live at multiple scopes, present the options and explain the trade-off — broader scope means more reuse but also more risk if the change is wrong.
 
 ### Step 5: Apply the Change
 
@@ -96,7 +104,7 @@ Apply the approved change to the correct file. After applying:
 
 - **Never modify managed/enterprise settings** — those are IT-controlled
 - **Always confirm before writing** — show the exact change first
-- **Prefer the narrowest scope** — project-local over user-level when possible
+- **Consider the reach** — explain who benefits from each improvement type so the user can choose the right scope
 - **Preserve existing content** — merge into existing settings, don't overwrite
 - **Settings format**: permission rules use `Tool(pattern)` syntax (e.g., `Bash(npm run *)`)
 
