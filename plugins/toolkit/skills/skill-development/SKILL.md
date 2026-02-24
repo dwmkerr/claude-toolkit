@@ -1,6 +1,7 @@
 ---
 name: skill-development
 description: This skill should be used when the user asks to "create a skill", "write a skill", "build a skill", or wants to add new capabilities to Claude Code. Use when developing SKILL.md files, organizing skill content, or improving existing skills.
+allowed-tools: Read, Grep
 ---
 
 # Skill Development
@@ -75,7 +76,7 @@ user-invocable: true   # Optional: show in slash command menu (default: true)
 **Optional fields:**
 - `context: fork` - Run skill in isolated sub-agent context, preventing unintended side effects on main agent state
 - `user-invocable: false` - Hide from slash command menu (skills are visible by default)
-- `allowed-tools` - Restrict which tools the skill can use (e.g., `"Bash(python:*) Bash(npm:*) WebFetch"`)
+- `allowed-tools` - Restrict which tools the skill can use (e.g., `"Bash(python:*) Bash(npm:*) WebFetch"`). **Skills with `references/` directories should include `allowed-tools: Read, Grep`** to avoid permission prompts when accessing bundled files ([claude-code#15757](https://github.com/anthropics/claude-code/issues/15757))
 - `license` - e.g., MIT, Apache-2.0
 - `compatibility` - Environment requirements (1-500 chars)
 - `metadata` - Custom key-value pairs (author, version, mcp-server)

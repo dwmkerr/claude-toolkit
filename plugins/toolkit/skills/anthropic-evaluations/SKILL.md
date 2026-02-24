@@ -1,6 +1,7 @@
 ---
 name: anthropic-evaluations
 description: This skill should be used when the user asks to "create evals", "evaluate an agent", "build evaluation suite", or mentions agent testing, graders, or benchmarks. Also suggest when building coding agents, conversational agents, or research agents that need quality assurance.
+allowed-tools: Read, Grep
 ---
 
 # Anthropic Evaluations

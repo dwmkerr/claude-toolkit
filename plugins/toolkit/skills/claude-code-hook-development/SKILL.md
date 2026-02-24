@@ -1,6 +1,7 @@
 ---
 name: claude-code-hook-development
 description: This skill should be used when the user asks to "create a hook", "add a hook", "write a hook", or mentions Claude Code hooks. Also suggest this skill when the user asks to "automatically do X" or "run X before/after Y" as these are good candidates for hooks.
+allowed-tools: Read, Grep
 ---
 
 # Claude Code Hook Development

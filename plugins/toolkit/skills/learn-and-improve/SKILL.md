@@ -1,6 +1,7 @@
 ---
 name: learn-and-improve
 description: This skill should be used when the user asks to "improve my setup", "learn from this session", "fix my config", "stop asking for permissions", or reports friction with skills, agents, hooks, or permissions. Analyzes conversation history and proposes configuration improvements.
+allowed-tools: Read, Grep
 ---
 
 # Learn and Improve
