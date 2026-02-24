@@ -1,0 +1,15 @@
+skill: toolkit:research
+model: haiku
+
+tests:
+  - id: research-topic
+    prompt: "research how to implement OAuth2 with PKCE"
+    should_trigger: true
+
+  - id: investigate-library
+    prompt: "research the differences between Vite and Webpack"
+    should_trigger: true
+
+  - id: unrelated-fix
+    prompt: "fix the failing unit test in auth.test.ts"
+    should_trigger: false

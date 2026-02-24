@@ -1,0 +1,20 @@
+skill: toolkit:skill-development
+model: haiku
+
+tests:
+  - id: explicit-create
+    prompt: "I want to create a new skill"
+    should_trigger: true
+
+  - id: build-skill
+    prompt: "build me a skill for generating changelogs"
+    should_trigger: true
+
+  - id: unrelated-typo
+    prompt: "fix the typo on line 12"
+    should_trigger: false
+
+  - id: plugin-not-skill
+    prompt: "help me write a claude code plugin"
+    should_trigger: false
+    notes: "Should route to plugin-development, not skill-development"
