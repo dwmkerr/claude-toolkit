@@ -1,0 +1,27 @@
+skill: dwmkerr:slides
+model: haiku
+
+tests:
+  - id: create-slides
+    prompt: "Create slides for this project"
+    should_trigger: true
+
+  - id: add-presentation
+    prompt: "Add a presentation to this repo"
+    should_trigger: true
+
+  - id: make-slide-deck
+    prompt: "Set up a slide deck for the pitch"
+    should_trigger: true
+
+  - id: slides-from-readme
+    prompt: "Create slides from the README"
+    should_trigger: true
+
+  - id: negative-pptx
+    prompt: "Convert this to a PowerPoint file"
+    should_trigger: false
+
+  - id: negative-code
+    prompt: "Write a function to parse JSON"
+    should_trigger: false
