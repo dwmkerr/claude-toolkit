@@ -180,6 +180,8 @@ After running this example, you'll have a statusline similar to the below:
 - Consistent conventions for `.PHONY`, target naming, and comments
 - Script delegation pattern for complex logic
 
+![Screenshot of make help output](./docs/makefile-development/make-help.png)
+
 #### `release-please-development`
 
 > Set up release-please for automated versioning
