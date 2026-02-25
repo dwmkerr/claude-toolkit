@@ -1,3 +1,5 @@
+# Tests that the research skill is invoked for investigative prompts
+# and skipped for direct implementation tasks.
 skill: toolkit:research
 model: haiku
 
