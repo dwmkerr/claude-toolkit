@@ -1,15 +1,18 @@
-# Tests that the research skill is invoked for investigative prompts
-# and skipped for direct implementation tasks.
+# Tests that the research skill is invoked when explicitly requested
+# and skipped for direct implementation tasks. Note: "research" is a
+# generic term — Claude may use built-in tools (Explore, WebFetch)
+# instead unless the user explicitly says "use the research skill"
+# or "use the researcher agent".
 skill: toolkit:research
 model: haiku
 
 tests:
   - id: research-topic
-    prompt: "research how to implement OAuth2 with PKCE"
+    prompt: "use the research skill to investigate OAuth2 with PKCE implementation options"
     should_trigger: true
 
   - id: investigate-library
-    prompt: "research the differences between Vite and Webpack"
+    prompt: "use the research skill to compare Vite and Webpack"
     should_trigger: true
 
   - id: unrelated-fix
