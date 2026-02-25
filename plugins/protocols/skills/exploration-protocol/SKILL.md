@@ -1,7 +1,7 @@
 ---
 name: exploration-protocol
 description: Structured approach to explore features before production development. Templates for objectives, acceptance criteria, architecture, prototypes, and verification. This skill should be used when the user asks to "explore a feature", "start an exploration", "create a task folder", or mentions exploration protocol.
-user_invocable: true
+user_invocable: false
 ---
 
 # Exploration Protocol
