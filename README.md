@@ -38,6 +38,7 @@ If commands don't appear, enable and restart:
         - [`claude-code-statusline-development`](#claude-code-statusline-development)
         - [`anthropic-evaluations`](#anthropic-evaluations)
         - [`shell-script-development`](#shell-script-development)
+        - [`makefile-development`](#makefile-development)
         - [`release-please-development`](#release-please-development)
         - [`claude-code-plugin-development`](#claude-code-plugin-development)
         - [`learn-and-improve`](#learn-and-improve)
@@ -170,6 +171,16 @@ After running this example, you'll have a statusline similar to the below:
 - Consistent shebang and safety options
 - Color output conventions
 - Status message patterns (success, error, warning)
+
+#### `makefile-development`
+
+> Create a Makefile for my project
+
+- Self-documenting help target with colour-coded output
+- Consistent conventions for `.PHONY`, target naming, and comments
+- Script delegation pattern for complex logic
+
+![Screenshot of make help output](./docs/makefile-development/make-help.png)
 
 #### `release-please-development`
 

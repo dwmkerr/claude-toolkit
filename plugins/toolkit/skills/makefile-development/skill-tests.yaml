@@ -1,0 +1,15 @@
+skill: toolkit:makefile-development
+model: haiku
+
+tests:
+  - id: create-makefile
+    prompt: "create a Makefile for my Node.js project with build and test targets"
+    should_trigger: true
+
+  - id: add-make-target
+    prompt: "add a lint target to my Makefile"
+    should_trigger: true
+
+  - id: unrelated-docker
+    prompt: "write a Dockerfile for a Python Flask application"
+    should_trigger: false
