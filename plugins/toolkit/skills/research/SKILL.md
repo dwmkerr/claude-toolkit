@@ -1,6 +1,6 @@
 ---
 name: research
-description: Research technical solutions by searching the web, examining GitHub repos, and gathering evidence. Use when exploring implementation options or evaluating technologies.
+description: Deep research into technical solutions by searching the web, examining GitHub repos, and gathering evidence. Use when the user explicitly says "use the research skill", "use a research agent", or asks for deep/thorough research into implementation options or technologies.
 ---
 
 # Research
