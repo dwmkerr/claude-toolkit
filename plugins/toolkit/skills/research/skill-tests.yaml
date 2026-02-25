@@ -1,9 +1,13 @@
+# Tests that the research skill is invoked for investigative prompts
+# and skipped for direct implementation tasks. Validates that Claude
+# routes "research X" requests through the structured research workflow
+# rather than jumping straight to coding.
 skill: toolkit:research
 model: haiku
 
 tests:
   - id: research-topic
-    prompt: "research how to implement OAuth2 with PKCE"
+    prompt: "use the research skill to investigate OAuth2 with PKCE implementation options"
     should_trigger: true
 
   - id: investigate-library

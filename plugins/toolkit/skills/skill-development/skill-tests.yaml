@@ -1,3 +1,6 @@
+# Tests that skill-development is invoked when users want to create or
+# build skills, and correctly skipped for unrelated tasks or tasks that
+# should route to other skills (like plugin-development).
 skill: toolkit:skill-development
 model: haiku
 

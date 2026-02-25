@@ -10,19 +10,12 @@ jobs:
   test-skills:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    strategy:
-      matrix:
-        test_file:
-          - plugins/toolkit/skills/skill-development/skill-tests.yaml
-          - plugins/toolkit/skills/shell-script-development/skill-tests.yaml
-          - plugins/toolkit/skills/research/skill-tests.yaml
-          - plugins/protocols/skills/exploration-protocol/skill-tests.yaml
     steps:
       - uses: actions/checkout@v4
 
       - uses: dwmkerr/skill-test-action@main
         with:
-          test_file: ${{ matrix.test_file }}
+          test_file: 'plugins/**/skill-tests.yaml'
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           marketplaces: dwmkerr/claude-toolkit
           plugins: toolkit@claude-toolkit protocols@claude-toolkit
