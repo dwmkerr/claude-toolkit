@@ -1,0 +1,18 @@
+agent: protocols:exploration-protocol-orchestrator
+model: haiku
+
+tests:
+  - id: explore-feature
+    prompt: "I want to explore a new caching feature before we build it"
+    should_trigger: true
+    notes: Direct exploration request should spawn the orchestrator agent
+
+  - id: start-exploration
+    prompt: "start an exploration for the authentication redesign"
+    should_trigger: true
+    notes: Explicit exploration protocol trigger
+
+  - id: negative-simple-fix
+    prompt: "fix the typo on line 12"
+    should_trigger: false
+    notes: Simple fix should not trigger exploration

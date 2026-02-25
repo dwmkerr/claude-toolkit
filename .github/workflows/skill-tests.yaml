@@ -16,6 +16,7 @@ jobs:
           - plugins/toolkit/skills/skill-development/skill-tests.yaml
           - plugins/toolkit/skills/shell-script-development/skill-tests.yaml
           - plugins/toolkit/skills/research/skill-tests.yaml
+          - plugins/protocols/skills/exploration-protocol/skill-tests.yaml
     steps:
       - uses: actions/checkout@v4
 
