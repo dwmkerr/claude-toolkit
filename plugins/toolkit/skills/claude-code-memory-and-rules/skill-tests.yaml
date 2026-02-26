@@ -1,6 +1,6 @@
-# Tests that claude-code-memory-and-hooks is invoked for memory, rules, hooks,
-# and correctly skipped for unrelated tasks.
-skill: toolkit:claude-code-memory-and-hooks
+# Tests that claude-code-memory-and-rules is invoked for memory, CLAUDE.md, and
+# rules configuration, and correctly skipped for hooks and unrelated tasks.
+skill: toolkit:claude-code-memory-and-rules
 model: haiku
 
 tests:
@@ -21,24 +21,21 @@ tests:
     should_trigger: true
 
   - id: rules-vs-hooks
-    prompt: "use the rules skill to suggest when I use a rule over a hook"
+    prompt: "when should I use a rule versus a hook"
     should_trigger: true
 
   - id: explain-rules
     prompt: "how do rules work in Claude Code"
     should_trigger: true
 
-  - id: create-hook
+  - id: auto-memory
+    prompt: "how does auto memory work in Claude Code"
+    should_trigger: true
+
+  - id: hook-not-rules
     prompt: "create a hook that runs tests before push"
-    should_trigger: true
-
-  - id: add-hook
-    prompt: "add a hook to block dangerous commands"
-    should_trigger: true
-
-  - id: auto-format-hook
-    prompt: "I want to automatically run prettier after every edit"
-    should_trigger: true
+    should_trigger: false
+    notes: "Should route to claude-code-hook-development, not memory-and-rules"
 
   - id: unrelated-bugfix
     prompt: "fix the null pointer exception on line 42"

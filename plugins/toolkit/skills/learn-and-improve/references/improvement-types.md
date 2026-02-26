@@ -181,18 +181,18 @@ Friction reported
 │   ├── One project → CLAUDE.md (project level)
 │   ├── All projects → ~/.claude/CLAUDE.md (user level)
 │   ├── Specific file types → .claude/rules/ with paths frontmatter
-│   └── Use toolkit:claude-code-memory-and-hooks skill for setup
+│   └── Use toolkit:claude-code-memory-and-rules skill for setup
 ├── Skill behavior wrong?
 │   ├── Triggering issue → Skill description frontmatter
 │   ├── Too many permissions → Skill allowed-tools
 │   └── Side effects → Skill context: fork
 ├── Want automation?
-│   └── Hook → use toolkit:claude-code-memory-and-hooks skill
+│   └── Hook → use toolkit:claude-code-hook-development skill
 ├── Want persistent conventions?
 │   ├── Shared with team → .claude/rules/ or CLAUDE.md
 │   ├── Personal, all projects → ~/.claude/rules/ or ~/.claude/CLAUDE.md
 │   ├── Personal, one project → CLAUDE.local.md
-│   └── Use toolkit:claude-code-memory-and-hooks skill for setup
+│   └── Use toolkit:claude-code-memory-and-rules skill for setup
 └── Recurring across sessions?
     └── Auto memory MEMORY.md
 ```

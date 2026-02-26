@@ -30,19 +30,15 @@ description: Research technical solutions by searching the web, examining GitHub
 
 ---
 
-## Example 2: Memory and Hooks Skill
+## Example 2: Hook Development Skill
 
-A combined skill with reference files for progressive disclosure, covering both memory (CLAUDE.md, rules) and hooks.
+A skill with reference files for progressive disclosure.
 
 **Structure:**
 ```
-claude-code-memory-and-hooks/
+claude-code-hook-development/
 ├── SKILL.md
 └── references/
-    ├── memory-types.md
-    ├── rules-guide.md
-    ├── auto-memory.md
-    ├── examples.md
     ├── hook-events.md
     └── examples/
         ├── firewall.md
@@ -53,8 +49,8 @@ claude-code-memory-and-hooks/
 **SKILL.md frontmatter:**
 ```yaml
 ---
-name: claude-code-memory-and-hooks
-description: This skill should be used when the user asks to "set up memory", "configure CLAUDE.md", "add rules", "create a hook", "add a hook", or mentions Claude Code memory, rules, hooks, or project instructions. Also use when the user wants to "automatically do X" or "run X before/after Y".
+name: claude-code-hook-development
+description: This skill should be used when the user asks to "create a hook", "add a hook", "write a hook", or mentions Claude Code hooks. Also suggest this skill when the user asks to "automatically do X" or "run X before/after Y" as these are good candidates for hooks.
 ---
 ```
 

@@ -89,10 +89,10 @@ For each proposed improvement, present:
 | Project-shared settings | Team permissions and conventions | Your team, one project |
 | Project-shared CLAUDE.md | Architecture notes, project-specific patterns | Your team, one project |
 | Project-local settings | Personal overrides for one project | Just you, one project |
-| Hook | Automating repetitive steps (formatting, tests, safety) — delegate to `toolkit:claude-code-memory-and-hooks` skill | Depends on scope |
-| Project rules (`.claude/rules/`) | File-type-scoped conventions (API rules, test rules, frontend rules) — delegate to `toolkit:claude-code-memory-and-hooks` skill for setup | Your team, one project |
+| Hook | Automating repetitive steps (formatting, tests, safety) — delegate to `toolkit:claude-code-hook-development` skill for non-trivial hooks | Depends on scope |
+| Project rules (`.claude/rules/`) | File-type-scoped conventions (API rules, test rules, frontend rules) — delegate to `toolkit:claude-code-memory-and-rules` skill for setup | Your team, one project |
 | User rules (`~/.claude/rules/`) | Personal conventions across all projects | Just you, all projects |
-| Auto memory | Session learnings that don't belong in CLAUDE.md — delegate to `toolkit:claude-code-memory-and-hooks` skill for setup | You, one project |
+| Auto memory | Session learnings that don't belong in CLAUDE.md — delegate to `toolkit:claude-code-memory-and-rules` skill for setup | You, one project |
 
 When an improvement could live at multiple scopes, present the options and explain the trade-off — broader scope means more reuse but also more risk if the change is wrong.
 
