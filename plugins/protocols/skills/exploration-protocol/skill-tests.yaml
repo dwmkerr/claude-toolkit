@@ -1,0 +1,19 @@
+# Tests that exploration prompts spawn the exploration-protocol-orchestrator
+# agent (via the Task tool) rather than using ad-hoc approaches. Validates
+# that the structured task-folder workflow is triggered for feature
+# exploration, not just a generic Explore subagent.
+agent: protocols:exploration-protocol-orchestrator
+model: haiku
+
+tests:
+  - id: explore-feature
+    prompt: "use the exploration protocol to explore a new caching feature before we build it"
+    should_trigger: true
+
+  - id: start-exploration
+    prompt: "start an exploration protocol task for the authentication redesign"
+    should_trigger: true
+
+  - id: negative-simple-fix
+    prompt: "fix the typo on line 12"
+    should_trigger: false

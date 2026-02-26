@@ -97,11 +97,13 @@ And when it does. The browser opens automatically:
 
 #### `research`
 
-> Research options for implementing OAuth in a Node.js app
+> Use the research skill to investigate options for implementing OAuth in a Node.js app
 
 - Searches web and clones GitHub repos
 - Requires 2-3 sources before recommending
 - Saves findings to `./scratch/research/`
+
+**Tip:** "research" is a generic term — Claude may use built-in tools (Explore, WebFetch) instead of this skill. Be explicit: say "use the research skill" or "use the researcher agent" to ensure the structured research workflow is triggered.
 
 #### `claude-code-hook-development`
 

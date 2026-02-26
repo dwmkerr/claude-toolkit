@@ -1,3 +1,5 @@
+# Tests that shell-script-development is invoked for bash/shell scripting
+# tasks and skipped for unrelated work like frontend development.
 skill: toolkit:shell-script-development
 model: haiku
 
