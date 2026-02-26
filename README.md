@@ -38,6 +38,7 @@ If commands don't appear, enable and restart:
         - [`claude-code-statusline-development`](#claude-code-statusline-development)
         - [`anthropic-evaluations`](#anthropic-evaluations)
         - [`shell-script-development`](#shell-script-development)
+        - [`makefile-development`](#makefile-development)
         - [`release-please-development`](#release-please-development)
         - [`claude-code-plugin-development`](#claude-code-plugin-development)
         - [`learn-and-improve`](#learn-and-improve)
@@ -96,11 +97,13 @@ And when it does. The browser opens automatically:
 
 #### `research`
 
-> Research options for implementing OAuth in a Node.js app
+> Use the research skill to investigate options for implementing OAuth in a Node.js app
 
 - Searches web and clones GitHub repos
 - Requires 2-3 sources before recommending
 - Saves findings to `./scratch/research/`
+
+**Tip:** "research" is a generic term — Claude may use built-in tools (Explore, WebFetch) instead of this skill. Be explicit: say "use the research skill" or "use the researcher agent" to ensure the structured research workflow is triggered.
 
 #### `claude-code-hook-development`
 
@@ -170,6 +173,16 @@ After running this example, you'll have a statusline similar to the below:
 - Consistent shebang and safety options
 - Color output conventions
 - Status message patterns (success, error, warning)
+
+#### `makefile-development`
+
+> Create a Makefile for my project
+
+- Self-documenting help target with colour-coded output
+- Consistent conventions for `.PHONY`, target naming, and comments
+- Script delegation pattern for complex logic
+
+![Screenshot of make help output](./docs/makefile-development/make-help.png)
 
 #### `release-please-development`
 

@@ -1,7 +1,8 @@
-# Tests that the research skill is invoked for investigative prompts
-# and skipped for direct implementation tasks. Validates that Claude
-# routes "research X" requests through the structured research workflow
-# rather than jumping straight to coding.
+# Tests that the research skill is invoked when explicitly requested
+# and skipped for direct implementation tasks. Note: "research" is a
+# generic term — Claude may use built-in tools (Explore, WebFetch)
+# instead unless the user explicitly says "use the research skill"
+# or "use the researcher agent".
 skill: toolkit:research
 model: haiku
 
@@ -11,7 +12,7 @@ tests:
     should_trigger: true
 
   - id: investigate-library
-    prompt: "research the differences between Vite and Webpack"
+    prompt: "use the research skill to compare Vite and Webpack"
     should_trigger: true
 
   - id: unrelated-fix

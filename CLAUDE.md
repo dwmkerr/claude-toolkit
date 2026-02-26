@@ -21,3 +21,5 @@ tests:
 ```
 
 Tests run in CI via the [skill-test-action](https://github.com/dwmkerr/skill-test-action).
+
+When adding a new skill, also add an entry to `README.md` (both the TOC and the Skills section).
