@@ -18,5 +18,5 @@ jobs:
           test_file: 'plugins/**/skill-tests.yaml'
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           marketplaces: dwmkerr/claude-toolkit
-          plugins: toolkit@claude-toolkit
+          plugins: toolkit@claude-toolkit protocols@claude-toolkit
           timeout: '120'
