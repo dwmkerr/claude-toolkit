@@ -224,7 +224,7 @@ After running this example, you'll have a statusline similar to the below:
 
 ## The `dwmkerr` Plugin
 
-Personal plugin for dwmkerr-specific workflows.
+Opinionated plugin with my personal workflows and conventions. You're welcome to use it or fork it, but it's built around how I work — paths, repo structure, tool preferences. If something looks useful, steal the pattern and adapt it.
 
 ```
 /plugin install dwmkerr@claude-toolkit
