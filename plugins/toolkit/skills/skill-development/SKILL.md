@@ -1,5 +1,5 @@
 ---
-name: skill-development
+name: claude-code-skill-development
 description: This skill should be used when the user asks to "create a skill", "write a skill", "build a skill", or wants to add new capabilities to Claude Code. Use when developing SKILL.md files, organizing skill content, or improving existing skills.
 allowed-tools: Read, Grep
 ---
