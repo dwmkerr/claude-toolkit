@@ -1,0 +1,25 @@
+# Tests that claude-code-hook-development is invoked for hook creation tasks
+# and correctly skipped for memory/rules configuration or unrelated work.
+skill: toolkit:claude-code-hook-development
+model: haiku
+
+tests:
+  - id: create-hook
+    prompt: "create a hook that runs tests before I push to git"
+    should_trigger: true
+
+  - id: pre-tool-hook
+    prompt: "write a PreToolUse hook that blocks dangerous bash commands"
+    should_trigger: true
+
+  - id: auto-format-hook
+    prompt: "automatically run prettier after every file edit using a hook"
+    should_trigger: true
+
+  - id: unrelated-memory
+    prompt: "set up CLAUDE.md for my project"
+    should_trigger: false
+
+  - id: unrelated-skill
+    prompt: "create a new skill for managing deployments"
+    should_trigger: false

@@ -1,0 +1,21 @@
+# Tests that claude-code-plugin-development is invoked when users want to create or
+# bundle plugins, and correctly skipped for skill creation or unrelated tasks.
+skill: toolkit:claude-code-plugin-development
+model: haiku
+
+tests:
+  - id: create-plugin
+    prompt: "create a Claude Code plugin with a plugin.json manifest"
+    should_trigger: true
+
+  - id: bundle-plugin
+    prompt: "I want to bundle my skills and commands into a distributable plugin package"
+    should_trigger: true
+
+  - id: unrelated-skill
+    prompt: "create a new skill for managing deployments"
+    should_trigger: false
+
+  - id: unrelated-hook
+    prompt: "add a hook that runs lint on file save"
+    should_trigger: false

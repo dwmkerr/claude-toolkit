@@ -18,6 +18,6 @@ tests:
     should_trigger: false
 
   - id: plugin-not-skill
-    prompt: "help me write a claude code plugin"
+    prompt: "I want to create a Claude Code plugin package with a plugin.json manifest to distribute to my team"
     should_trigger: false
     notes: "Should route to plugin-development, not skill-development"
