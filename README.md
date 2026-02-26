@@ -31,7 +31,7 @@ If commands don't appear, enable and restart:
         - [`/toolkit:ghpr`](#toolkitghpr)
     - [Skills](#skills)
         - [`research`](#research)
-        - [`claude-code-hook-development`](#claude-code-hook-development)
+        - [`claude-code-memory-and-hooks`](#claude-code-memory-and-hooks)
         - [`skill-development`](#skill-development)
         - [`agent-development`](#agent-development)
         - [`claude-code-slash-commands`](#claude-code-slash-commands)
@@ -105,20 +105,21 @@ And when it does. The browser opens automatically:
 
 **Tip:** "research" is a generic term — Claude may use built-in tools (Explore, WebFetch) instead of this skill. Be explicit: say "use the research skill" or "use the researcher agent" to ensure the structured research workflow is triggered.
 
-#### `claude-code-hook-development`
+#### `claude-code-memory-and-hooks`
 
-> Create a hook that runs tests before git push and requires explicit
-> confirmation before pushing to remote.
+> Set up CLAUDE.md and rules for my project / Create a hook that runs tests before push
 
-- Creates shell scripts in `.claude/hooks/`
-- Configures hook events in `.claude/settings.json`
-- Supports blocking (exit 2) and non-blocking hooks
+- Configures CLAUDE.md files, `.claude/rules/`, and auto memory
+- Creates hooks with shell scripts in `.claude/hooks/`
+- Guides scope selection (user, project, local, org)
+- Supports path-scoped rules for file-type-specific conventions
+- Covers rules vs hooks decision-making
 
-Example output 
+Example hook output:
 
 ![Screenshot of a pre-push hook](./docs/claude-code-hook-development/push-confirmation-required.png)
 
-See [github.com/dwmkerr/effective-shell](https://github.com/dwmkerr/effective-shell) for some real-world examples (or most of my recently edited open source projects).
+See [github.com/dwmkerr/effective-shell](https://github.com/dwmkerr/effective-shell) for real-world hook examples.
 
 #### `skill-development`
 

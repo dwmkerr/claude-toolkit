@@ -180,13 +180,19 @@ Friction reported
 ├── Instruction not followed?
 │   ├── One project → CLAUDE.md (project level)
 │   ├── All projects → ~/.claude/CLAUDE.md (user level)
-│   └── Specific file types → .claude/rules/ with paths frontmatter
+│   ├── Specific file types → .claude/rules/ with paths frontmatter
+│   └── Use toolkit:claude-code-memory-and-hooks skill for setup
 ├── Skill behavior wrong?
 │   ├── Triggering issue → Skill description frontmatter
 │   ├── Too many permissions → Skill allowed-tools
 │   └── Side effects → Skill context: fork
 ├── Want automation?
-│   └── Hook (PreToolUse, PostToolUse, SessionStart, etc.)
+│   └── Hook → use toolkit:claude-code-memory-and-hooks skill
+├── Want persistent conventions?
+│   ├── Shared with team → .claude/rules/ or CLAUDE.md
+│   ├── Personal, all projects → ~/.claude/rules/ or ~/.claude/CLAUDE.md
+│   ├── Personal, one project → CLAUDE.local.md
+│   └── Use toolkit:claude-code-memory-and-hooks skill for setup
 └── Recurring across sessions?
     └── Auto memory MEMORY.md
 ```
@@ -201,7 +207,9 @@ When an improvement could live in multiple places, consider who benefits:
 | Personal skill/agent | Your workflows that span all projects | Only benefits you, but no review needed |
 | User settings (`~/.claude/settings.json`) | Permissions and preferences you always want | Applies everywhere — be sure it's universally wanted |
 | User CLAUDE.md (`~/.claude/CLAUDE.md`) | Coding conventions you always follow | Every project sees these instructions |
+| User rules (`~/.claude/rules/`) | Personal conventions scoped by topic or file type | All your projects — modular and path-scopable |
 | Project shared (`.claude/settings.json`, `CLAUDE.md`) | Team conventions and project architecture | Committed to repo — team must agree |
+| Project rules (`.claude/rules/`) | File-type-scoped team conventions | Committed to repo — team must agree |
 | Project local (`.claude/settings.local.json`) | Personal overrides for one project | Narrowest reach — lowest risk, lowest reuse |
 | Auto memory (`MEMORY.md`) | Learnings that persist across sessions | Ephemeral — first 200 lines only, one project |
 

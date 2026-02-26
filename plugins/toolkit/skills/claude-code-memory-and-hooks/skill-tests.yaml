@@ -1,0 +1,49 @@
+# Tests that claude-code-memory-and-hooks is invoked for memory, rules, hooks,
+# and correctly skipped for unrelated tasks.
+skill: toolkit:claude-code-memory-and-hooks
+model: haiku
+
+tests:
+  - id: setup-memory
+    prompt: "help me set up CLAUDE.md for my project"
+    should_trigger: true
+
+  - id: add-rules
+    prompt: "I want to add rules for my TypeScript files"
+    should_trigger: true
+
+  - id: configure-project-instructions
+    prompt: "how do I add project instructions that persist across sessions"
+    should_trigger: true
+
+  - id: path-scoped-rules
+    prompt: "I want certain instructions to only apply to my API files"
+    should_trigger: true
+
+  - id: rules-vs-hooks
+    prompt: "use the rules skill to suggest when I use a rule over a hook"
+    should_trigger: true
+
+  - id: explain-rules
+    prompt: "how do rules work in Claude Code"
+    should_trigger: true
+
+  - id: create-hook
+    prompt: "create a hook that runs tests before push"
+    should_trigger: true
+
+  - id: add-hook
+    prompt: "add a hook to block dangerous commands"
+    should_trigger: true
+
+  - id: auto-format-hook
+    prompt: "I want to automatically run prettier after every edit"
+    should_trigger: true
+
+  - id: unrelated-bugfix
+    prompt: "fix the null pointer exception on line 42"
+    should_trigger: false
+
+  - id: unrelated-skill-creation
+    prompt: "create a new skill for managing deployments"
+    should_trigger: false
