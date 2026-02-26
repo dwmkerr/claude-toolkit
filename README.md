@@ -33,7 +33,7 @@ If commands don't appear, enable and restart:
         - [`research`](#research)
         - [`claude-code-memory-and-rules`](#claude-code-memory-and-rules)
         - [`claude-code-hook-development`](#claude-code-hook-development)
-        - [`skill-development`](#skill-development)
+        - [`claude-code-skill-development`](#claude-code-skill-development)
         - [`agent-development`](#agent-development)
         - [`claude-code-slash-commands`](#claude-code-slash-commands)
         - [`claude-code-statusline-development`](#claude-code-statusline-development)
@@ -131,7 +131,7 @@ Example output
 
 See [github.com/dwmkerr/effective-shell](https://github.com/dwmkerr/effective-shell) for some real-world examples (or most of my recently edited open source projects).
 
-#### `skill-development`
+#### `claude-code-skill-development`
 
 > Create a skill for TypeScript development
 
