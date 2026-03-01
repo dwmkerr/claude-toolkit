@@ -31,8 +31,9 @@ If commands don't appear, enable and restart:
         - [`/toolkit:ghpr`](#toolkitghpr)
     - [Skills](#skills)
         - [`research`](#research)
+        - [`claude-code-memory-and-rules`](#claude-code-memory-and-rules)
         - [`claude-code-hook-development`](#claude-code-hook-development)
-        - [`skill-development`](#skill-development)
+        - [`claude-code-skill-development`](#claude-code-skill-development)
         - [`agent-development`](#agent-development)
         - [`claude-code-slash-commands`](#claude-code-slash-commands)
         - [`claude-code-statusline-development`](#claude-code-statusline-development)
@@ -42,6 +43,7 @@ If commands don't appear, enable and restart:
         - [`release-please-development`](#release-please-development)
         - [`claude-code-plugin-development`](#claude-code-plugin-development)
         - [`learn-and-improve`](#learn-and-improve)
+        - [`claude-code-agent-teams`](#claude-code-agent-teams)
     - [Agents](#agents)
         - [`researcher`](#researcher)
 - [The `dwmkerr` Plugin](#the-dwmkerr-plugin)
@@ -105,6 +107,16 @@ And when it does. The browser opens automatically:
 
 **Tip:** "research" is a generic term — Claude may use built-in tools (Explore, WebFetch) instead of this skill. Be explicit: say "use the research skill" or "use the researcher agent" to ensure the structured research workflow is triggered.
 
+#### `claude-code-memory-and-rules`
+
+> Set up CLAUDE.md and rules for my project
+
+- Configures CLAUDE.md files, `.claude/rules/`, and auto memory
+- Guides scope selection (user, project, local, org)
+- Supports path-scoped rules for file-type-specific conventions
+- Covers imports, bootstrapping with `/init`, and the `/memory` command
+- Includes rules vs hooks decision guide
+
 #### `claude-code-hook-development`
 
 > Create a hook that runs tests before git push and requires explicit
@@ -114,13 +126,13 @@ And when it does. The browser opens automatically:
 - Configures hook events in `.claude/settings.json`
 - Supports blocking (exit 2) and non-blocking hooks
 
-Example output 
+Example output
 
 ![Screenshot of a pre-push hook](./docs/claude-code-hook-development/push-confirmation-required.png)
 
 See [github.com/dwmkerr/effective-shell](https://github.com/dwmkerr/effective-shell) for some real-world examples (or most of my recently edited open source projects).
 
-#### `skill-development`
+#### `claude-code-skill-development`
 
 > Create a skill for TypeScript development
 
@@ -211,6 +223,15 @@ After running this example, you'll have a statusline similar to the below:
 - Proposes targeted fixes at the right scope (user, project, or local)
 - Supports permission rules, CLAUDE.md entries, skill/agent tweaks, hook config, and plugin PRs
 - **Self-improving** — every verified fix is recorded back into the skill as an example, so it gets better at diagnosing similar problems over time. Fork the plugin to accumulate your own improvement history
+
+#### `claude-code-agent-teams`
+
+> Create an agent team to review this PR from three different angles
+
+- Coordinates multiple Claude Code instances as a team with shared tasks and messaging
+- Covers team creation, display modes (in-process vs split panes), task assignment, and cleanup
+- Includes decision guide for agent teams vs subagents
+- Best practices for team sizing, task sizing, and avoiding file conflicts
 
 ### Agents
 
