@@ -43,6 +43,7 @@ If commands don't appear, enable and restart:
         - [`release-please-development`](#release-please-development)
         - [`claude-code-plugin-development`](#claude-code-plugin-development)
         - [`learn-and-improve`](#learn-and-improve)
+        - [`claude-code-agent-teams`](#claude-code-agent-teams)
     - [Agents](#agents)
         - [`researcher`](#researcher)
 - [The `dwmkerr` Plugin](#the-dwmkerr-plugin)
@@ -222,6 +223,15 @@ After running this example, you'll have a statusline similar to the below:
 - Proposes targeted fixes at the right scope (user, project, or local)
 - Supports permission rules, CLAUDE.md entries, skill/agent tweaks, hook config, and plugin PRs
 - **Self-improving** — every verified fix is recorded back into the skill as an example, so it gets better at diagnosing similar problems over time. Fork the plugin to accumulate your own improvement history
+
+#### `claude-code-agent-teams`
+
+> Create an agent team to review this PR from three different angles
+
+- Coordinates multiple Claude Code instances as a team with shared tasks and messaging
+- Covers team creation, display modes (in-process vs split panes), task assignment, and cleanup
+- Includes decision guide for agent teams vs subagents
+- Best practices for team sizing, task sizing, and avoiding file conflicts
 
 ### Agents
 
