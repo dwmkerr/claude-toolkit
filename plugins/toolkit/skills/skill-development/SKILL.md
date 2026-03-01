@@ -1,6 +1,6 @@
 ---
 name: claude-code-skill-development
-description: This skill should be used when the user asks to "create a skill", "write a skill", "build a skill", or wants to add new capabilities to Claude Code. Use when developing SKILL.md files, organizing skill content, or improving existing skills.
+description: This skill should be used when the user asks to "create a skill", "write a skill", "build a skill", or wants to add new capabilities to Claude Code. Use when developing SKILL.md files, organizing skill content, or improving existing skills. Do NOT use for plugin development (use claude-code-plugin-development), hook creation (use claude-code-hook-development), agent creation (use agent-development), or slash command creation (use claude-code-slash-commands).
 allowed-tools: Read, Grep
 ---
 

@@ -1,0 +1,26 @@
+# Tests that claude-code-plugin-development is invoked for plugin creation tasks,
+# and correctly skipped for skill development or unrelated tasks.
+skill: toolkit:claude-code-plugin-development
+model: haiku
+
+tests:
+  - id: create-plugin
+    prompt: "I want to create a distributable Claude Code plugin package with a plugin.json manifest"
+    should_trigger: true
+
+  - id: bundle-components
+    prompt: "help me bundle my skills and hooks into a Claude Code plugin to share with my team"
+    should_trigger: true
+
+  - id: plugin-marketplace
+    prompt: "how do I publish a Claude Code plugin to a marketplace"
+    should_trigger: true
+
+  - id: unrelated-bugfix
+    prompt: "fix the failing unit test in payment.test.ts"
+    should_trigger: false
+
+  - id: skill-not-plugin
+    prompt: "create a new SKILL.md for generating changelogs"
+    should_trigger: false
+    notes: "Should route to claude-code-skill-development, not plugin-development"

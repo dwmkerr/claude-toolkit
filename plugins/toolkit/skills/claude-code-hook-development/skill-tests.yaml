@@ -1,0 +1,26 @@
+# Tests that claude-code-hook-development is invoked for hook creation tasks,
+# and correctly skipped for rules/memory configuration or unrelated tasks.
+skill: toolkit:claude-code-hook-development
+model: haiku
+
+tests:
+  - id: create-hook
+    prompt: "create a hook that runs tests before I push to git"
+    should_trigger: true
+
+  - id: post-tool-use-hook
+    prompt: "write a PostToolUse hook that automatically runs prettier after every file edit"
+    should_trigger: true
+
+  - id: block-dangerous-commands
+    prompt: "add a hook to block dangerous bash commands like rm -rf"
+    should_trigger: true
+
+  - id: unrelated-bugfix
+    prompt: "fix the null pointer exception in auth.ts"
+    should_trigger: false
+
+  - id: rules-not-hooks
+    prompt: "help me set up CLAUDE.md rules for my TypeScript project"
+    should_trigger: false
+    notes: "Should route to claude-code-memory-and-rules, not hook-development"
