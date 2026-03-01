@@ -15,6 +15,12 @@
       "source": "./plugins/dwmkerr",
       "description": "Personal Claude Code plugin for dwmkerr with repo management and custom workflows",
       "version": "0.1.5-rc8"
+    },
+    {
+      "name": "protocols",
+      "source": "./plugins/protocols",
+      "description": "Structured protocols for feature exploration and development workflows",
+      "version": "0.1.0"
     }
   ]
 }
