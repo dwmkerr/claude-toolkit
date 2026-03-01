@@ -1,0 +1,38 @@
+# Tests that claude-code-agent-teams is invoked for multi-agent team
+# coordination, and correctly skipped for subagents and unrelated tasks.
+skill: toolkit:claude-code-agent-teams
+model: haiku
+
+tests:
+  - id: create-agent-team
+    prompt: "create an agent team to review this PR from different angles"
+    should_trigger: true
+
+  - id: multi-agent-coordination
+    prompt: "I want to coordinate multiple Claude sessions working together"
+    should_trigger: true
+
+  - id: parallel-teammates
+    prompt: "spawn teammates to investigate this bug with competing hypotheses"
+    should_trigger: true
+
+  - id: how-to-use-teams
+    prompt: "how do I use agent teams in Claude Code"
+    should_trigger: true
+
+  - id: team-display-mode
+    prompt: "how do I set up split panes for my agent team"
+    should_trigger: true
+
+  - id: subagent-not-team
+    prompt: "create a subagent to search for files"
+    should_trigger: false
+    notes: "Subagents are different from agent teams"
+
+  - id: unrelated-hook
+    prompt: "create a hook that runs linting after file edits"
+    should_trigger: false
+
+  - id: unrelated-bugfix
+    prompt: "fix the TypeError in the login component"
+    should_trigger: false
