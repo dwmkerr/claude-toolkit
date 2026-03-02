@@ -47,6 +47,8 @@ If commands don't appear, enable and restart:
     - [Agents](#agents)
         - [`researcher`](#researcher)
 - [The `dwmkerr` Plugin](#the-dwmkerr-plugin)
+    - [Commands](#commands-1)
+        - [`/dwmkerr:next`](#dwmkerrnext)
     - [Skills](#skills-1)
         - [`my-repos`](#my-repos)
         - [`project-setup`](#project-setup)
@@ -250,6 +252,17 @@ Opinionated plugin with my personal workflows and conventions. You're welcome to
 ```
 /plugin install dwmkerr@claude-toolkit
 ```
+
+### Commands
+
+#### `/dwmkerr:next`
+
+> What should I work on next?
+
+- Surveys current branch, commits, working tree, tasks.md, ideas.md, and open GitHub issues
+- Detects development frameworks (Obra Superpowers, OpenSpec) and includes active plan steps
+- Presents up to 5 prioritized next actions with source tags
+- With arguments like "done" or "finished", switches to wrap-up mode: summarizes session, offers to create PR, update tasks/ideas
 
 ### Skills
 
