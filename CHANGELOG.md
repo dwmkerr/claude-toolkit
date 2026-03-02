@@ -1,5 +1,29 @@
 # Changelog
 
+## [0.1.6](https://github.com/dwmkerr/claude-toolkit/compare/v0.1.5...v0.1.6) (2026-03-02)
+
+
+### Features
+
+* add /next command to dwmkerr plugin ([#48](https://github.com/dwmkerr/claude-toolkit/issues/48)) ([7d3f214](https://github.com/dwmkerr/claude-toolkit/commit/7d3f214207af32af647d13d98604070cdfda6d9d))
+* add agent-teams skill and slides theme support ([#46](https://github.com/dwmkerr/claude-toolkit/issues/46)) ([c9b19ed](https://github.com/dwmkerr/claude-toolkit/commit/c9b19ed3b69063412c83afd40378b84e1ec55ddb))
+* add Claude Code GitHub Action workflow ([0e395fe](https://github.com/dwmkerr/claude-toolkit/commit/0e395fe1ea9ce2256a3b1ccf5327b36afdea405c))
+* add dwmkerr:slides skill ([#39](https://github.com/dwmkerr/claude-toolkit/issues/39)) ([b37cfb2](https://github.com/dwmkerr/claude-toolkit/commit/b37cfb2313fd55829e6d69b2b06afe3a3cf3ff8e))
+* add exploration protocol plugin ([#38](https://github.com/dwmkerr/claude-toolkit/issues/38)) ([f746d35](https://github.com/dwmkerr/claude-toolkit/commit/f746d35a893d061e48371b889c19983ab482d3bf))
+* add learn-and-improve skill ([#33](https://github.com/dwmkerr/claude-toolkit/issues/33)) ([fa8e2ae](https://github.com/dwmkerr/claude-toolkit/commit/fa8e2aefecf29a9916105d0d559bc193bf06c707))
+* add makefile-development skill ([#37](https://github.com/dwmkerr/claude-toolkit/issues/37)) ([32648e3](https://github.com/dwmkerr/claude-toolkit/commit/32648e3e1d6344cdd0d85013c525653c50a428dc))
+* add skill routing tests ([#34](https://github.com/dwmkerr/claude-toolkit/issues/34)) ([655efe5](https://github.com/dwmkerr/claude-toolkit/commit/655efe52ce3bb84540af0172c56850d95318e8fe))
+* merge memory and hooks into claude-code-memory-and-hooks skill ([#42](https://github.com/dwmkerr/claude-toolkit/issues/42)) ([6b2b3f0](https://github.com/dwmkerr/claude-toolkit/commit/6b2b3f03a355ff603dd260ad8d657d02425c3b36))
+
+
+### Bug Fixes
+
+* improve research skill routing with explicit trigger guidance ([#41](https://github.com/dwmkerr/claude-toolkit/issues/41)) ([22af01e](https://github.com/dwmkerr/claude-toolkit/commit/22af01e9470142950436fc8310c41bf9e01e1fea))
+* **project-setup:** set org-level workflow permissions before repo-level ([#47](https://github.com/dwmkerr/claude-toolkit/issues/47)) ([d080923](https://github.com/dwmkerr/claude-toolkit/commit/d080923afd52c033b191fd2d6a296b8b4d569a74))
+* register protocols plugin in marketplace ([3108a72](https://github.com/dwmkerr/claude-toolkit/commit/3108a72d97d26706e4e9ca1bf117eebe70b5a9b0))
+* rename skill-development to claude-code-skill-development ([#45](https://github.com/dwmkerr/claude-toolkit/issues/45)) ([b423c96](https://github.com/dwmkerr/claude-toolkit/commit/b423c96858fb9d9629490623216fec85fc3b3342)), closes [#44](https://github.com/dwmkerr/claude-toolkit/issues/44)
+* use glob for skill test CI and add test comments ([#40](https://github.com/dwmkerr/claude-toolkit/issues/40)) ([0d91796](https://github.com/dwmkerr/claude-toolkit/commit/0d917969eaf8d2f1c2454d140e8c4ff81726f035))
+
 ## [0.1.5](https://github.com/dwmkerr/claude-toolkit/compare/v0.1.4...v0.1.5) (2026-02-24)
 
 
