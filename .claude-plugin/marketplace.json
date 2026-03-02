@@ -8,13 +8,13 @@
       "name": "toolkit",
       "source": "./plugins/toolkit",
       "description": "General purpose Claude Code toolkit with research agents, skills, and introspection commands",
-      "version": "0.1.5-rc8"
+      "version": "0.1.6"
     },
     {
       "name": "dwmkerr",
       "source": "./plugins/dwmkerr",
       "description": "Personal Claude Code plugin for dwmkerr with repo management and custom workflows",
-      "version": "0.1.5-rc8"
+      "version": "0.1.6"
     },
     {
       "name": "protocols",
