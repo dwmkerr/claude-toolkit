@@ -46,6 +46,14 @@ gh api repos/dwmkerr/<repo-name> \
   --method PATCH \
   --field allow_auto_merge=true
 
+# For org repos, workflow write permissions must be enabled at the org level
+# first, otherwise the repo-level call below will fail with a 409 Conflict.
+# For personal repos this call will 404 harmlessly.
+gh api orgs/dwmkerr/actions/permissions/workflow \
+  --method PUT \
+  --field can_approve_pull_request_reviews=true \
+  --field default_workflow_permissions=write 2>/dev/null || true
+
 gh api repos/dwmkerr/<repo-name>/actions/permissions/workflow \
   --method PUT \
   --field can_approve_pull_request_reviews=true \

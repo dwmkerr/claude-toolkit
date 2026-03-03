@@ -1,0 +1,83 @@
+/*
+ * qblabs Slidev theme
+ *
+ * Colors and typography from publicly available QuantumBlack materials:
+ * - quantumblack.com (redirects to mckinsey.com/capabilities/quantumblack)
+ * - github.com/mckinsey/qbstyles (matplotlib theme, dark bg #0C1C23)
+ * - brandfetch.com/mckinsey.com (public brand colors)
+ *
+ * Fonts: Bower/McKinsey Sans are not publicly licensed.
+ * Georgia (serif, headings) and Arial (sans, body) are the standard
+ * PowerPoint substitutes used in public QB presentations.
+ */
+
+:root {
+  /* Primary */
+  --qb-navy: #051C2C;
+  --qb-blue: #2251FF;
+
+  /* Backgrounds */
+  --qb-dark-bg: #0C1C23;
+  --qb-white: #FFFFFF;
+
+  /* Text */
+  --qb-text-dark: #222222;
+  --qb-text-light: #FFFFFF;
+  --qb-text-secondary: #A2AAAD;
+
+  /* Greys */
+  --qb-grey-500: #424242;
+  --qb-grey-300: #636363;
+  --qb-grey-100: #A2AAAD;
+
+  /* Slidev overrides */
+  --slidev-theme-primary: var(--qb-blue);
+  --slidev-theme-accents-vulcan: var(--qb-navy);
+}
+
+/* Base typography */
+.slidev-layout {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.slidev-layout h1,
+.slidev-layout h2,
+.slidev-layout h3,
+.slidev-layout h4 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+}
+
+.slidev-layout h1 {
+  font-size: 2rem;
+  line-height: 1.25;
+}
+
+.slidev-layout h2 {
+  font-size: 1.5rem;
+  line-height: 1.33;
+}
+
+.slidev-layout h3 {
+  font-size: 1.25rem;
+  line-height: 1.4;
+}
+
+/* Code blocks */
+.slidev-layout code {
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas,
+    Liberation Mono, monospace;
+}
+
+/* Utility classes */
+.qb-blue { color: var(--qb-blue); }
+.qb-navy { color: var(--qb-navy); }
+.qb-bg-dark { background-color: var(--qb-navy); color: var(--qb-text-light); }
+.qb-bg-light { background-color: var(--qb-white); color: var(--qb-text-dark); }
+.qb-accent-bar {
+  width: 60px;
+  height: 4px;
+  background-color: var(--qb-blue);
+}

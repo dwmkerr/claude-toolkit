@@ -176,11 +176,51 @@ When asked to edit slides:
 2. Make targeted edits — don't regenerate the whole deck
 3. Suggest `make slides` to preview changes
 
+## Themes
+
+By default, use `theme: default` in frontmatter. Do NOT suggest or apply custom themes unless the user specifically asks about available themes.
+
+Custom themes are local Slidev theme folders stored in this skill at `themes/<name>/`. To apply one, copy the theme folder into the slides directory and set `theme: ./<name>` in frontmatter.
+
+### Available Themes
+
+#### qblabs
+
+Style inspired by QuantumBlack's publicly available visual identity. All colors, fonts, and design patterns sourced exclusively from public materials:
+
+- [quantumblack.com](https://quantumblack.com) — public website (redirects to mckinsey.com/capabilities/quantumblack)
+- [github.com/mckinsey/qbstyles](https://github.com/mckinsey/qbstyles) — matplotlib theme, dark bg `#0C1C23`
+- [brandfetch.com/mckinsey.com](https://brandfetch.com/mckinsey.com) — public brand colors
+
+**Setup**: Copy `themes/qblabs/` into the slides directory, then:
+
+```markdown
+---
+theme: ./qblabs
+title: "Deck Title"
+---
+```
+
+**Layouts**:
+- `cover` — dark navy background, blue accent bar, centered title
+- `default` — clean white background, blue underline on h1
+- `section` — dark navy section divider with blue accent
+
+**Key colors** (from public QB website/branding):
+- `#051C2C` — Dark navy (hero/section backgrounds)
+- `#2251FF` — Electric blue (accent, links, CTAs)
+- `#222222` — Body text (on light backgrounds)
+- `#A2AAAD` — Secondary text (medium grey)
+
+**Fonts**: Georgia (serif, headings) and Arial (sans, body) — standard PowerPoint substitutes for Bower and McKinsey Sans which are not publicly licensed.
+
+**Utility classes**: `.qb-blue`, `.qb-navy`, `.qb-bg-dark`, `.qb-bg-light`, `.qb-accent-bar`
+
 ## Example Interactions
 
 **User**: "Add slides to this project"
 1. Ask where to keep them (suggest `./slides`)
-2. Scaffold folder with starter deck
+2. Scaffold folder with `theme: default`
 3. Run `npm install`
 4. Tell user: `cd slides && make slides` to open in browser
 
@@ -195,3 +235,8 @@ When asked to edit slides:
 1. Read `slides.md`
 2. Add new slide section with `---` delimiter
 3. Suggest `make slides` to preview
+
+**User**: "What themes are available?" or "Use the qblabs theme"
+1. List available themes from the Themes section above
+2. If user picks one, copy the theme folder into the slides directory
+3. Update frontmatter to `theme: ./<name>`

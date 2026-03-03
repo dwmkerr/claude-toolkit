@@ -43,9 +43,12 @@ If commands don't appear, enable and restart:
         - [`release-please-development`](#release-please-development)
         - [`claude-code-plugin-development`](#claude-code-plugin-development)
         - [`learn-and-improve`](#learn-and-improve)
+        - [`claude-code-agent-teams`](#claude-code-agent-teams)
     - [Agents](#agents)
         - [`researcher`](#researcher)
 - [The `dwmkerr` Plugin](#the-dwmkerr-plugin)
+    - [Commands](#commands-1)
+        - [`/dwmkerr:next`](#dwmkerrnext)
     - [Skills](#skills-1)
         - [`my-repos`](#my-repos)
         - [`project-setup`](#project-setup)
@@ -223,6 +226,15 @@ After running this example, you'll have a statusline similar to the below:
 - Supports permission rules, CLAUDE.md entries, skill/agent tweaks, hook config, and plugin PRs
 - **Self-improving** — every verified fix is recorded back into the skill as an example, so it gets better at diagnosing similar problems over time. Fork the plugin to accumulate your own improvement history
 
+#### `claude-code-agent-teams`
+
+> Create an agent team to review this PR from three different angles
+
+- Coordinates multiple Claude Code instances as a team with shared tasks and messaging
+- Covers team creation, display modes (in-process vs split panes), task assignment, and cleanup
+- Includes decision guide for agent teams vs subagents
+- Best practices for team sizing, task sizing, and avoiding file conflicts
+
 ### Agents
 
 #### `researcher`
@@ -240,6 +252,17 @@ Opinionated plugin with my personal workflows and conventions. You're welcome to
 ```
 /plugin install dwmkerr@claude-toolkit
 ```
+
+### Commands
+
+#### `/dwmkerr:next`
+
+> What should I work on next?
+
+- Surveys current branch, commits, working tree, tasks.md, ideas.md, and open GitHub issues
+- Detects development frameworks (Obra Superpowers, OpenSpec) and includes active plan steps
+- Presents up to 5 prioritized next actions with source tags
+- With arguments like "done" or "finished", switches to wrap-up mode: summarizes session, offers to create PR, update tasks/ideas
 
 ### Skills
 
