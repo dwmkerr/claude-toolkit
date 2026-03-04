@@ -33,7 +33,7 @@ tests:
     should_trigger: true
 
   - id: hook-not-rules
-    prompt: "create a hook that runs tests before push"
+    prompt: "write a PostToolUse hook script that automatically runs prettier after every file edit"
     should_trigger: false
     notes: "Should route to claude-code-hook-development, not memory-and-rules"
 

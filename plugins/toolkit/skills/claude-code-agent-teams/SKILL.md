@@ -1,6 +1,6 @@
 ---
 name: claude-code-agent-teams
-description: This skill should be used when the user asks to "create an agent team", "run a multi-agent team", "coordinate multiple Claude sessions", "use agent teams", or wants to parallelize work across multiple Claude Code instances.
+description: This skill should be used when the user asks to "create an agent team", "run a multi-agent team", "coordinate multiple Claude sessions", "use agent teams", "spawn teammates", "run Claude instances in parallel", or wants to parallelize work across multiple Claude Code instances.
 allowed-tools: Read, Grep
 ---
 

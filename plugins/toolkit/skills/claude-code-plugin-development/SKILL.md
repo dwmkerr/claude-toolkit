@@ -1,6 +1,6 @@
 ---
 name: claude-code-plugin-development
-description: This skill should be used when the user asks to "create a plugin", "build a plugin", "write a plugin", or wants to bundle agents, hooks, commands, skills, or MCP servers into a distributable Claude Code plugin.
+description: This skill should be used when the user asks to "create a plugin", "build a plugin", "write a plugin", "publish a plugin", "distribute a Claude Code plugin", "share a plugin on a marketplace", or wants to bundle agents, hooks, commands, skills, or MCP servers into a distributable Claude Code plugin.
 allowed-tools: Read, Grep
 ---
 

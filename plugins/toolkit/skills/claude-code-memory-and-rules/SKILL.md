@@ -1,6 +1,6 @@
 ---
 name: claude-code-memory-and-rules
-description: This skill should be used when the user asks to "set up memory", "configure CLAUDE.md", "add rules", "create project rules", "organize instructions", or mentions Claude Code memory, CLAUDE.md files, .claude/rules, rules, or project instructions. Also use when the user wants to persist preferences, add coding conventions, scope instructions to specific files, or understand when to use rules vs hooks or other memory mechanisms.
+description: This skill should be used when the user asks to "set up memory", "configure CLAUDE.md", "add rules", "create project rules", "organize instructions", "how does auto memory work", or mentions Claude Code memory, auto memory, automatic memory, CLAUDE.md files, .claude/rules, rules, or project instructions. Also use when the user wants to persist preferences, add coding conventions, scope instructions to specific files, or understand when to use rules vs hooks or other memory mechanisms.
 allowed-tools: Read, Grep
 ---
 
