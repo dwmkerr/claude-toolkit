@@ -1,6 +1,6 @@
 ---
 name: makefile-development
-description: This skill should be used when the user asks to "create a Makefile", "write a Makefile", "add a make target", or mentions Makefile conventions.
+description: This skill should be used when the user asks to "create a Makefile", "write a Makefile", "add a make target", "add a target to my Makefile", "add a lint target", "modify my Makefile", "update my Makefile", or mentions Makefile conventions.
 ---
 
 # Makefile Development

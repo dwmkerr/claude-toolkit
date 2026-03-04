@@ -1,6 +1,6 @@
 ---
 name: exploration-protocol-orchestrator
-description: Orchestrates feature exploration through structured task folders with verifiable prototypes.
+description: Use to "explore a feature", "start an exploration protocol", "use the exploration protocol", or "start an exploration protocol task". Orchestrates feature exploration through structured task folders with verifiable prototypes.
 model: opus
 color: purple
 skills: exploration-protocol
