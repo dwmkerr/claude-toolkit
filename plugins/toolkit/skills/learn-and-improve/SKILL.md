@@ -70,6 +70,8 @@ Common root causes and their fixes — see [Improvement Types](./references/impr
 
 ### Step 4: Propose Improvements
 
+In addition to fixing the reported issue, review the session for commands that were prompted for permission but are read-only and side-effect free (e.g., `ls`, `gh pr view`, `git log`). Suggest permanently allowing these — at user level for read-only commands, project level for write commands. See [Improvement Types](./references/improvement-types.md) for examples.
+
 For each proposed improvement, present:
 
 1. **What to change** — the specific file and content
