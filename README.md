@@ -223,6 +223,7 @@ After running this example, you'll have a statusline similar to the below:
 - Analyzes conversation history for friction (permission prompts, missed skills, agent failures)
 - Searches settings, CLAUDE.md, plugins, hooks, and MCP config
 - Proposes targeted fixes at the right scope (user, project, or local)
+- Proactively suggests permanently allowing safe read-only commands observed in the session (e.g., `ls`, `gh pr view`, `git log`) at user level
 - Supports permission rules, CLAUDE.md entries, skill/agent tweaks, hook config, and plugin PRs
 - **Self-improving** — every verified fix is recorded back into the skill as an example, so it gets better at diagnosing similar problems over time. Fork the plugin to accumulate your own improvement history
 

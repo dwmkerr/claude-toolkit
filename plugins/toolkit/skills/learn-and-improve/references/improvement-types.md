@@ -38,6 +38,17 @@ Full catalog of configuration levers for resolving common friction points.
 | "Allow running tests" | `Bash(npm test)`, `Bash(pytest *)` |
 | "Allow make targets" | `Bash(make *)` |
 
+**Proactively suggest safe permissions:**
+
+When reviewing session history, look for commands that were prompted for permission and consider whether they are read-only (no side effects). If so, suggest the user permanently allows them. Suggest user-level (`~/.claude/settings.json`) for read-only commands and project-level for write commands.
+
+Examples of safe read-only commands to suggest:
+- `Bash(ls *)` — listing files
+- `Bash(gh pr view *)` — viewing GitHub PRs, issues, runs
+- `Bash(git log *)` — inspecting git history
+
+Always base suggestions on actual friction observed in the session, not a fixed list.
+
 ## 2. CLAUDE.md Instructions
 
 **Scope hierarchy (most specific wins):**
