@@ -1,0 +1,23 @@
+skill: toolkit:claude-code-plugin-development
+model: haiku
+
+tests:
+  - id: create-plugin
+    prompt: "I want to create a Claude Code plugin with a plugin.json manifest"
+    should_trigger: true
+
+  - id: build-distributable-plugin
+    prompt: "help me build a distributable plugin that bundles my skills and commands"
+    should_trigger: true
+
+  - id: plugin-structure
+    prompt: "how do I structure a Claude Code plugin for my team"
+    should_trigger: true
+
+  - id: unrelated-bugfix
+    prompt: "fix the failing unit test in my project"
+    should_trigger: false
+
+  - id: skill-not-plugin
+    prompt: "write a skill for generating changelogs"
+    should_trigger: false
