@@ -52,6 +52,7 @@ If commands don't appear, enable and restart:
     - [Skills](#skills-1)
         - [`my-repos`](#my-repos)
         - [`project-setup`](#project-setup)
+        - [`drawio-diagram`](#drawio-diagram)
 - [Developer Guide](#developer-guide)
     - [Local Development](#local-development)
 - [Further Reading](#further-reading)
@@ -288,6 +289,17 @@ Opinionated plugin with my personal workflows and conventions. You're welcome to
 This skill runs as a subagent (`context: fork`) as only the final output is needed for the current agent.
 
 ![Screenshot of the Project Setup skill](./docs/project-setup/project-setup-skill-screenshot.png)
+
+#### `drawio-diagram`
+
+> Create a drawio architecture diagram of this system
+
+- Generates `.drawio` files with consistent visual style (color-coded element types, orthogonal edges, legend)
+- Element types: Container (blue), Capability (green), External (grey), Tech Preview (purple), Process (orange), Use Case (yellow), Outcome (dark green)
+- Exports to PNG/SVG/PDF via draw.io CLI
+- Self-contained HTML export for sharing without draw.io installed
+
+<img src="./docs/drawio-diagram/reference-diagram.png" width="600" />
 
 ## Developer Guide
 
