@@ -1,0 +1,31 @@
+skill: dwmkerr:drawio-diagram
+model: haiku
+
+tests:
+  - id: create-architecture-diagram
+    prompt: "Create a drawio architecture diagram for this project"
+    should_trigger: true
+
+  - id: build-system-diagram
+    prompt: "Build a detailed system diagram showing all the components"
+    should_trigger: true
+
+  - id: draw-drawio
+    prompt: "Draw a drawio diagram of the microservices architecture"
+    should_trigger: true
+
+  - id: export-diagram-html
+    prompt: "Generate an architecture diagram and export it as HTML"
+    should_trigger: true
+
+  - id: negative-mermaid
+    prompt: "Create a mermaid diagram of the database schema"
+    should_trigger: false
+
+  - id: negative-slides
+    prompt: "Create a slide deck for the project overview"
+    should_trigger: false
+
+  - id: negative-code-review
+    prompt: "Review this pull request for code quality issues"
+    should_trigger: false
