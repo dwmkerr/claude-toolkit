@@ -139,6 +139,6 @@ For the full catalog of improvement types and examples, see:
 - [Improvement Types](./references/improvement-types.md) — all configuration levers with examples
 - [Diagnostic Checklist](./references/diagnostic-checklist.md) — systematic investigation steps
 
-## Useful Links
+## References
 
 - [agents.md outperforms skills in agent evals](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals) — Vercel research showing that CLAUDE.md-style agent instructions outperform skill-based routing in evaluations
