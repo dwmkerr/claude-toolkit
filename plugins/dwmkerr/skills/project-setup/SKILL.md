@@ -137,10 +137,49 @@ my-awesome-tool init
 \`\`\`
 ```
 
-### 6. Initial Commit
+### 6. Set Up Release Please (Optional)
+
+Release Please automates version bumps and changelogs from conventional commits. Skip this step if the project doesn't need automated releases.
+
+Create `release-please-config.json`. Adjust `release-type` to match the project (common values: `node`, `python`, `go`, `simple`):
+
+```json
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "include-component-in-tag": false,
+  "packages": {
+    ".": {
+      "release-type": "node",
+      "bump-minor-pre-major": true,
+      "bump-patch-for-minor-pre-major": true
+    }
+  }
+}
+```
+
+Create `.release-please-manifest.json`:
+
+```json
+{
+  ".": "0.1.0"
+}
+```
+
+**Version strategy for pre-1.0 projects:**
+
+- `bump-minor-pre-major: true` — breaking changes bump minor (0.1.x → 0.2.0), not major
+- `bump-patch-for-minor-pre-major: true` — `feat:` commits bump patch (0.1.0 → 0.1.1), not minor
+
+Both flags are required to stay in the 0.1.x line. Without `bump-patch-for-minor-pre-major`, every `feat:` commit bumps the minor version (0.1 → 0.2 → 0.3), which burns through version numbers before the project is stable.
+
+If the project has a version file (e.g. `package.json`), set its version to `0.1.0` to match the manifest.
+
+### 7. Initial Commit
 
 ```bash
 git add LICENSE README.md
+# Include release-please files only if step 6 was done
+git add release-please-config.json .release-please-manifest.json 2>/dev/null || true
 git commit -m "chore: initial project setup"
 git push -u origin main
 ```

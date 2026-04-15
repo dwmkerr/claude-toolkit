@@ -168,6 +168,14 @@ Big statement.
 - `cover` — title/cover slide
 - `section` — section divider
 
+## Styling
+
+Keep `slides.md` readable. Prefer built-in layouts and theme classes before writing custom CSS. Add styles selectively — not preemptively.
+
+**Content first, styling after.** When a slide does need a `<style>` or `<style scoped>` block, put it at the *bottom* of the slide, just above the closing `---`. Slidev parses the whole slide regardless of position, so pushing CSS below the content means a reader opening `slides.md` sees the actual content first — if they then scroll past some styling, so be it.
+
+If a pattern is reused across many slides (typography, card layouts, shared tables), promote it to the theme under `themes/<name>/styles/` instead of repeating it inline.
+
 ## Revision
 
 When asked to edit slides:
