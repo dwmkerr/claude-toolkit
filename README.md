@@ -53,6 +53,7 @@ If commands don't appear, enable and restart:
         - [`my-repos`](#my-repos)
         - [`project-setup`](#project-setup)
         - [`drawio-diagram`](#drawio-diagram)
+        - [`slides`](#slides)
 - [Developer Guide](#developer-guide)
     - [Local Development](#local-development)
 - [Further Reading](#further-reading)
@@ -289,6 +290,15 @@ Opinionated plugin with my personal workflows and conventions. You're welcome to
 This skill runs as a subagent (`context: fork`) as only the final output is needed for the current agent.
 
 ![Screenshot of the Project Setup skill](./docs/project-setup/project-setup-skill-screenshot.png)
+
+#### `slides`
+
+> Create slides for this project
+
+- Scaffolds a [Slidev](https://sli.dev) markdown presentation in a `./slides/` folder
+- Generates title and content slides from README or user prompt
+- Includes `Makefile` targets for dev server, build, and PDF export
+- Supports custom themes (includes `qblabs` theme inspired by QuantumBlack's public visual identity)
 
 #### `drawio-diagram`
 
