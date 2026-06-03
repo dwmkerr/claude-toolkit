@@ -1,0 +1,200 @@
+<!doctype html>
+<!--
+  notes.html - BAKED TELEPROMPTER SHEET.
+
+  This is the standalone speaker-notes view. Big readable text, dark or light
+  theme, font-size buttons, works offline via file:// on a phone or second
+  screen.
+
+  The shell (CSS, controls bar, theme/font-scale JS) does not change. Only the
+  `<div id="list">` block of entries is regenerated.
+
+  Regeneration source: presentation.md.
+
+  Process to regenerate:
+    1. Parse `##` and `###` headings from presentation.md in document order
+       (skip top-level `#` headings; those are scaffolding, not slides).
+    2. Pair each slide by index with a slide in presentation.html using its
+       `data-name` attribute. The label shown next to the entry is the
+       data-name.
+    3. Extract speaker notes for each slide: everything between the `---`
+       separator and the next `##`/`###` heading, including the trailing
+       `*Clock: X:XX*` line.
+    4. Rewrite the entries inside `<div id="list">` below. Each entry is:
+         <div class="entry">
+           <div class="label"><span class="num">N</span><span>data-name</span></div>
+           <div class="notes">notes prose</div>
+         </div>
+       (Add `class="entry empty"` if a slide has no notes.)
+    5. Update the status line: "X slides &middot; Y with notes". A slide counts
+       as "with notes" if its prose has at least 10 words and is not a
+       placeholder.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Speaker Notes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0c0e12;
+    --card: #16191f;
+    --ink: #fbfaf6;
+    --ink-soft: #c8c5ba;
+    --muted: #8a8578;
+    --rule: #2c313a;
+    --accent: #5e8a9c;
+    --notes-scale: 1;
+  }
+  /* Light-theme overrides */
+  body.light {
+    --bg: #fbfaf6;
+    --card: #ffffff;
+    --ink: #16191f;
+    --ink-soft: #3a3f48;
+    --muted: #6b6a62;
+    --rule: #e2ded2;
+    --accent: #3f6b7d;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-feature-settings: "ss01","cv11";
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* Sticky controls bar */
+  .bar {
+    position: sticky; top: 0; z-index: 10;
+    display: flex; align-items: center; gap: .75rem;
+    padding: .6rem .9rem;
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+  }
+  .bar .title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .72rem; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--muted); margin-right: auto;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .btn {
+    appearance: none; border: 1px solid var(--rule);
+    background: var(--card); color: var(--ink);
+    font-family: 'JetBrains Mono', monospace; font-weight: 700;
+    font-size: 1rem;
+    min-width: 3rem; min-height: 3rem;
+    border-radius: .6rem; cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+    line-height: 1; padding: 0 .6rem;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn:active { transform: scale(.96); }
+  .btn.small { font-size: .8rem; }
+
+  main {
+    max-width: 44rem;
+    margin: 0 auto;
+    padding: 1.25rem 1.1rem 6rem;
+  }
+
+  .status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .8rem; color: var(--muted);
+    padding: 2rem .2rem;
+  }
+
+  .entry {
+    padding: 1.6rem 0 1.8rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  .entry:last-child { border-bottom: none; }
+
+  .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .8rem; font-weight: 500;
+    letter-spacing: .1em; text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: .7rem;
+    display: flex; align-items: baseline; gap: .6rem;
+  }
+  .label .num {
+    color: var(--muted);
+    font-weight: 700;
+  }
+
+  .notes {
+    font-size: calc(1.65rem * var(--notes-scale));
+    line-height: 1.5;
+    color: var(--ink);
+    font-weight: 400;
+    white-space: pre-wrap;
+  }
+
+  .entry.empty .notes {
+    color: var(--muted);
+    font-style: italic;
+    opacity: .55;
+    font-size: calc(1.15rem * var(--notes-scale));
+  }
+  .entry.empty .label { color: var(--muted); }
+
+  /* Wider screens: slightly smaller base, comfortable column width */
+  @media (min-width: 700px) {
+    .notes { font-size: calc(1.5rem * var(--notes-scale)); }
+  }
+</style>
+</head>
+<body>
+  <div class="bar">
+    <span class="title">Speaker Notes</span>
+    <button class="btn small" id="theme" title="Toggle light / dark">&#9788;</button>
+    <button class="btn" id="dec" title="Smaller text">A&#8722;</button>
+    <button class="btn" id="inc" title="Larger text">A&#43;</button>
+  </div>
+
+  <main>
+    <div class="status" id="status">0 slides &middot; 0 with notes</div>
+    <div id="list">
+    <!-- TEMPLATE NOTE: Regenerate entries below from presentation.md.
+         One <div class="entry"> per slide. See instructions at the top. -->
+    <div class="entry empty">
+      <div class="label"><span class="num">1</span><span>title</span></div>
+      <div class="notes">(notes will be generated from presentation.md)</div>
+    </div>
+    </div>
+  </main>
+
+  <script>
+    // Font scale (persisted across sessions on the same device).
+    const SCALE_KEY = 'notes.scale';
+    let scale = parseFloat(localStorage.getItem(SCALE_KEY) || '1') || 1;
+    function applyScale() {
+      scale = Math.min(2.5, Math.max(0.6, scale));
+      document.documentElement.style.setProperty('--notes-scale', scale.toFixed(2));
+      localStorage.setItem(SCALE_KEY, scale.toFixed(2));
+    }
+    applyScale();
+    document.getElementById('inc').addEventListener('click', () => { scale += 0.12; applyScale(); });
+    document.getElementById('dec').addEventListener('click', () => { scale -= 0.12; applyScale(); });
+
+    // Theme (persisted).
+    const THEME_KEY = 'notes.theme';
+    function applyTheme(t) {
+      document.body.classList.toggle('light', t === 'light');
+      localStorage.setItem(THEME_KEY, t);
+    }
+    applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
+    document.getElementById('theme').addEventListener('click', () => {
+      applyTheme(document.body.classList.contains('light') ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>
