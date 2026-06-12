@@ -1,0 +1,518 @@
+<!doctype html>
+<!--
+  CONFERENCE DECK TEMPLATE
+  ------------------------
+  Hand-built HTML conference deck. No framework, no build step.
+
+  Editing model:
+    - This file is the deck. Edit `<section class="slide ...">` blocks directly.
+    - `presentation.md` is the single source of truth for SPEAKER NOTES.
+    - `notes.html` is the baked teleprompter sheet, regenerated FROM presentation.md.
+
+  Navigation (keyboard):
+    Right / Space / PageDown   Next slide (reveals fragments first on reveal slides)
+    Left  / PageUp              Previous slide (un-reveals fragments first)
+    Up                          Show speaker-notes overlay
+    Down                        Hide speaker-notes overlay
+    F                           Toggle fullscreen
+    Home / End                  First / last slide
+
+  Colour convention (apply consistently):
+    Red    #e8503a   bad / dysregulating / warning
+    Green  #6bbf73   good / regulating / managing
+    Blue   #4c8dd6   accent / anchored
+    Yellow #f2c94c   support / highlight
+
+  Copy conventions:
+    - No em-dashes. Use a regular hyphen.
+    - No full stops at the end of slide leads / headings.
+    - One central heading + subtext + optional image per slide. Whitespace-led.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Conference Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #16191f;          /* near-black slide */
+    --ink: #fbfaf6;         /* ivory text */
+    --ink-soft: #c8c5ba;    /* softer ivory */
+    --rule: #2c313a;
+    --accent: #5e8a9c;      /* slate */
+    --warm: #d99161;        /* warm rust */
+    --muted: #8a8578;
+    /* Convention palette - reference in slides via inline color or utility classes */
+    --bad: #e8503a;
+    --good: #6bbf73;
+    --info: #4c8dd6;
+    --highlight: #f2c94c;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; background: #0c0e12; overflow: hidden;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-feature-settings: "ss01","cv11";
+  }
+
+  .stage { position: relative; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
+
+  /* 16:9 slide locked to viewport */
+  .slide {
+    position: absolute;
+    aspect-ratio: 16 / 9;
+    width: min(96vw, 170vh);
+    background: var(--bg);
+    color: var(--ink);
+    box-shadow: 0 30px 80px rgba(0,0,0,.5);
+    display: none;
+    overflow: hidden;
+  }
+  .slide.active { display: flex; }
+
+  .pad {
+    width: 100%; height: 100%;
+    padding: 6% 7%;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative;
+  }
+
+  /* Chrome: page number, eyebrow label, footer */
+  .pageno {
+    position: fixed; right: 24px; bottom: 18px;
+    font: 500 13px 'JetBrains Mono', monospace;
+    color: #6f6b5f; letter-spacing: .05em; z-index: 50;
+  }
+  .label-in {
+    font: 500 11px 'JetBrains Mono', monospace;
+    color: var(--muted); letter-spacing: .18em; text-transform: uppercase;
+    margin-bottom: 26px;
+  }
+
+  /* === TITLE === */
+  .title .pad { justify-content: center; align-items: flex-start; }
+  .title h1 {
+    font: 800 clamp(40px, 6.2vw, 84px)/1.02 'Inter', sans-serif;
+    letter-spacing: -.035em;
+    margin: 0 0 30px;
+    max-width: 16ch;
+  }
+  .title .meta {
+    position: absolute; bottom: 7%; left: 7%;
+    font: 500 13px 'JetBrains Mono', monospace;
+    color: var(--muted); letter-spacing: .08em;
+  }
+  .title .meta a { color: var(--muted); text-decoration: none; }
+  .title .meta a:hover { color: var(--ink-soft); }
+
+  /* Title-with-artwork split: title left, image right */
+  .title.split .pad { flex-direction: row; align-items: center; gap: 6%; }
+  .title.split .lead { flex: 0 0 34%; }
+  .title.split .art { flex: 1; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+  .title.split .frame {
+    position: relative; width: 100%; max-height: 64vh; aspect-ratio: 4 / 3;
+    border: 1px dashed var(--rule);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .title.split .frame .ph-label {
+    font: 500 11px 'JetBrains Mono', monospace;
+    color: var(--muted); letter-spacing: .14em; text-transform: uppercase;
+    text-align: center; padding: 0 12%;
+  }
+  .title.split .frame img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: contain; display: block;
+  }
+  .title.split .caption {
+    font: 400 11px 'JetBrains Mono', monospace;
+    color: var(--muted); letter-spacing: .03em; text-align: right;
+  }
+  /* Thanks slide QR variant - small square sitting on the right. */
+  .title.split[data-name="thanks"] .frame {
+    width: 25%; max-height: 25vh; aspect-ratio: 1 / 1;
+    align-self: flex-end;
+    border: none;
+  }
+
+  /* === DISCLAIMER === */
+  .disclaimer .pad { justify-content: center; }
+  .disclaimer .label-in { color: var(--warm); margin-bottom: 26px; }
+  .disclaimer h2 {
+    font: 800 clamp(40px, 5.4vw, 72px)/1 'Inter', sans-serif;
+    letter-spacing: -.03em; margin: 0 0 30px;
+  }
+  .disclaimer p {
+    font: 400 clamp(18px, 1.9vw, 26px)/1.5 'Inter', sans-serif;
+    color: var(--ink-soft); max-width: 40ch; margin: 0 0 14px;
+  }
+
+  /* === SECTION PUNCH (slate wash divider) === */
+  .punch { background: linear-gradient(135deg, #2f4b57 0%, #243b45 100%); color: var(--ink); }
+  .punch .pad { justify-content: center; }
+  .punch .chapter {
+    font: 500 12px 'JetBrains Mono', monospace;
+    color: rgba(251,250,246,.5);
+    letter-spacing: .3em; margin-bottom: 28px; text-transform: uppercase;
+  }
+  .punch h2 {
+    font: 900 clamp(56px, 9vw, 130px)/.95 'Inter', sans-serif;
+    letter-spacing: -.045em; margin: 0; color: var(--ink);
+  }
+  .punch .tag {
+    margin-top: 28px;
+    font: 400 clamp(16px, 1.5vw, 22px)/1.5 'Inter', sans-serif;
+    color: rgba(251,250,246,.7); max-width: 38ch;
+  }
+
+  /* === CONTENT (eyebrow + heading + body) === */
+  .content .pad { justify-content: flex-start; padding-top: 9%; }
+  .content h3 {
+    font: 800 clamp(28px, 3.4vw, 44px)/1.1 'Inter', sans-serif;
+    letter-spacing: -.02em; margin: 0 0 22px;
+  }
+  .content p {
+    font: 400 clamp(16px, 1.7vw, 22px)/1.5 'Inter', sans-serif;
+    color: var(--ink-soft); max-width: 64ch; margin: 0 0 14px;
+  }
+  .content ul { list-style: none; margin: 0; padding: 0;
+    font: 400 clamp(16px, 1.7vw, 22px)/1.7 'Inter', sans-serif; color: var(--ink-soft); max-width: 64ch; }
+  .content ul li { padding-left: 1.2em; position: relative; }
+  .content ul li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
+
+  /* === CHART (eyebrow + heading + inline svg/iframe canvas) === */
+  .chartslide .pad { justify-content: flex-start; padding-top: 9%; }
+  .chartslide h3 {
+    font: 800 clamp(28px, 3.4vw, 44px)/1.1 'Inter', sans-serif;
+    letter-spacing: -.02em; margin: 0 0 22px;
+  }
+  .chartslide .chart-wrap { width: 100%; }
+  .chartslide .chart-wrap.placeholder {
+    aspect-ratio: 16 / 5;
+    border: 1px dashed var(--rule);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted);
+    font: 500 11px 'JetBrains Mono', monospace;
+    letter-spacing: .18em; text-transform: uppercase;
+  }
+  .chartslide svg { width: 100%; height: auto; display: block; }
+  .chartslide .note {
+    margin-top: 22px;
+    font: 400 clamp(15px, 1.5vw, 20px)/1.5 'Inter', sans-serif;
+    color: var(--ink-soft); max-width: 64ch;
+  }
+
+  /* === RECAP TABLE (two-column comparison: bad vs good) === */
+  .regtable .pad { justify-content: center; padding: 4.5% 6%; }
+  .regtable h3 {
+    font: 800 clamp(24px, 3vw, 38px)/1.1 'Inter', sans-serif;
+    letter-spacing: -.02em; margin: 0 0 20px;
+  }
+  .regtable table { width: 100%; border-collapse: collapse; }
+  .regtable thead th {
+    text-align: left; padding: 0 0 12px;
+    font: 500 11px 'JetBrains Mono', monospace;
+    letter-spacing: .14em; text-transform: uppercase;
+  }
+  .regtable thead .bad { color: var(--bad); }
+  .regtable thead .good { color: var(--good); }
+  .regtable tbody td {
+    padding: 11px 14px 11px 0; vertical-align: top;
+    border-top: 1px solid var(--rule);
+    font: 400 clamp(13px, 1.4vw, 17px)/1.4 'Inter', sans-serif;
+    width: 50%;
+  }
+  .regtable td.bad { color: #f0a594; }
+  .regtable td.good { color: #a9d9ad; }
+  /* Recap bookend: heading rendered as a title-page hero */
+  .regtable.recap-hero .pad { justify-content: flex-start; padding-top: 6%; }
+  .regtable.recap-hero h3 {
+    font: 800 clamp(36px, 5.4vw, 76px)/1.02 'Inter', sans-serif;
+    letter-spacing: -.035em; margin: 0 0 32px; max-width: 16ch;
+  }
+
+  /* === JOKES / REVEAL LIST (right-arrow progressive reveal) === */
+  .jokes .pad { justify-content: center; padding: 5% 7%; }
+  .jokes .label-in { margin-bottom: 14px; }
+  .jokes h3 {
+    font: 800 clamp(26px, 3vw, 40px)/1.1 'Inter', sans-serif;
+    letter-spacing: -.02em; margin: 0 0 8px;
+  }
+  .jokes .sub {
+    font: 400 clamp(15px, 1.5vw, 20px)/1.5 'Inter', sans-serif;
+    color: var(--ink-soft); margin: 0 0 24px;
+  }
+  .jokes ul { columns: 2; column-gap: 56px; list-style: none; margin: 0; padding: 0;
+    font: 400 clamp(14px, 1.45vw, 19px)/1.85 'JetBrains Mono', monospace; color: var(--muted); }
+  .jokes li { break-inside: avoid; }
+  .jokes li::before { content: "\201C"; color: var(--warm); }
+  .jokes li::after  { content: "\201D"; color: var(--warm); }
+  /* Progressive reveal: hidden by default, shown when .revealed is added.
+     visibility:hidden preserves layout so items appearing do not shift the page. */
+  .revealable { visibility: hidden; }
+  .revealable.revealed { visibility: visible; }
+  .jokes blockquote {
+    margin: 28px 0 0; padding: 0 0 0 24px;
+    border-left: 3px solid var(--warm);
+    font: 400 clamp(15px, 1.5vw, 20px)/1.5 'Inter', sans-serif;
+    color: var(--ink); max-width: 70ch; font-style: italic;
+  }
+
+  /* === SPEAKER NOTES OVERLAY (in-deck) ===
+     Slides up from the bottom, overlays the deck without resizing the 16:9 frame.
+     Used only as a quick in-deck reference; the full notes live in notes.html. */
+  .notes {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    height: 30vh;
+    background: #0b0d11;
+    border-top: 1px solid #2c313a;
+    color: var(--ink);
+    box-shadow: 0 -20px 40px rgba(0,0,0,.5);
+    z-index: 60;
+    transform: translateY(100%);
+    transition: transform .28s ease;
+    padding: 26px 40px 40px;
+    overflow-y: auto;
+  }
+  .notes.show { transform: translateY(0); }
+  .notes .notes-label {
+    font: 500 11px 'JetBrains Mono', monospace;
+    color: var(--muted); letter-spacing: .18em; text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .notes .notes-body {
+    font: 400 clamp(16px, 1.6vw, 22px)/1.5 'Inter', sans-serif;
+    color: var(--ink-soft); max-width: 80ch;
+    white-space: pre-wrap;
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <!-- TEMPLATE NOTE: Title slide. Drop your talk title in <h1>. Replace the
+       meta line with your name and links. Match the title in <title> above. -->
+  <section class="slide title" data-name="title">
+    <div class="pad">
+      <h1>Your Talk Title Here</h1>
+      <div class="meta">Your Name &middot; <a href="https://github.com/you">github.com/you</a> &middot; <a href="https://linkedin.com/in/you">linkedin.com/in/you</a></div>
+    </div>
+  </section>
+
+  <!-- TEMPLATE NOTE: Disclaimer / framing slide. Optional. Use the .disclaimer
+       class when you want a warm-rust eyebrow above a big heading. -->
+  <section class="slide disclaimer" data-name="disclaimer">
+    <div class="pad">
+      <div class="label-in">A note before we start</div>
+      <h2>Disclaimer</h2>
+      <p>Short framing sentence in body copy. One or two lines is enough.</p>
+    </div>
+  </section>
+
+  <!-- TEMPLATE NOTE: Standard content slide. Eyebrow (.label-in), heading,
+       body / list. Use this for most slides. -->
+  <section class="slide content" data-name="content-example">
+    <div class="pad">
+      <div class="label-in">Section name</div>
+      <h3>One central idea</h3>
+      <ul>
+        <li>Point one</li>
+        <li>Point two</li>
+        <li>Point three</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- TEMPLATE NOTE: Chart slide. Drop an inline <svg>, an <iframe>, or an
+       <img> into .chart-wrap. The placeholder box below is a hint - replace it. -->
+  <section class="slide chartslide" data-name="chart-example">
+    <div class="pad">
+      <div class="label-in">Section name</div>
+      <h3>Chart slide</h3>
+      <div class="chart-wrap placeholder">Chart goes here</div>
+      <div class="note">One-line caption or takeaway.</div>
+    </div>
+  </section>
+
+  <!-- TEMPLATE NOTE: Section divider. Big full-wash slate punch slide.
+       Use sparingly - one per major section. -->
+  <section class="slide punch" data-name="section-divider">
+    <div class="pad">
+      <div class="chapter">Part Two</div>
+      <h2>Section Title</h2>
+      <div class="tag">Optional subtitle that sets up the next few slides.</div>
+    </div>
+  </section>
+
+  <!-- TEMPLATE NOTE: Recap table. Two-column comparison: bad (red) vs good
+       (green). Use as a bookend at the end of a section or the whole talk. -->
+  <section class="slide regtable recap-hero" data-name="recap">
+    <div class="pad">
+      <h3>Recap</h3>
+      <table>
+        <thead>
+          <tr>
+            <th class="bad">The problem</th>
+            <th class="good">The practice</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="bad">Symptom one</td>
+            <td class="good">Practice one</td>
+          </tr>
+          <tr>
+            <td class="bad">Symptom two</td>
+            <td class="good">Practice two</td>
+          </tr>
+          <tr>
+            <td class="bad">Symptom three</td>
+            <td class="good">Practice three</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- TEMPLATE NOTE: Joke / reveal slide. `data-reveal="true"` enables
+       right-arrow progressive reveal of `.revealable` items in document order.
+       Pressing Left un-reveals in reverse. -->
+  <section class="slide jokes" data-name="ending-jokes" data-reveal="true">
+    <div class="pad">
+      <div class="label-in">ending</div>
+      <h3>Things I almost called this talk</h3>
+      <ul>
+        <li class="revealable">Bad idea one</li>
+        <li class="revealable">Bad idea two</li>
+        <li class="revealable">Bad idea three</li>
+      </ul>
+      <blockquote class="revealable">Punchline or moral once the list has landed.</blockquote>
+    </div>
+  </section>
+
+  <!-- TEMPLATE NOTE: Thanks slide. Title-page style with an image (QR, photo)
+       on the right. Replace `images/qr.svg` or remove the <img> entirely. -->
+  <section class="slide title split" data-name="thanks">
+    <div class="pad">
+      <div class="lead">
+        <h1>Thanks</h1>
+        <div class="meta" style="position:static;left:auto;bottom:auto;margin:24px 0 0">Optional sign-off line</div>
+        <div class="meta" style="position:static;left:auto;bottom:auto;margin:14px 0 0">Your Name &middot; <a href="https://github.com/you">github.com/you</a> &middot; <a href="https://linkedin.com/in/you">linkedin.com/in/you</a></div>
+      </div>
+      <div class="art">
+        <div class="frame">
+          <!-- Replace with your QR or photo. Remove the <img> to show the dashed placeholder. -->
+          <img src="images/qr.svg" alt="QR code" onerror="this.style.display='none'">
+          <div class="ph-label">Image / QR</div>
+        </div>
+        <div class="caption">linkedin.com/in/you</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- Chrome -->
+<div class="pageno" id="pageno">01 / 08</div>
+
+<!-- Speaker notes panel: Up arrow shows, Down arrow hides.
+     Notes are stored per slide in the `data-notes` attribute on each
+     <section class="slide ...">. For full notes on a second screen / phone,
+     use notes.html instead. -->
+<div class="notes" id="notes" aria-hidden="true">
+  <div class="notes-label" id="notes-label">Speaker notes</div>
+  <div class="notes-body" id="notes-body"></div>
+</div>
+
+<script>
+// --- NAV --------------------------------------------------------------------
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let i = 0;
+const pageno = document.getElementById('pageno');
+const stage = document.querySelector('.stage');
+
+const notesPanel = document.getElementById('notes');
+const notesLabel = document.getElementById('notes-label');
+const notesBody = document.getElementById('notes-body');
+
+function updateNotes() {
+  notesLabel.textContent = 'Notes · ' + (slides[i].dataset.name || '');
+  notesBody.textContent = slides[i].dataset.notes || '(no notes)';
+}
+
+function show(idx) {
+  // Reset progressive-reveal state on any reveal slide we are leaving, so it
+  // starts fresh next time it becomes active.
+  if (slides[i] && slides[i].dataset.reveal === 'true') {
+    slides[i].querySelectorAll('.revealable.revealed').forEach((r) => r.classList.remove('revealed'));
+  }
+  i = ((idx % total) + total) % total;
+  slides.forEach((s, k) => s.classList.toggle('active', k === i));
+  pageno.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+  if (notesPanel.classList.contains('show')) updateNotes();
+}
+
+// Reveal helpers. revealNext returns true if it revealed something (so nav
+// should NOT advance); revealPrev returns true if it un-revealed something
+// (so nav should NOT go back).
+function revealNext() {
+  const cur = slides[i];
+  if (!cur || cur.dataset.reveal !== 'true') return false;
+  const next = cur.querySelector('.revealable:not(.revealed)');
+  if (!next) return false;
+  next.classList.add('revealed');
+  return true;
+}
+function revealPrev() {
+  const cur = slides[i];
+  if (!cur || cur.dataset.reveal !== 'true') return false;
+  const revealed = cur.querySelectorAll('.revealable.revealed');
+  if (!revealed.length) return false;
+  revealed[revealed.length - 1].classList.remove('revealed');
+  return true;
+}
+
+function showNotes() {
+  updateNotes();
+  notesPanel.classList.add('show');
+  notesPanel.setAttribute('aria-hidden', 'false');
+}
+function hideNotes() {
+  notesPanel.classList.remove('show');
+  notesPanel.setAttribute('aria-hidden', 'true');
+}
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    (stage.requestFullscreen || stage.webkitRequestFullscreen).call(stage);
+  } else {
+    (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+  }
+}
+
+document.addEventListener('keydown', e => {
+  // Right / Space / PageDown: on a reveal slide, advance the fragment first;
+  // only advance to the next slide once no more fragments remain.
+  if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+    e.preventDefault();
+    if (!revealNext()) show(i + 1);
+  }
+  // Left / PageUp: on a reveal slide, un-reveal the most recent fragment first.
+  else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+    e.preventDefault();
+    if (!revealPrev()) show(i - 1);
+  }
+  else if (e.key === 'ArrowUp') { e.preventDefault(); showNotes(); }
+  else if (e.key === 'ArrowDown') { e.preventDefault(); hideNotes(); }
+  else if (e.key === 'f' || e.key === 'F') { e.preventDefault(); toggleFullscreen(); }
+  else if (e.key === 'Home') show(0);
+  else if (e.key === 'End') show(total - 1);
+});
+show(0);
+</script>
+</body>
+</html>
