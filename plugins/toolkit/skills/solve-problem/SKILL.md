@@ -140,23 +140,7 @@ reasoning. Use this structure:
 <the original symptom re-checked under the same conditions — gone, observed>
 ```
 
-## Worked example (non-code)
-
-> **Problem:** "Our checkout conversion dropped last week."
->
-> 1. **Intent:** conversion fell vs the prior week; "solved" = back to baseline,
->    cause understood.
-> 2. **See it first-hand:** don't theorise from the dashboard — pull the actual
->    funnel and *watch session recordings* of failed checkouts (repeatable handle).
-> 3. **Hypotheses:** (a) new shipping-cost step; (b) a payment provider erroring;
->    (c) a price rise. Two+ before testing.
-> 4. **Discriminating evidence:** segment the drop — if it's *only* one payment
->    method, that *falsifies* (a) and (c). Find errors isolated to one provider.
-> 5. **Propose:** fix that provider's integration.
-> 6. **Verify:** re-check *that segment's* conversion after the fix — back to
->    baseline? If not, the cause was wrong; back to step 2.
-
-## More worked examples
+## Worked examples
 
 For full end-to-end traces of the method applied to hard, real problems, see
 [`references/`](references/README.md). Read one when you are stuck and want a model
