@@ -96,6 +96,14 @@ patch again from the same reasoning; return to move 2 with more instrumentation.
 - **Recurrence means you were wrong.** If the problem comes back after a fix, the
   cause (or the fix) was wrong — go back to observing it directly with more
   instrumentation; do **not** propose another fix from the same reasoning.
+- **The words in the report are hypotheses, not evidence.** "It's a timeout," "it's
+  a race," "it only happens without X" — these are the reporter's model of the bug,
+  often wrong even when plausible. Test them like any other hypothesis; never adopt
+  them as the starting fact.
+- **A constant is a clue.** An exact, repeating number (the same 15s three times)
+  is a deadline or an interval, not how long the work took — work varies, limits
+  don't. When cheap checks can't separate causes, **change the conditions** to make
+  a hidden variable visible rather than staring harder at the same setup.
 - Not solved until **re-observed gone** (move 6), not just "a change was made".
 - State confidence. Flag uncertainty. Never fake certainty.
 
@@ -147,3 +155,15 @@ reasoning. Use this structure:
 > 5. **Propose:** fix that provider's integration.
 > 6. **Verify:** re-check *that segment's* conversion after the fix — back to
 >    baseline? If not, the cause was wrong; back to step 2.
+
+## More worked examples
+
+For full end-to-end traces of the method applied to hard, real problems, see
+[`references/`](references/README.md). Read one when you are stuck and want a model
+to follow. Currently:
+
+- [SSE keepalive misdiagnosed as a timeout](references/example-sse-keepalive-misdiagnosed-as-timeout.md)
+  — a bug *reported* as a "query timeout" that was nothing of the kind. Shows
+  falsifying several plausible causes, escalating instrumentation (throttling a
+  consumer to expose a hidden keepalive), reading dependency source as evidence,
+  and verifying the fix end-to-end.
