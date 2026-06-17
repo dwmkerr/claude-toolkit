@@ -1,0 +1,19 @@
+skill: toolkit:solve-problem
+model: haiku
+
+tests:
+  - id: solve-problem-explicit
+    prompt: "solve problem: the burnup chart doesn't render"
+    should_trigger: true
+
+  - id: solve-this-problem
+    prompt: "solve this problem - users get logged out randomly"
+    should_trigger: true
+
+  - id: how-to-question
+    prompt: "how do I add a burnup chart to my dashboard?"
+    should_trigger: false
+
+  - id: build-feature
+    prompt: "build a new reporting page with export to CSV"
+    should_trigger: false

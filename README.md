@@ -44,6 +44,7 @@ If commands don't appear, enable and restart:
         - [`claude-code-plugin-development`](#claude-code-plugin-development)
         - [`learn-and-improve`](#learn-and-improve)
         - [`claude-code-agent-teams`](#claude-code-agent-teams)
+        - [`solve-problem`](#solve-problem)
     - [Agents](#agents)
         - [`researcher`](#researcher)
 - [The `dwmkerr` Plugin](#the-dwmkerr-plugin)
@@ -237,6 +238,16 @@ After running this example, you'll have a statusline similar to the below:
 - Covers team creation, display modes (in-process vs split panes), task assignment, and cleanup
 - Includes decision guide for agent teams vs subagents
 - Best practices for team sizing, task sizing, and avoiding file conflicts
+
+#### `solve-problem`
+
+> solve problem: the burnup chart doesn't render
+
+- Methodical, evidence-first problem solving — resists jumping to the first plausible fix
+- Six moves: understand intent, observe the problem first-hand, form multiple hypotheses, gather discriminating evidence, propose, verify the resolution
+- Domain-neutral — works for code bugs, broken appliances, dropped sales, failing processes
+- Shows its full working (problem, evidence, hypotheses, root cause, confidence) so you can debug the reasoning
+- Invoke explicitly with "solve problem" or `/solve-problem`
 
 ### Agents
 
