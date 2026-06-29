@@ -22,6 +22,17 @@ If commands don't appear, enable and restart:
 # rm -rf ~/.claude/plugins/cache
 ```
 
+## Install via `npx skills`
+
+The skills also install without the plugin via [`npx skills`](https://github.com/vercel-labs/skills) (or [`openskills`](https://github.com/numman-ali/openskills)), which copies `SKILL.md` folders into `.claude/skills/` and works with Claude Code, Cursor, Codex, and other agents:
+
+```bash
+npx skills add dwmkerr/claude-toolkit                        # all skills
+npx skills add dwmkerr/claude-toolkit --skill solve-problem  # a single skill
+```
+
+> Note: this installs **all** skills, including the personal `dwmkerr` ones (`my-repos`, `project-setup`, `slides`, `drawio-diagram`). Use `--skill <name>` to pick only what you want.
+
 <!-- vim-markdown-toc GFM -->
 
 - [The `toolkit` Plugin](#the-toolkit-plugin)
