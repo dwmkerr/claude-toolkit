@@ -321,7 +321,13 @@ This skill runs as a subagent (`context: fork`) as only the final output is need
 - **Conference mode** — hand-built HTML deck with no framework or build step: dark typographic theme, right-arrow progressive reveal, in-deck speaker notes, a phone teleprompter sheet, and GitHub Pages deploy
 - Supports custom Slidev themes (includes `qblabs`, inspired by QuantumBlack's public visual identity)
 
+Conference mode:
+
 ![Example of a conference-mode slide](./docs/images/slides-conference.png)
+
+`qblabs` theme:
+
+![Example of the qblabs theme](./docs/images/slides-qblabs.png)
 
 ## Developer Guide
 
