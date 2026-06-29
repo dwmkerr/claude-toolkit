@@ -329,6 +329,8 @@ Conference mode:
 
 ![Example of the qblabs theme](./docs/images/slides-qblabs.png)
 
+> The `qblabs` theme is an approximation inspired by QuantumBlack's publicly available visual identity — not an official brand guide. See [the theme's attribution notes](./plugins/dwmkerr/skills/slides/themes/qblabs/README.md) for sources.
+
 ## Developer Guide
 
 ### Local Development
