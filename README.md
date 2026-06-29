@@ -26,24 +26,24 @@ If commands don't appear, enable and restart:
 
 - [The `toolkit` Plugin](#the-toolkit-plugin)
     - [Commands](#commands)
-        - [`/toolkit:skill-history`](#toolkitskill-history)
         - [`/toolkit:agent-history`](#toolkitagent-history)
         - [`/toolkit:ghpr`](#toolkitghpr)
+        - [`/toolkit:skill-history`](#toolkitskill-history)
     - [Skills](#skills)
-        - [`research`](#research)
-        - [`claude-code-memory-and-rules`](#claude-code-memory-and-rules)
-        - [`claude-code-hook-development`](#claude-code-hook-development)
-        - [`claude-code-skill-development`](#claude-code-skill-development)
         - [`agent-development`](#agent-development)
+        - [`anthropic-evaluations`](#anthropic-evaluations)
+        - [`claude-code-agent-teams`](#claude-code-agent-teams)
+        - [`claude-code-hook-development`](#claude-code-hook-development)
+        - [`claude-code-memory-and-rules`](#claude-code-memory-and-rules)
+        - [`claude-code-plugin-development`](#claude-code-plugin-development)
+        - [`claude-code-skill-development`](#claude-code-skill-development)
         - [`claude-code-slash-commands`](#claude-code-slash-commands)
         - [`claude-code-statusline-development`](#claude-code-statusline-development)
-        - [`anthropic-evaluations`](#anthropic-evaluations)
-        - [`shell-script-development`](#shell-script-development)
+        - [`learn-and-improve`](#learn-and-improve)
         - [`makefile-development`](#makefile-development)
         - [`release-please-development`](#release-please-development)
-        - [`claude-code-plugin-development`](#claude-code-plugin-development)
-        - [`learn-and-improve`](#learn-and-improve)
-        - [`claude-code-agent-teams`](#claude-code-agent-teams)
+        - [`research`](#research)
+        - [`shell-script-development`](#shell-script-development)
         - [`solve-problem`](#solve-problem)
     - [Agents](#agents)
         - [`researcher`](#researcher)
@@ -51,9 +51,9 @@ If commands don't appear, enable and restart:
     - [Commands](#commands-1)
         - [`/dwmkerr:next`](#dwmkerrnext)
     - [Skills](#skills-1)
+        - [`drawio-diagram`](#drawio-diagram)
         - [`my-repos`](#my-repos)
         - [`project-setup`](#project-setup)
-        - [`drawio-diagram`](#drawio-diagram)
         - [`slides`](#slides)
 - [Developer Guide](#developer-guide)
     - [Local Development](#local-development)
@@ -67,14 +67,6 @@ If commands don't appear, enable and restart:
 This plugin is general purpose and should be useful for anyone.
 
 ### Commands
-
-#### `/toolkit:skill-history`
-
-This is useful for troubleshooting whether Claude has actually invoked or missed skills, and in response to what queries.
-
-![Screenshot of Skill History](./docs/examples/skill-history/skill-history.png)
-
-See [skill history examples](./docs/examples/skill-history).
 
 #### `/toolkit:agent-history`
 
@@ -100,27 +92,41 @@ And when it does. The browser opens automatically:
 
 ![Screenshot of ghpr when the PR exists](./docs/ghpr/ghpr-exists.png)
 
+#### `/toolkit:skill-history`
+
+This is useful for troubleshooting whether Claude has actually invoked or missed skills, and in response to what queries.
+
+![Screenshot of Skill History](./docs/examples/skill-history/skill-history.png)
+
+See [skill history examples](./docs/examples/skill-history).
+
 ### Skills
 
-#### `research`
+#### `agent-development`
 
-> Use the research skill to investigate options for implementing OAuth in a Node.js app
+> Create an agent for code review
 
-- Searches web and clones GitHub repos
-- Requires 2-3 sources before recommending
-- Saves findings to `./scratch/research/`
+- Creates agent markdown with YAML frontmatter
+- Applies color conventions (blue=plan, green=create, etc.)
+- Configures tools and permissions
 
-**Tip:** "research" is a generic term — Claude may use built-in tools (Explore, WebFetch) instead of this skill. Be explicit: say "use the research skill" or "use the researcher agent" to ensure the structured research workflow is triggered.
+#### `anthropic-evaluations`
 
-#### `claude-code-memory-and-rules`
+> Create an evaluation suite for my coding agent
 
-> Set up CLAUDE.md and rules for my project
+- Defines grader types (code-based, model-based, human)
+- Patterns for coding, conversational, research, and computer use agents
+- YAML templates for eval tasks
+- Roadmap for building evals from scratch
 
-- Configures CLAUDE.md files, `.claude/rules/`, and auto memory
-- Guides scope selection (user, project, local, org)
-- Supports path-scoped rules for file-type-specific conventions
-- Covers imports, bootstrapping with `/init`, and the `/memory` command
-- Includes rules vs hooks decision guide
+#### `claude-code-agent-teams`
+
+> Create an agent team to review this PR from three different angles
+
+- Coordinates multiple Claude Code instances as a team with shared tasks and messaging
+- Covers team creation, display modes (in-process vs split panes), task assignment, and cleanup
+- Includes decision guide for agent teams vs subagents
+- Best practices for team sizing, task sizing, and avoiding file conflicts
 
 #### `claude-code-hook-development`
 
@@ -137,6 +143,25 @@ Example output
 
 See [github.com/dwmkerr/effective-shell](https://github.com/dwmkerr/effective-shell) for some real-world examples (or most of my recently edited open source projects).
 
+#### `claude-code-memory-and-rules`
+
+> Set up CLAUDE.md and rules for my project
+
+- Configures CLAUDE.md files, `.claude/rules/`, and auto memory
+- Guides scope selection (user, project, local, org)
+- Supports path-scoped rules for file-type-specific conventions
+- Covers imports, bootstrapping with `/init`, and the `/memory` command
+- Includes rules vs hooks decision guide
+
+#### `claude-code-plugin-development`
+
+> Create a plugin that bundles my hooks and commands
+
+- Creates plugin structure with `.claude-plugin/plugin.json`
+- Bundles commands, agents, skills, hooks, MCP/LSP servers
+- CLI commands for install, enable, disable, update
+- Debugging guide with `claude --debug`
+
 #### `claude-code-skill-development`
 
 > Create a skill for TypeScript development
@@ -145,14 +170,6 @@ See [github.com/dwmkerr/effective-shell](https://github.com/dwmkerr/effective-sh
 - Organizes references in subdirectories
 - Follows progressive disclosure pattern
 - Incorporates best practices from [The Complete Guide to Building Skills for Claude](https://resources.anthropic.com/hubfs/The-Complete-Guide-to-Building-Skill-for-Claude.pdf) — covering skill categories, reusable patterns, testing strategies, and troubleshooting
-
-#### `agent-development`
-
-> Create an agent for code review
-
-- Creates agent markdown with YAML frontmatter
-- Applies color conventions (blue=plan, green=create, etc.)
-- Configures tools and permissions
 
 #### `claude-code-slash-commands`
 
@@ -174,22 +191,16 @@ After running this example, you'll have a statusline similar to the below:
 
 ![Example of statusline output](./docs/statusline/gitinfocontext-statusline-screenshot.png)
 
-#### `anthropic-evaluations`
+#### `learn-and-improve`
 
-> Create an evaluation suite for my coding agent
+> That skill kept asking for permissions — fix my setup so it doesn't happen again
 
-- Defines grader types (code-based, model-based, human)
-- Patterns for coding, conversational, research, and computer use agents
-- YAML templates for eval tasks
-- Roadmap for building evals from scratch
-
-#### `shell-script-development`
-
-> Create a bash script for deployment
-
-- Consistent shebang and safety options
-- Color output conventions
-- Status message patterns (success, error, warning)
+- Analyzes conversation history for friction (permission prompts, missed skills, agent failures)
+- Searches settings, CLAUDE.md, plugins, hooks, and MCP config
+- Proposes targeted fixes at the right scope (user, project, or local)
+- Proactively suggests permanently allowing safe read-only commands observed in the session (e.g., `ls`, `gh pr view`, `git log`) at user level
+- Supports permission rules, CLAUDE.md entries, skill/agent tweaks, hook config, and plugin PRs
+- **Self-improving** — every verified fix is recorded back into the skill as an example, so it gets better at diagnosing similar problems over time. Fork the plugin to accumulate your own improvement history
 
 #### `makefile-development`
 
@@ -210,34 +221,23 @@ After running this example, you'll have a statusline similar to the below:
 - Configuration for Helm charts, npm packages, and more
 - GitHub workflow with conditional jobs per package
 
-#### `claude-code-plugin-development`
+#### `research`
 
-> Create a plugin that bundles my hooks and commands
+> Use the research skill to investigate options for implementing OAuth in a Node.js app
 
-- Creates plugin structure with `.claude-plugin/plugin.json`
-- Bundles commands, agents, skills, hooks, MCP/LSP servers
-- CLI commands for install, enable, disable, update
-- Debugging guide with `claude --debug`
+- Searches web and clones GitHub repos
+- Requires 2-3 sources before recommending
+- Saves findings to `./scratch/research/`
 
-#### `learn-and-improve`
+**Tip:** "research" is a generic term — Claude may use built-in tools (Explore, WebFetch) instead of this skill. Be explicit: say "use the research skill" or "use the researcher agent" to ensure the structured research workflow is triggered.
 
-> That skill kept asking for permissions — fix my setup so it doesn't happen again
+#### `shell-script-development`
 
-- Analyzes conversation history for friction (permission prompts, missed skills, agent failures)
-- Searches settings, CLAUDE.md, plugins, hooks, and MCP config
-- Proposes targeted fixes at the right scope (user, project, or local)
-- Proactively suggests permanently allowing safe read-only commands observed in the session (e.g., `ls`, `gh pr view`, `git log`) at user level
-- Supports permission rules, CLAUDE.md entries, skill/agent tweaks, hook config, and plugin PRs
-- **Self-improving** — every verified fix is recorded back into the skill as an example, so it gets better at diagnosing similar problems over time. Fork the plugin to accumulate your own improvement history
+> Create a bash script for deployment
 
-#### `claude-code-agent-teams`
-
-> Create an agent team to review this PR from three different angles
-
-- Coordinates multiple Claude Code instances as a team with shared tasks and messaging
-- Covers team creation, display modes (in-process vs split panes), task assignment, and cleanup
-- Includes decision guide for agent teams vs subagents
-- Best practices for team sizing, task sizing, and avoiding file conflicts
+- Consistent shebang and safety options
+- Color output conventions
+- Status message patterns (success, error, warning)
 
 #### `solve-problem`
 
@@ -280,6 +280,17 @@ Opinionated plugin with my personal workflows and conventions. You're welcome to
 
 ### Skills
 
+#### `drawio-diagram`
+
+> Create a drawio architecture diagram of this system
+
+- Generates `.drawio` files with consistent visual style (color-coded element types, orthogonal edges, legend)
+- Element types: Container (blue), Capability (green), External (grey), Tech Preview (purple), Process (orange), Use Case (yellow), Outcome (dark green)
+- Exports to PNG/SVG/PDF via draw.io CLI
+- Self-contained HTML export for sharing without draw.io installed
+
+<img src="./docs/drawio-diagram/reference-diagram.png" width="600" />
+
 #### `my-repos`
 
 > Check my repo effective-shell for the pipes chapter
@@ -306,21 +317,11 @@ This skill runs as a subagent (`context: fork`) as only the final output is need
 
 > Create slides for this project
 
-- Scaffolds a [Slidev](https://sli.dev) markdown presentation in a `./slides/` folder
-- Generates title and content slides from README or user prompt
-- Includes `Makefile` targets for dev server, build, and PDF export
-- Supports custom themes (includes `qblabs` theme inspired by QuantumBlack's public visual identity)
+- **Slidev mode (default)** — scaffolds a [Slidev](https://sli.dev) markdown deck in `./slides/`, generating title and content slides from the README or a prompt, with `Makefile` targets for dev server, build, and PDF export
+- **Conference mode** — hand-built HTML deck with no framework or build step: dark typographic theme, right-arrow progressive reveal, in-deck speaker notes, a phone teleprompter sheet, and GitHub Pages deploy
+- Supports custom Slidev themes (includes `qblabs`, inspired by QuantumBlack's public visual identity)
 
-#### `drawio-diagram`
-
-> Create a drawio architecture diagram of this system
-
-- Generates `.drawio` files with consistent visual style (color-coded element types, orthogonal edges, legend)
-- Element types: Container (blue), Capability (green), External (grey), Tech Preview (purple), Process (orange), Use Case (yellow), Outcome (dark green)
-- Exports to PNG/SVG/PDF via draw.io CLI
-- Self-contained HTML export for sharing without draw.io installed
-
-<img src="./docs/drawio-diagram/reference-diagram.png" width="600" />
+![Example of a conference-mode slide](./docs/images/slides-conference.png)
 
 ## Developer Guide
 
