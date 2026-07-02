@@ -21,21 +21,27 @@ Note that the `npx skills` installation method installs all skills. Use `--skill
 
 ## Skills
 
-Here's a quick summary of the skills, grouped by what they're for (most broadly useful first).
+A quick summary of everything in the toolkit, grouped by what it's for (most broadly useful first). 24 in total - 19 skills, 4 commands, and 1 agent.
 
-| Skill | Plugin | What it does |
-|-------|--------|-------------|
+| Name | Plugin | What it does |
+|------|--------|-------------|
 | **Problem solving & research** | | |
 | [solve-problem](#solve-problem) | toolkit | Diagnose problems with an evidence-first method |
 | [research](#research) | toolkit | Research technical options across the web and GitHub repos |
+| [researcher](#researcher) | toolkit | Agent - searches the web and clones repos to gather evidence |
 | **Slides & presentations** | | |
 | [slides](#slides) | dwmkerr | Create Slidev or hand-built HTML slide decks |
+| **Agent use** | | |
+| [learn-and-improve](#learn-and-improve) | toolkit | Review a session and improve skills, config, and settings for next time |
+| [/toolkit:agent-history](#toolkitagent-history) | toolkit | Command - list the agents spawned in a session |
+| [/toolkit:skill-history](#toolkitskill-history) | toolkit | Command - show which skills were invoked, to spot missed ones |
 | **Software engineering** | | |
 | [shell-script-development](#shell-script-development) | toolkit | Write bash scripts with safe options and color output |
 | [makefile-development](#makefile-development) | toolkit | Create self-documenting Makefiles with consistent conventions |
 | [release-please-development](#release-please-development) | toolkit | Set up automated versioning and changelogs |
 | [drawio-diagram](#drawio-diagram) | dwmkerr | Generate draw.io architecture diagrams with a consistent style |
 | [project-setup](#project-setup) | dwmkerr | Create a new GitHub repo with standard configuration |
+| [/toolkit:ghpr](#toolkitghpr) | toolkit | Command - open or create a PR for the current branch |
 | **Building for Claude Code** | | |
 | [claude-code-skill-development](#claude-code-skill-development) | toolkit | Build SKILL.md files with progressive disclosure |
 | [agent-development](#agent-development) | toolkit | Create Claude Code agents with correct frontmatter and conventions |
@@ -46,49 +52,9 @@ Here's a quick summary of the skills, grouped by what they're for (most broadly 
 | [claude-code-memory-and-rules](#claude-code-memory-and-rules) | toolkit | Set up CLAUDE.md, rules, and auto memory |
 | [claude-code-agent-teams](#claude-code-agent-teams) | toolkit | Coordinate multiple Claude Code instances as a team |
 | [anthropic-evaluations](#anthropic-evaluations) | toolkit | Build evaluation suites and graders for coding agents |
-| [learn-and-improve](#learn-and-improve) | toolkit | Analyze sessions and fix config friction |
 | **Personal workflow** | | |
 | [my-repos](#my-repos) | dwmkerr | Locate and work with dwmkerr's repositories |
-
-<!-- vim-markdown-toc GFM -->
-
-- [The `toolkit` Plugin](#the-toolkit-plugin)
-    - [Commands](#commands)
-        - [`/toolkit:agent-history`](#toolkitagent-history)
-        - [`/toolkit:ghpr`](#toolkitghpr)
-        - [`/toolkit:skill-history`](#toolkitskill-history)
-    - [Skills](#skills)
-        - [`agent-development`](#agent-development)
-        - [`anthropic-evaluations`](#anthropic-evaluations)
-        - [`claude-code-agent-teams`](#claude-code-agent-teams)
-        - [`claude-code-hook-development`](#claude-code-hook-development)
-        - [`claude-code-memory-and-rules`](#claude-code-memory-and-rules)
-        - [`claude-code-plugin-development`](#claude-code-plugin-development)
-        - [`claude-code-skill-development`](#claude-code-skill-development)
-        - [`claude-code-slash-commands`](#claude-code-slash-commands)
-        - [`claude-code-statusline-development`](#claude-code-statusline-development)
-        - [`learn-and-improve`](#learn-and-improve)
-        - [`makefile-development`](#makefile-development)
-        - [`release-please-development`](#release-please-development)
-        - [`research`](#research)
-        - [`shell-script-development`](#shell-script-development)
-        - [`solve-problem`](#solve-problem)
-    - [Agents](#agents)
-        - [`researcher`](#researcher)
-- [The `dwmkerr` Plugin](#the-dwmkerr-plugin)
-    - [Commands](#commands-1)
-        - [`/dwmkerr:next`](#dwmkerrnext)
-    - [Skills](#skills-1)
-        - [`drawio-diagram`](#drawio-diagram)
-        - [`my-repos`](#my-repos)
-        - [`project-setup`](#project-setup)
-        - [`slides`](#slides)
-- [Developer Guide](#developer-guide)
-    - [Local Development](#local-development)
-- [Further Reading](#further-reading)
-- [License](#license)
-
-<!-- vim-markdown-toc -->
+| [/dwmkerr:next](#dwmkerrnext) | dwmkerr | Command - suggest what to work on next, or wrap up a session |
 
 ## The `toolkit` Plugin
 
@@ -411,7 +377,6 @@ Uninstall with:
 ```bash
 claude plugin marketplace remove claude-toolkit
 ```
-
 
 ## Further Reading
 
