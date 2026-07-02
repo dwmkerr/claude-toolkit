@@ -11,6 +11,7 @@ Source: [The Complete Guide to Building Skills for Claude](https://resources.ant
 | Skill won't upload | SKILL.md not exact name | Rename to exactly `SKILL.md` (case-sensitive) |
 | "Invalid frontmatter" | YAML formatting issue | Check `---` delimiters, unclosed quotes |
 | "Invalid skill name" | Name has spaces or capitals | Use kebab-case: `my-cool-skill` |
+| Frontmatter field has no effect | Underscore vs hyphen typo | See "Frontmatter field silently ignored" below |
 | Skill doesn't trigger | Description too vague | Add specific trigger phrases |
 | Skill triggers too often | Description too broad | Add negative triggers, narrow scope |
 | MCP calls fail | Connection/auth issues | Verify MCP server, test independently |
@@ -58,6 +59,31 @@ name: My Cool Skill
 # Correct
 name: my-cool-skill
 ```
+
+### Frontmatter Field Silently Ignored
+
+Skill frontmatter field names use **hyphens**, not underscores. Common typo:
+
+```yaml
+# Wrong - silently ignored, no error, no effect
+---
+name: my-skill
+user_invocable: false
+---
+
+# Correct
+---
+name: my-skill
+user-invocable: false
+---
+```
+
+Same rule applies to `allowed-tools`, `context`, and every other kebab-case field. If a field appears to have no effect despite being in the frontmatter, check for underscore-vs-hyphen typo.
+
+**Fields that use hyphens**: `user-invocable`, `allowed-tools`.
+**Fields that use snake_case in nested values** (e.g. inside `metadata`) are per your own convention - the top-level schema uses hyphens.
+
+Debug tip: if setting `user-invocable: false` still shows the skill in the slash menu, verify the plugin has reloaded (edit any file in the plugin to trigger hot reload, or restart the session).
 
 ### Skill Doesn't Trigger
 
