@@ -237,6 +237,31 @@ title: "Deck Title"
 
 **Utility classes**: `.qb-blue`, `.qb-navy`, `.qb-bg-dark`, `.qb-bg-light`, `.qb-accent-bar`
 
+## Standalone HTML Slide Templates
+
+Two hand-built, single-file HTML slides live in `references/`. Each is a self-contained 1920x1080 slide with no dependencies - open in a browser, edit, save.
+
+- **QuantumBlack dark exemplar** ([`references/qblabs-example-slide.html`](references/qblabs-example-slide.html)) - dark, corporate, agentic-engineering style. Use for QB-branded or dark technical decks.
+- **dwmkerr.com timeline template** ([`references/dwmkerr-com-timeline-slide.html`](references/dwmkerr-com-timeline-slide.html)) - light off-white, shell-header, `# timeline` heading over four phase columns. Use for personal-site, terminal/shell-focused slides.
+
+![dwmkerr.com timeline slide in edit mode](references/dwmkerr-com-timeline-slide.png)
+
+### Keyboard edit / save mode
+
+Both slides support in-browser editing. Open the file, then:
+
+| Key | Action |
+|-----|--------|
+| `E` | Enter edit mode (click any text and type) |
+| `Cmd/Ctrl+S` | Save - downloads the edited slide as an HTML file |
+| `Esc` | Exit edit mode |
+
+Press `E`, edit text inline, `Cmd+S` to download the updated HTML, `Esc` to finish. Edits are made live in the browser; save writes a new HTML file you keep. The `E` shortcut is ignored while a field is focused, so it never inserts a stray character.
+
+### Using the timeline template
+
+Copy `references/dwmkerr-com-timeline-slide.html`, open it in a browser, press `E` and edit the text, then `Cmd+S` to save. To add columns, duplicate a `.phase` block and bump the count in the `.phases` grid; relabel the timeline ticks by editing the `t0`...`t4` labels.
+
 ## Conference Mode
 
 A hand-built HTML conference deck. **No framework, no Vue, no Slidev, no build step.** The author edits `presentation.html` directly. Speaker notes live in `presentation.md` and are baked into a standalone `notes.html` teleprompter sheet for a phone or second screen.

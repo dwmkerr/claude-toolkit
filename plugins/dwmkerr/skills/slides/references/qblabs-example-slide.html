@@ -156,6 +156,23 @@
   .zone-agentic-active .row-agentic .cell .note          { color: var(--mist-50-88); }
   .zone-agentic-active .corner-block.agentic .label-accent { color: #6bd0ff; }
   .zone-agentic-active .corner-block.agentic .desc         { color: var(--mist-50-88); }
+
+  /* editable affordance: subtle outline only while in edit mode */
+  body.editing .ed { outline:1px dashed rgba(0,169,244,0.4); outline-offset:3px; border-radius:2px; }
+  body.editing .ed:focus { outline:1px solid var(--qb-accent); background:rgba(0,169,244,0.06); }
+
+  /* bottom-right status pill / idle hint (screen chrome, not slide content) */
+  .status { position:fixed; right:18px; bottom:16px; z-index:20;
+    font-family:var(--font-m); font-size:12px; letter-spacing:0.06em;
+    display:none; align-items:center; gap:8px; padding:7px 12px;
+    border:1px solid var(--mist-50-16); border-radius:999px;
+    background:rgba(16,18,27,0.92); color:var(--mist-50-60); }
+  body.editing .status { display:inline-flex; }
+  .status .dot { width:8px; height:8px; border-radius:50%; background:var(--qb-accent); }
+  #hint { position:fixed; right:18px; bottom:16px; z-index:19;
+    font-family:var(--font-m); font-size:12px; letter-spacing:0.06em;
+    color:var(--mist-50-50); opacity:0.6; }
+  body.editing #hint { display:none; }
 </style>
 </head>
 <body>
@@ -171,12 +188,12 @@
             <polygon fill="#ffffff"
               points="145.39 72.88 145.39 76.01 134.82 94.42 128.46 90.74 137.75 74.45 106.63 20.07 44.42 20.07 13.25 74.45 44.42 128.82 62.53 128.82 62.53 136.21 41.88 136.21 39.23 134.65 39.04 134.35 5.61 76.01 5.61 72.88 39.48 14.15 41.88 12.68 109.12 12.68 111.81 14.3 112.01 14.59 145.39 72.88" />
           </svg>
-          <span>QuantumBlack</span>
+          <span class="ed">QuantumBlack</span>
         </div>
         <div class="divider"></div>
-        <span class="product">Agentic Engineering</span>
+        <span class="product ed">Agentic Engineering</span>
       </div>
-      <div class="s-meta-by">AI by McKinsey</div>
+      <div class="s-meta-by ed">AI by McKinsey</div>
     </div>
     <div class="s-rule"></div>
 
@@ -185,36 +202,36 @@
 
         <aside class="corner-card">
           <div class="corner-block vibe" data-zone="vibe">
-            <div class="label-row"><span class="label-warn">VIBE CODING</span></div>
-            <div class="desc spaced">Ideally suited to rapidly experimenting with ideas, building multiple prototypes, and gathering feedback. Typically unconstrained and often ungrounded — speed prioritised over durability or maintainability. Can be a powerful input to the early stages of agentic engineering.</div>
+            <div class="label-row"><span class="label-warn ed">VIBE CODING</span></div>
+            <div class="desc spaced ed">Ideally suited to rapidly experimenting with ideas, building multiple prototypes, and gathering feedback. Typically unconstrained and often ungrounded — speed prioritised over durability or maintainability. Can be a powerful input to the early stages of agentic engineering.</div>
           </div>
           <div class="divider"></div>
           <div class="corner-block agentic" data-zone="agentic">
-            <div class="label-row"><span class="label-accent">AGENTIC ENGINEERING</span></div>
-            <div class="desc">Ideally suited to durable, maintainable, robust product developments grounded in organizational standards.</div>
+            <div class="label-row"><span class="label-accent ed">AGENTIC ENGINEERING</span></div>
+            <div class="desc ed">Ideally suited to durable, maintainable, robust product developments grounded in organizational standards.</div>
           </div>
         </aside>
 
         <div class="at-v-head sect-title" data-zone="vibe">
-          <h2>Vibe&nbsp;<em class="warn">coding</em></h2>
+          <h2 class="ed">Vibe&nbsp;<em class="warn">coding</em></h2>
           <span class="vs">vs</span>
         </div>
 
         <div class="at-v-row row row-vibe" data-zone="vibe">
           <div class="cell">
-            <div class="micro">01 · HUMAN ↔ AGENT</div>
-            <div class="step">Ideate</div>
-            <div class="note">Rapid open-ended quick discussions on ideas.</div>
+            <div class="micro ed">01 · HUMAN ↔ AGENT</div>
+            <div class="step ed">Ideate</div>
+            <div class="note ed">Rapid open-ended quick discussions on ideas.</div>
           </div>
           <div class="cell">
-            <div class="micro">02 · HUMAN ↔ AGENT</div>
-            <div class="step">Prototype</div>
-            <div class="note">Create a working version as quickly as possible.</div>
+            <div class="micro ed">02 · HUMAN ↔ AGENT</div>
+            <div class="step ed">Prototype</div>
+            <div class="note ed">Create a working version as quickly as possible.</div>
           </div>
           <div class="cell">
-            <div class="micro">03 · HUMAN ↔ AGENT</div>
-            <div class="step">Iterate</div>
-            <div class="note">Gather feedback and improve.</div>
+            <div class="micro ed">03 · HUMAN ↔ AGENT</div>
+            <div class="step ed">Iterate</div>
+            <div class="note ed">Gather feedback and improve.</div>
           </div>
           <div class="cell empty"></div>
           <div class="cell empty"></div>
@@ -245,39 +262,39 @@
         </svg>
 
         <div class="at-a-head sect-title" data-zone="agentic">
-          <h2>Agentic&nbsp;<em class="accent">engineering</em></h2>
+          <h2 class="ed">Agentic&nbsp;<em class="accent">engineering</em></h2>
         </div>
 
         <div class="at-a-row row row-agentic" data-zone="agentic">
           <div class="cell mode-human">
-            <div class="micro">01 · HUMAN-LED</div>
-            <div class="step">Explore &amp; Challenge</div>
-            <div class="note">Discuss ideas, explore the problem space, challenge assumptions — divergent thinking.</div>
+            <div class="micro ed">01 · HUMAN-LED</div>
+            <div class="step ed">Explore &amp; Challenge</div>
+            <div class="note ed">Discuss ideas, explore the problem space, challenge assumptions — divergent thinking.</div>
           </div>
           <div class="cell mode-human">
-            <div class="micro">02 · HUMAN-LED</div>
-            <div class="step">Design &amp; Specify</div>
-            <div class="note">Eliminate ambiguity, detail specifications, create contracts — convergent thinking.</div>
+            <div class="micro ed">02 · HUMAN-LED</div>
+            <div class="step ed">Design &amp; Specify</div>
+            <div class="note ed">Eliminate ambiguity, detail specifications, create contracts — convergent thinking.</div>
           </div>
           <div class="cell mode-handover">
-            <div class="micro">03 · HUMAN ↔ AGENT</div>
-            <div class="step">Plan &amp; Architect</div>
-            <div class="note">Decompose and sequence into steps. Create the test plan, the implementation plan, and the verification strategy.</div>
+            <div class="micro ed">03 · HUMAN ↔ AGENT</div>
+            <div class="step ed">Plan &amp; Architect</div>
+            <div class="note ed">Decompose and sequence into steps. Create the test plan, the implementation plan, and the verification strategy.</div>
           </div>
           <div class="cell mode-agent">
-            <div class="micro">04 · AGENT LED</div>
-            <div class="step">Implement</div>
-            <div class="note">Test-driven (red/green) methodology; implementation grounded in organisational standards. Orchestrated across parallel streams. Drives robustness and quality.</div>
+            <div class="micro ed">04 · AGENT LED</div>
+            <div class="step ed">Implement</div>
+            <div class="note ed">Test-driven (red/green) methodology; implementation grounded in organisational standards. Orchestrated across parallel streams. Drives robustness and quality.</div>
           </div>
           <div class="cell mode-agent">
-            <div class="micro">05 · AGENT LED</div>
-            <div class="step">Verify &amp; Red Team</div>
-            <div class="note">Unit, integration, and trend testing; threat modelling; deliberately adversarial attacks via multiple models.</div>
+            <div class="micro ed">05 · AGENT LED</div>
+            <div class="step ed">Verify &amp; Red Team</div>
+            <div class="note ed">Unit, integration, and trend testing; threat modelling; deliberately adversarial attacks via multiple models.</div>
           </div>
           <div class="cell mode-agent">
-            <div class="micro">06 · AGENT LED</div>
-            <div class="step">Provision &amp; Release</div>
-            <div class="note">Ephemeral environments for acceptance. Change manifests. Release notes. Ship or schedule.</div>
+            <div class="micro ed">06 · AGENT LED</div>
+            <div class="step ed">Provision &amp; Release</div>
+            <div class="note ed">Ephemeral environments for acceptance. Change manifests. Release notes. Ship or schedule.</div>
           </div>
         </div>
 
@@ -291,6 +308,11 @@
 
   </div>
 </div>
+
+<!-- edit-mode status pill (shown only while editing) -->
+<div class="status"><span class="dot"></span>EDIT MODE&nbsp;&nbsp;&middot;&nbsp;&nbsp;&#8984;S SAVE&nbsp;&nbsp;&middot;&nbsp;&nbsp;ESC DONE</div>
+<!-- subtle idle hint; delete this element to remove it -->
+<div id="hint">press E to edit</div>
 
 <script>
   // Viewport fit.
@@ -362,6 +384,40 @@
       }
       const link = document.querySelector(`a.deck-link[aria-label="${dir}"]:not([aria-disabled="true"])`);
       if (link && link.href) { e.preventDefault(); location.href = link.href; }
+    });
+  })();
+
+  // Edit / save mode — press E to edit any text inline, Cmd/Ctrl+S to
+  // download the edited slide, Esc to finish. The E guard ignores keys while
+  // a field is focused so it never types a stray "e". Matches the
+  // dwmkerr.com timeline template's implementation.
+  (function edit() {
+    let editing = false;
+    const editables = document.querySelectorAll('.ed');
+    function setEditing(on) {
+      editing = on;
+      document.body.classList.toggle('editing', on);
+      editables.forEach(el => { el.contentEditable = on ? 'true' : 'false'; });
+      if (!on && document.activeElement && document.activeElement.blur) document.activeElement.blur();
+    }
+    function isTyping() {
+      const el = document.activeElement;
+      return el && (el.isContentEditable || el.tagName === 'INPUT' || el.tagName === 'TEXTAREA');
+    }
+    function save() {
+      const html = '<!doctype html>\n' + document.documentElement.outerHTML;
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([html], { type: 'text/html' }));
+      a.download = 'slide.html';
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    }
+    document.addEventListener('keydown', e => {
+      if ((e.metaKey || e.ctrlKey) && (e.key === 's' || e.key === 'S')) { e.preventDefault(); save(); return; }
+      if (e.key === 'Escape' && editing) { e.preventDefault(); setEditing(false); return; }
+      if ((e.key === 'e' || e.key === 'E') && !editing && !isTyping() && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        e.preventDefault(); setEditing(true);
+      }
     });
   })();
 </script>
