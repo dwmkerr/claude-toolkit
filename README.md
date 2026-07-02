@@ -21,29 +21,51 @@ Note that the `npx skills` installation method installs all skills. Use `--skill
 
 ## Skills
 
-Here's a quick summary of the skills.
+Here's a quick summary of the skills, grouped by what they're for (most broadly useful first).
 
-| Plugin | Skill | What it does |
-|--------|-------|-------------|
-| toolkit | [agent-development](#agent-development) | Create Claude Code agents with correct frontmatter and conventions |
-| toolkit | [anthropic-evaluations](#anthropic-evaluations) | Build evaluation suites and graders for coding agents |
-| toolkit | [claude-code-agent-teams](#claude-code-agent-teams) | Coordinate multiple Claude Code instances as a team |
-| toolkit | [claude-code-hook-development](#claude-code-hook-development) | Write hooks that run before or after events |
-| toolkit | [claude-code-memory-and-rules](#claude-code-memory-and-rules) | Set up CLAUDE.md, rules, and auto memory |
-| toolkit | [claude-code-plugin-development](#claude-code-plugin-development) | Bundle commands, agents, skills, and hooks into a plugin |
-| toolkit | [claude-code-skill-development](#claude-code-skill-development) | Build SKILL.md files with progressive disclosure |
-| toolkit | [claude-code-slash-commands](#claude-code-slash-commands) | Create custom slash commands with frontmatter and arguments |
-| toolkit | [claude-code-statusline-development](#claude-code-statusline-development) | Build a custom statusline for git, context, and cost |
-| toolkit | [learn-and-improve](#learn-and-improve) | Analyze sessions and fix config friction |
-| toolkit | [makefile-development](#makefile-development) | Create self-documenting Makefiles with consistent conventions |
-| toolkit | [release-please-development](#release-please-development) | Set up automated versioning and changelogs |
-| toolkit | [research](#research) | Research technical options across the web and GitHub repos |
-| toolkit | [shell-script-development](#shell-script-development) | Write bash scripts with safe options and color output |
-| toolkit | [solve-problem](#solve-problem) | Diagnose problems with an evidence-first method |
-| dwmkerr | [drawio-diagram](#drawio-diagram) | Generate draw.io architecture diagrams with a consistent style |
-| dwmkerr | [my-repos](#my-repos) | Locate and work with dwmkerr's repositories |
-| dwmkerr | [project-setup](#project-setup) | Create a new GitHub repo with standard configuration |
-| dwmkerr | [slides](#slides) | Create Slidev or hand-built HTML slide decks |
+### Problem solving & research
+
+| Skill | Plugin | What it does |
+|-------|--------|-------------|
+| [solve-problem](#solve-problem) | toolkit | Diagnose problems with an evidence-first method |
+| [research](#research) | toolkit | Research technical options across the web and GitHub repos |
+
+### Software engineering
+
+| Skill | Plugin | What it does |
+|-------|--------|-------------|
+| [shell-script-development](#shell-script-development) | toolkit | Write bash scripts with safe options and color output |
+| [makefile-development](#makefile-development) | toolkit | Create self-documenting Makefiles with consistent conventions |
+| [release-please-development](#release-please-development) | toolkit | Set up automated versioning and changelogs |
+| [drawio-diagram](#drawio-diagram) | dwmkerr | Generate draw.io architecture diagrams with a consistent style |
+| [project-setup](#project-setup) | dwmkerr | Create a new GitHub repo with standard configuration |
+
+### Slides & presentations
+
+| Skill | Plugin | What it does |
+|-------|--------|-------------|
+| [slides](#slides) | dwmkerr | Create Slidev or hand-built HTML slide decks |
+
+### Building for Claude Code
+
+| Skill | Plugin | What it does |
+|-------|--------|-------------|
+| [claude-code-skill-development](#claude-code-skill-development) | toolkit | Build SKILL.md files with progressive disclosure |
+| [agent-development](#agent-development) | toolkit | Create Claude Code agents with correct frontmatter and conventions |
+| [claude-code-slash-commands](#claude-code-slash-commands) | toolkit | Create custom slash commands with frontmatter and arguments |
+| [claude-code-hook-development](#claude-code-hook-development) | toolkit | Write hooks that run before or after events |
+| [claude-code-plugin-development](#claude-code-plugin-development) | toolkit | Bundle commands, agents, skills, and hooks into a plugin |
+| [claude-code-statusline-development](#claude-code-statusline-development) | toolkit | Build a custom statusline for git, context, and cost |
+| [claude-code-memory-and-rules](#claude-code-memory-and-rules) | toolkit | Set up CLAUDE.md, rules, and auto memory |
+| [claude-code-agent-teams](#claude-code-agent-teams) | toolkit | Coordinate multiple Claude Code instances as a team |
+| [anthropic-evaluations](#anthropic-evaluations) | toolkit | Build evaluation suites and graders for coding agents |
+| [learn-and-improve](#learn-and-improve) | toolkit | Analyze sessions and fix config friction |
+
+### Personal workflow
+
+| Skill | Plugin | What it does |
+|-------|--------|-------------|
+| [my-repos](#my-repos) | dwmkerr | Locate and work with dwmkerr's repositories |
 
 <!-- vim-markdown-toc GFM -->
 
