@@ -11,6 +11,7 @@ the example whose lesson matches your situation.
 | Example | Domain | Core lesson |
 |---------|--------|-------------|
 | [SSE keepalive misdiagnosed as a timeout](example-sse-keepalive-misdiagnosed-as-timeout.md) | Code / distributed systems | The label in the bug report ("timeout") is a hypothesis, not evidence. Exact-constant timing means a deadline/interval, not work. When cheap checks don't isolate it, change the *conditions* to expose the hidden variable. Library source is evidence. |
+| [A skill hidden by its frontmatter](example-skill-hidden-by-frontmatter.md) | Tooling / config | The fix was in the definition (frontmatter `user_invocable: false`), not the surfaces (menu label, cache error). Surface signals are hypotheses. Don't declare "fixed" on a proxy signal — a secondary error clearing is not the reported symptom clearing; a symptom can have two causes. |
 
 ## What makes a good worked example here
 
