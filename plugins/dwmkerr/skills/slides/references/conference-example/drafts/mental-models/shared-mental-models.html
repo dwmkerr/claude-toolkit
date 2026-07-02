@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shared Mental Models</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; }
+  .mm-root {
+    /* shape-type colour encoding, brightened to pop on dark */
+    --mm-circle: #f24b3c;   /* bold red */
+    --mm-triangle: #f5cf3a; /* yellow */
+    --mm-square: #4c8dd6;   /* blue */
+    --mm-edge: #cfd4da;     /* light neutral branches */
+    --mm-stroke: #f4efe3;   /* near-white shape edges (replace near-black) */
+    background: #16191f;    /* matches conference deck --bg */
+    min-height: 100vh;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 56px 40px;
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+  .mm-root *, .mm-root *::before, .mm-root *::after { box-sizing: border-box; }
+  .mm-row {
+    display: flex;
+    /* Keep all three trees on one row at any container width. The slide
+       container is narrower than 3 x 340px + gaps, so wrapping would push the
+       third tree to a second row and clip it off the slide. */
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+    max-width: 1180px;
+  }
+  .mm-tree {
+    /* Share row equally, shrink to fit, never overflow. min-width:0 is
+       required so flex items can actually shrink below their content width. */
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 33%;
+  }
+  .mm-tree svg { display: block; width: 100%; height: auto; }
+  .mm-edge { stroke: var(--mm-edge); stroke-width: 3; stroke-linecap: butt; }
+  .mm-shape { stroke: var(--mm-stroke); stroke-width: 3; stroke-linejoin: miter; }
+  @media (max-width: 700px) { .mm-root { padding: 40px 20px; } .mm-row { gap: 16px; } }
+</style>
+</head>
+<body>
+<div class="mm-root">
+  <div class="mm-row">
+    <!-- MODEL A -->
+    <div class="mm-tree">
+      <svg viewBox="0 0 320 400" role="img" aria-label="Model A tree">
+        <g>
+          <line class="mm-edge" x1="160" y1="350" x2="100" y2="215"/>
+          <line class="mm-edge" x1="160" y1="350" x2="220" y2="215"/>
+          <line class="mm-edge" x1="100" y1="215" x2="52"  y2="98"/>
+          <line class="mm-edge" x1="100" y1="215" x2="140" y2="86"/>
+          <line class="mm-edge" x1="220" y1="215" x2="180" y2="86"/>
+          <line class="mm-edge" x1="220" y1="215" x2="268" y2="98"/>
+        </g>
+        <!-- root circle -->
+        <circle class="mm-shape" cx="160" cy="350" r="13" fill="var(--mm-circle)"/>
+        <!-- midL circle -->
+        <circle class="mm-shape" cx="100" cy="215" r="13" fill="var(--mm-circle)"/>
+        <!-- midR circle -->
+        <circle class="mm-shape" cx="220" cy="215" r="13" fill="var(--mm-circle)"/>
+        <!-- LL circle -->
+        <circle class="mm-shape" cx="52" cy="98" r="13" fill="var(--mm-circle)"/>
+        <!-- LR triangle -->
+        <polygon class="mm-shape" points="140,73 153,99 127,99" fill="var(--mm-triangle)"/>
+        <!-- RL square -->
+        <rect class="mm-shape" x="168" y="74" width="24" height="24" fill="var(--mm-square)"/>
+        <!-- RR triangle -->
+        <polygon class="mm-shape" points="268,85 281,111 255,111" fill="var(--mm-triangle)"/>
+      </svg>
+    </div>
+
+    <!-- MODEL B -->
+    <div class="mm-tree">
+      <svg viewBox="0 0 320 400" role="img" aria-label="Model B tree">
+        <g>
+          <line class="mm-edge" x1="160" y1="350" x2="100" y2="215"/>
+          <line class="mm-edge" x1="160" y1="350" x2="220" y2="215"/>
+          <line class="mm-edge" x1="100" y1="215" x2="52"  y2="98"/>
+          <line class="mm-edge" x1="100" y1="215" x2="140" y2="86"/>
+          <line class="mm-edge" x1="220" y1="215" x2="180" y2="86"/>
+          <line class="mm-edge" x1="220" y1="215" x2="268" y2="98"/>
+        </g>
+        <circle class="mm-shape" cx="160" cy="350" r="13" fill="var(--mm-circle)"/>
+        <circle class="mm-shape" cx="100" cy="215" r="13" fill="var(--mm-circle)"/>
+        <circle class="mm-shape" cx="220" cy="215" r="13" fill="var(--mm-circle)"/>
+        <circle class="mm-shape" cx="52" cy="98" r="13" fill="var(--mm-circle)"/>
+        <!-- LR triangle -->
+        <polygon class="mm-shape" points="140,73 153,99 127,99" fill="var(--mm-triangle)"/>
+        <!-- RL triangle -->
+        <polygon class="mm-shape" points="180,73 193,99 167,99" fill="var(--mm-triangle)"/>
+        <!-- RR square -->
+        <rect class="mm-shape" x="256" y="86" width="24" height="24" fill="var(--mm-square)"/>
+      </svg>
+    </div>
+
+    <!-- MODEL C -->
+    <div class="mm-tree">
+      <svg viewBox="0 0 320 400" role="img" aria-label="Model C tree">
+        <g>
+          <line class="mm-edge" x1="160" y1="355" x2="100" y2="225"/>
+          <line class="mm-edge" x1="160" y1="355" x2="215" y2="225"/>
+          <line class="mm-edge" x1="100" y1="225" x2="56"  y2="112"/>
+          <line class="mm-edge" x1="100" y1="225" x2="140" y2="100"/>
+          <line class="mm-edge" x1="215" y1="225" x2="178" y2="112"/>
+          <line class="mm-edge" x1="215" y1="225" x2="262" y2="165"/>
+          <line class="mm-edge" x1="262" y1="165" x2="235" y2="58"/>
+          <line class="mm-edge" x1="262" y1="165" x2="292" y2="78"/>
+        </g>
+        <!-- root circle -->
+        <circle class="mm-shape" cx="160" cy="355" r="13" fill="var(--mm-circle)"/>
+        <!-- midL circle -->
+        <circle class="mm-shape" cx="100" cy="225" r="13" fill="var(--mm-circle)"/>
+        <!-- midR circle -->
+        <circle class="mm-shape" cx="215" cy="225" r="13" fill="var(--mm-circle)"/>
+        <!-- LL circle -->
+        <circle class="mm-shape" cx="56" cy="112" r="13" fill="var(--mm-circle)"/>
+        <!-- LR square -->
+        <rect class="mm-shape" x="128" y="88" width="24" height="24" fill="var(--mm-square)"/>
+        <!-- RL circle -->
+        <circle class="mm-shape" cx="178" cy="112" r="13" fill="var(--mm-circle)"/>
+        <!-- RM circle -->
+        <circle class="mm-shape" cx="262" cy="165" r="13" fill="var(--mm-circle)"/>
+        <!-- RT1 triangle -->
+        <polygon class="mm-shape" points="235,45 248,71 222,71" fill="var(--mm-triangle)"/>
+        <!-- RT2 circle -->
+        <circle class="mm-shape" cx="292" cy="78" r="13" fill="var(--mm-circle)"/>
+      </svg>
+    </div>
+  </div>
+</div>
+</body>
+</html>

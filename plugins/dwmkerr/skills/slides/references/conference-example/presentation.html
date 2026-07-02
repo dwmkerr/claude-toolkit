@@ -1,0 +1,1415 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bipolar Disorder, Dysregulation & AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #16191f;          /* near-black slide */
+    --ink: #fbfaf6;         /* ivory text */
+    --ink-soft: #c8c5ba;    /* softer ivory */
+    --rule: #2c313a;
+    --accent: #5e8a9c;      /* slate, brightened for dark */
+    --warm: #d99161;        /* warm rust, brightened for dark */
+    --muted: #8a8578;
+    --perception: #cfcabb;  /* soft grey/white mood line */
+    --reality: #e8503a;     /* bright red mood line */
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; background: #0c0e12; overflow: hidden;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-feature-settings: "ss01","cv11";
+  }
+
+  .stage { position: relative; width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: center; }
+
+  .slide {
+    position: absolute;
+    aspect-ratio: 16 / 9;
+    width: min(96vw, 170vh);
+    background: var(--bg);
+    color: var(--ink);
+    box-shadow: 0 30px 80px rgba(0,0,0,.5);
+    display: none;
+    overflow: hidden;
+  }
+  .slide.active { display: flex; }
+
+  .pad {
+    width: 100%; height: 100%;
+    padding: 6% 7%;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative;
+  }
+
+  /* chrome */
+  .pageno {
+    position: fixed; right: 24px; bottom: 18px;
+    font: 500 13px 'JetBrains Mono', monospace;
+    color: #6f6b5f; letter-spacing: .05em; z-index: 50;
+  }
+  .label {
+    position: absolute; top: 28px; left: 28px;
+    font: 500 11px 'JetBrains Mono', monospace;
+    color: var(--muted);
+    letter-spacing: .18em; text-transform: uppercase;
+  }
+  .footer {
+    position: absolute; bottom: 26px; left: 28px;
+    font: 400 12px 'JetBrains Mono', monospace;
+    color: var(--muted); letter-spacing: .04em;
+  }
+
+  /* === TITLE === */
+  .title .pad { justify-content: center; align-items: flex-start; }
+  .title h1 {
+    font: 800 clamp(40px, 6.2vw, 84px)/1.02 'Inter', sans-serif;
+    letter-spacing: -.035em;
+    margin: 0 0 30px;
+    max-width: 16ch;
+  }
+  .title .meta {
+    position: absolute; bottom: 7%; left: 7%;
+    font: 500 13px 'JetBrains Mono', monospace;
+    color: var(--muted); letter-spacing: .08em;
+  }
+  .title .meta a { color: var(--muted); text-decoration: none; }
+  .title .meta a:hover { color: var(--ink-soft); }
+
+  /* title-page slide with an artwork on the right: title left, image right */
+  .title.split .pad { flex-direction: row; align-items: center; gap: 6%; }
+  .title.split .lead { flex: 0 0 34%; }
+  .title.split .art { flex: 1; display: flex; flex-direction: column; align-items: flex-end; gap: 12px; }
+  /* placeholder box sits behind the img; if the img fails to load the box shows */
+  .title.split .frame {
+    position: relative; width: 100%; max-height: 64vh; aspect-ratio: 4 / 3;
+    border: 1px dashed var(--rule);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .title.split .frame .ph-label {
+    font: 500 11px 'JetBrains Mono', monospace;
+    color: var(--muted); letter-spacing: .14em; text-transform: uppercase;
+    text-align: center; padding: 0 12%;
+  }
+  .title.split .frame img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: contain; display: block;
+  }
+  .title.split .caption {
+    font: 400 11px 'JetBrains Mono', monospace;
+    color: var(--muted); letter-spacing: .03em; text-align: right; max-width: 100%;
+  }
+  /* Thanks slide QR: shrink the frame to roughly a quarter of the default
+     .title.split sizing - a small square sitting neatly on the right. */
+  .title.split[data-name="thanks"] .frame {
+    width: 25%; max-height: 25vh; aspect-ratio: 1 / 1;
+    align-self: flex-end;
+    border: none;
+  }
+  .title.split[data-name="thanks"] .caption {
+    font-size: 10px;
+  }
+
+  /* === DISCLAIMER === */
+  .disclaimer .pad { justify-content: center; }
+  .disclaimer .label-in {
+    font: 500 11px 'JetBrains Mono', monospace;
+    color: var(--warm); letter-spacing: .18em; text-transform: uppercase;
+    margin-bottom: 26px;
+  }
+  .disclaimer h2 {
+    font: 800 clamp(40px, 5.4vw, 72px)/1 'Inter', sans-serif;
+    letter-spacing: -.03em; margin: 0 0 30px;
+  }
+  .disclaimer p {
+    font: 400 clamp(18px, 1.9vw, 26px)/1.5 'Inter', sans-serif;
+    color: var(--ink-soft); max-width: 40ch; margin: 0 0 14px;
+  }
+
+  /* === SECTION PUNCH (slate wash) === */
+  .punch { background: linear-gradient(135deg, #2f4b57 0%, #243b45 100%); color: var(--ink); }
+  .punch .pad { justify-content: center; }
+  .punch .chapter {
+    font: 500 12px 'JetBrains Mono', monospace;
+    color: rgba(251,250,246,.5);
+    letter-spacing: .3em; margin-bottom: 28px; text-transform: uppercase;
+  }
+  .punch h2 {
+    font: 900 clamp(56px, 9vw, 130px)/.95 'Inter', sans-serif;
+    letter-spacing: -.045em; margin: 0; color: var(--ink);
+  }
+  .punch .tag {
+    margin-top: 28px;
+    font: 400 clamp(16px, 1.5vw, 22px)/1.5 'Inter', sans-serif;
+    color: rgba(251,250,246,.7); max-width: 38ch;
+  }
+  .punch .label, .punch .footer { color: rgba(251,250,246,.4); }
+
+  /* === MOOD CHART SLIDES === */
+  /* Anchor the lead (label + heading) near the top so it sits at a consistent
+     height across chart slides regardless of how much content sits below. */
+  .chartslide .pad { justify-content: flex-start; padding-top: 9%; }
+  .chartslide .label-in {
+    font: 500 11px 'JetBrains Mono', monospace;
+    color: var(--muted); letter-spacing: .18em; text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .chartslide h3 {
+    font: 800 clamp(28px, 3.4vw, 44px)/1.1 'Inter', sans-serif;
+    letter-spacing: -.02em; margin: 0 0 22px;
+  }
+  /* three words below the title: emphasise one, fade the others */
+  .chartslide .threewords {
+    font: 700 clamp(20px, 2.4vw, 32px)/1.1 'Inter', sans-serif;
+    letter-spacing: -.01em; margin: 0 0 22px;
+  }
+  /* when the three-words line IS the slide title, give it heading prominence */
+  .chartslide .threewords.title {
+    font: 800 clamp(28px, 3.4vw, 44px)/1.1 'Inter', sans-serif;
+    letter-spacing: -.02em; margin: 0 0 22px;
+  }
+  /* vertical stack variant: one word per line in the lead area, above the chart */
+  .chartslide .threewords.stack {
+    font: 800 clamp(22px, 2.6vw, 34px)/1.2 'Inter', sans-serif;
+    margin: 0 0 18px;
+  }
+  .chartslide .threewords.stack span { display: block; }
+  .chartslide .threewords .on { color: var(--ink); }
+  .chartslide .threewords .on.blue { color: #4c8dd6; }
+  .chartslide .threewords .on.yellow { color: #f2c94c; }
+  .chartslide .threewords .on.green { color: #6bbf73; }
+  .chartslide .threewords .off { color: var(--muted); opacity: .45; }
+  .chartslide .threewords .pipe { color: var(--muted); opacity: .45; margin: 0 .5em; font-weight: 400; }
+  .chartslide .legend {
+    display: flex; gap: 28px; margin-bottom: 16px;
+    font: 500 11px 'JetBrains Mono', monospace;
+    color: var(--muted); letter-spacing: .14em; text-transform: uppercase;
+  }
+  .chartslide .legend .sw { display: inline-block; width: 28px; height: 2px; vertical-align: middle; margin-right: 8px; }
+  .chartslide .legend .sw.perception { background: var(--perception); }
+  .chartslide .legend .sw.reality { background: var(--reality); height: 3px; }
+  .chartslide .chart-wrap { width: 100%; }
+  .chartslide svg { width: 100%; height: auto; display: block; }
+  /* Headroom chart (regulation v10): its SVG viewBox is 900 x 468 = a 260px
+     plot band with 104px of headroom top and bottom so the tall peak, deep
+     trough and arrows never crop. Constrain the layout box to the PLOT band
+     (same 900/260 footprint as the sibling charts) and let the headroom spill
+     out via symmetric negative margins, so the lead above and the baseline line
+     up with the other chart slides instead of being pushed down. 104/900 of the
+     rendered width is absorbed top and bottom. */
+  .chartslide .chart-wrap.headroom { aspect-ratio: 900 / 260; overflow: visible; }
+  .chartslide .chart-wrap.headroom svg { margin-top: -11.556%; margin-bottom: -11.556%; }
+  .chartslide .note {
+    margin-top: 22px;
+    font: 400 clamp(15px, 1.5vw, 20px)/1.5 'Inter', sans-serif;
+    color: var(--ink-soft); max-width: 64ch;
+  }
+
+  /* === PLAIN STATEMENT === */
+  .statement .pad { justify-content: center; }
+  .statement .label-in {
+    font: 500 11px 'JetBrains Mono', monospace;
+    color: var(--muted); letter-spacing: .18em; text-transform: uppercase;
+    margin-bottom: 26px;
+  }
+  .statement p {
+    font: 400 clamp(22px, 2.6vw, 38px)/1.4 'Inter', sans-serif;
+    color: var(--ink); max-width: 30ch; margin: 0;
+  }
+  .statement p em { font-style: normal; color: var(--accent); }
+
+  /* word bath: a deliberately dense block of clinical terms */
+  .wordbath h3 {
+    font: 800 clamp(26px, 3vw, 40px)/1.1 'Inter', sans-serif;
+    letter-spacing: -.02em; margin: 0 0 24px;
+  }
+  .wordbath p {
+    font: 400 clamp(18px, 2vw, 26px)/1.5 'Inter', sans-serif;
+    color: var(--ink); max-width: 56ch; margin: 0;
+  }
+  /* === TREATMENT (chart + text) - reuse chartslide === */
+
+  /* === REGULATORS TABLE === */
+  .regtable .pad { justify-content: center; padding: 4.5% 6%; }
+  .regtable .label-in {
+    font: 500 11px 'JetBrains Mono', monospace;
+    color: var(--muted); letter-spacing: .18em; text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .regtable h3 {
+    font: 800 clamp(24px, 3vw, 38px)/1.1 'Inter', sans-serif;
+    letter-spacing: -.02em; margin: 0 0 20px;
+  }
+  .regtable table { width: 100%; border-collapse: collapse; }
+  .regtable thead th {
+    text-align: left; padding: 0 0 12px;
+    font: 500 11px 'JetBrains Mono', monospace;
+    letter-spacing: .14em; text-transform: uppercase;
+  }
+  .regtable thead .reg { color: #6bbf73; }
+  .regtable thead .dys { color: #e8503a; }
+  .regtable tbody td, .regtable tbody th {
+    padding: 11px 14px 11px 0; vertical-align: top;
+    border-top: 1px solid var(--rule);
+  }
+  .regtable tbody th {
+    text-align: left; width: 14%;
+    font: 700 clamp(14px, 1.5vw, 19px) 'Inter', sans-serif; color: var(--ink);
+  }
+  .regtable td {
+    font: 400 clamp(13px, 1.4vw, 17px)/1.4 'Inter', sans-serif; color: var(--ink-soft);
+    width: 43%;
+  }
+  .regtable td.reg { color: #a9d9ad; }
+  .regtable td.dys { color: #f0a594; }
+  .regtable td span.colsep { display:none; }
+  /* two-column variant (no row label column): even 50/50 cells */
+  .regtable table.two-col td { width: 50%; }
+  /* theme-titles-only view: a clean two-column grid of theme names */
+  .regtable ul.themes {
+    list-style: none; margin: 8px 0 0; padding: 0;
+    display: grid; grid-template-columns: repeat(2, max-content);
+    gap: 16px 72px;
+    font: 700 clamp(20px, 2.4vw, 32px)/1.1 'Inter', sans-serif;
+    letter-spacing: -.01em; color: var(--muted);
+  }
+
+  /* === MONOLOGUE (pathologising happiness) === */
+  .mono .pad { justify-content: center; }
+  .mono .label-in {
+    font: 500 11px 'JetBrains Mono', monospace;
+    color: var(--muted); letter-spacing: .18em; text-transform: uppercase;
+    margin-bottom: 26px;
+  }
+  .mono h3 {
+    font: 800 clamp(26px, 3vw, 40px)/1.1 'Inter', sans-serif;
+    letter-spacing: -.02em; margin: 0 0 28px;
+  }
+  .mono .lines {
+    font: 400 clamp(17px, 1.9vw, 26px)/1.55 'Inter', sans-serif;
+    color: var(--ink-soft); max-width: 46ch; margin: 0 0 30px;
+  }
+  .mono .lines span { color: var(--ink); }
+  .mono .hinge {
+    font: 700 clamp(18px, 2vw, 28px)/1.3 'Inter', sans-serif;
+    color: var(--accent); max-width: 40ch; margin: 0; letter-spacing: -.015em;
+  }
+
+  /* === AI SKELETON (three layers) === */
+  .layers .pad { justify-content: center; }
+  .layers .label-in {
+    font: 500 11px 'JetBrains Mono', monospace;
+    color: var(--muted); letter-spacing: .18em; text-transform: uppercase;
+    margin-bottom: 36px;
+  }
+  .layers .row { border-top: 1px solid var(--rule); padding: 20px 0; }
+  .layers .row:last-child { border-bottom: 1px solid var(--rule); }
+  .layers .row .k {
+    font: 700 clamp(18px, 2vw, 28px) 'Inter', sans-serif;
+    letter-spacing: -.015em; margin-bottom: 6px; color: var(--ink);
+  }
+  .layers .row.l1 .k { color: var(--accent); }
+  .layers .row.l2 .k { color: var(--warm); }
+  .layers .row .v {
+    font: 400 clamp(14px, 1.5vw, 20px)/1.45 'Inter', sans-serif;
+    color: var(--ink-soft); max-width: 64ch;
+  }
+
+  /* === PLACEHOLDER HEADING === */
+  .ph .pad { justify-content: center; }
+  .ph .label-in {
+    font: 500 11px 'JetBrains Mono', monospace;
+    color: var(--muted); letter-spacing: .18em; text-transform: uppercase;
+    margin-bottom: 26px;
+  }
+  .ph h2 {
+    font: 800 clamp(40px, 5.4vw, 76px)/1 'Inter', sans-serif;
+    letter-spacing: -.03em; margin: 0 0 24px;
+  }
+  .ph p {
+    font: 400 clamp(18px, 1.9vw, 26px)/1.5 'Inter', sans-serif;
+    color: var(--ink-soft); max-width: 40ch; margin: 0;
+  }
+  .ph blockquote {
+    margin: 12px 0 0; padding: 0 0 0 24px;
+    border-left: 3px solid var(--warm);
+    font: 400 clamp(20px, 2.2vw, 32px)/1.4 'Inter', sans-serif;
+    color: var(--ink); max-width: 36ch; font-style: italic;
+  }
+  /* scannable muted theme list (matches the regulators theme-list treatment) */
+  .ph ul.themes-row {
+    list-style: none; margin: 8px 0 0; padding: 0;
+    display: flex; flex-wrap: wrap; gap: 14px 40px;
+    font: 700 clamp(18px, 2.2vw, 30px)/1.1 'Inter', sans-serif;
+    letter-spacing: -.01em; color: var(--muted);
+  }
+  /* stacked diagram iframes for the Maladaptive Creativity slide: two iframes
+     layered absolutely so a progressive reveal (.revealed) brings them in. The
+     complex variant needs a generous canvas, so the stack drops aspect-ratio
+     and just takes most of the remaining slide area below the lead. */
+  .ph .diagram-stack {
+    position: relative;
+    width: 100%; height: min(72vh, 72vw);
+    margin-top: 8px;
+  }
+  .ph .diagram-stack .diagram {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%; border: none;
+    background: transparent;
+  }
+  /* Lift the Maladaptive Creativity lead to the top so the diagram has the
+     biggest possible canvas underneath it. Scoped to this slide only via
+     data-name so other .ph slides keep their centred lead. */
+  .ph[data-name="ai-maladaptive-creativity"] .pad {
+    justify-content: flex-start; padding-top: 5%;
+  }
+  .ph[data-name="ai-maladaptive-creativity"] h2 { margin-bottom: 12px; }
+  .ph[data-name="ai-maladaptive-creativity"] .label-in { margin-bottom: 14px; }
+  /* recap bookend slide: regtable layout, but heading rendered as a title-page hero */
+  .regtable.recap-hero .pad { justify-content: flex-start; padding-top: 6%; }
+  .regtable.recap-hero h3 {
+    font: 800 clamp(36px, 5.4vw, 76px)/1.02 'Inter', sans-serif;
+    letter-spacing: -.035em; margin: 0 0 32px; max-width: 16ch;
+  }
+  .regtable.recap-hero table { margin-top: 0; }
+
+  /* === WHAT TO DO (list) === */
+  .todo .pad { justify-content: center; padding: 5% 7%; }
+  .todo .label-in {
+    font: 500 11px 'JetBrains Mono', monospace;
+    color: var(--muted); letter-spacing: .18em; text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .todo h3 {
+    font: 800 clamp(26px, 3vw, 40px)/1.1 'Inter', sans-serif;
+    letter-spacing: -.02em; margin: 0 0 26px;
+  }
+  .todo .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 48px; }
+  .todo .grp h4 {
+    font: 500 11px 'JetBrains Mono', monospace;
+    color: var(--accent); letter-spacing: .14em; text-transform: uppercase; margin: 0 0 12px;
+  }
+  .todo ul { list-style: none; margin: 0; padding: 0;
+    font: 400 clamp(14px, 1.5vw, 19px)/1.7 'Inter', sans-serif; color: var(--ink-soft); }
+  .todo li { display: flex; gap: 12px; align-items: baseline; }
+  .todo li .idx { color: var(--warm); font: 500 12px 'JetBrains Mono', monospace; }
+
+  /* === JOKE TITLES === */
+  .jokes .pad { justify-content: center; padding: 5% 7%; }
+  .jokes .label-in {
+    font: 500 11px 'JetBrains Mono', monospace;
+    color: var(--muted); letter-spacing: .18em; text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .jokes h3 {
+    font: 800 clamp(26px, 3vw, 40px)/1.1 'Inter', sans-serif;
+    letter-spacing: -.02em; margin: 0 0 8px;
+  }
+  .jokes .sub {
+    font: 400 clamp(15px, 1.5vw, 20px)/1.5 'Inter', sans-serif;
+    color: var(--ink-soft); margin: 0 0 24px;
+  }
+  .jokes ul { columns: 2; column-gap: 56px; list-style: none; margin: 0; padding: 0;
+    font: 400 clamp(14px, 1.45vw, 19px)/1.85 'JetBrains Mono', monospace; color: var(--muted); }
+  .jokes li { break-inside: avoid; }
+  .jokes li::before { content: "“"; color: var(--warm); }
+  .jokes li::after { content: "”"; color: var(--warm); }
+  /* progressive-reveal items: hidden by default, shown once .revealed is added.
+     visibility:hidden preserves layout so the page does not jump as items appear. */
+  .revealable { visibility: hidden; }
+  .revealable.revealed { visibility: visible; }
+  .jokes blockquote {
+    margin: 28px 0 0; padding: 0 0 0 24px;
+    border-left: 3px solid var(--warm);
+    font: 400 clamp(15px, 1.5vw, 20px)/1.5 'Inter', sans-serif;
+    color: var(--ink); max-width: 70ch; font-style: italic;
+  }
+
+  /* === RESOURCES / CLOSE === */
+  .resources .pad { justify-content: center; }
+  .resources .label-in {
+    font: 500 11px 'JetBrains Mono', monospace;
+    color: var(--muted); letter-spacing: .18em; text-transform: uppercase;
+    margin-bottom: 26px;
+  }
+  .resources h3 {
+    font: 800 clamp(30px, 3.6vw, 50px)/1.05 'Inter', sans-serif;
+    letter-spacing: -.025em; margin: 0 0 36px;
+  }
+  .resources .lines {
+    display: flex; flex-direction: column; gap: 14px; max-width: 60ch;
+    font: 400 clamp(16px, 1.6vw, 22px)/1.4 'Inter', sans-serif; color: var(--ink-soft);
+  }
+  .resources .lines .org { color: var(--ink); font-weight: 600; }
+  .resources .lines .num { color: var(--accent); font-family: 'JetBrains Mono', monospace; }
+  .resources .signoff {
+    position: absolute; bottom: 7%; left: 7%;
+    font: 500 13px 'JetBrains Mono', monospace;
+    color: var(--muted); letter-spacing: .08em;
+  }
+  .resources .signoff a { color: var(--accent); text-decoration: none; }
+
+  /* speaker notes panel: slides up from the bottom, overlays the deck,
+     never resizes the 16:9 slide. */
+  .notes {
+    position: fixed; left: 0; right: 0; bottom: 0;
+    height: 30vh;
+    background: #0b0d11;
+    border-top: 1px solid #2c313a;
+    color: var(--ink);
+    box-shadow: 0 -20px 40px rgba(0,0,0,.5);
+    z-index: 60;
+    transform: translateY(100%);
+    transition: transform .28s ease;
+    padding: 26px 40px 40px;
+    overflow-y: auto;
+  }
+  .notes.show { transform: translateY(0); }
+  .notes .notes-label {
+    font: 500 11px 'JetBrains Mono', monospace;
+    color: var(--muted); letter-spacing: .18em; text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .notes .notes-body {
+    font: 400 clamp(16px, 1.6vw, 22px)/1.5 'Inter', sans-serif;
+    color: var(--ink-soft); max-width: 80ch;
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+
+  <!-- 1. TITLE -->
+  <section class="slide title" data-name="title">
+    <div class="pad">
+      <h1>Bipolar Disorder, Dysregulation &amp; AI</h1>
+      <div class="meta">Dave Kerr · <a href="https://github.com/dwmkerr">github.com/dwmkerr</a> · <a href="https://linkedin.com/in/dwmkerr">linkedin.com/in/dwmkerr</a> · <a href="https://dwmkerr.com">dwmkerr.com</a></div>
+    </div>
+  </section>
+
+  <!-- 3. DISCLAIMER: BE KIND -->
+  <section class="slide disclaimer" data-name="be-kind">
+    <div class="pad">
+      <h2>Disclaimer</h2>
+    </div>
+  </section>
+
+  <!-- 4. PERCEPTION (sine only) - first bipolar slide -->
+  <section class="slide chartslide" data-name="perception">
+    <div class="pad">
+      <div class="label-in">Bipolar disorder</div>
+      <h3>My understanding</h3>
+      <div class="chart-wrap" id="chart-perception"></div>
+    </div>
+  </section>
+
+  <!-- 6. REALITY (chaotic line, type 1) -->
+  <section class="slide chartslide" data-name="reality">
+    <div class="pad">
+      <div class="label-in">Bipolar disorder</div>
+      <h3>My understanding</h3>
+      <div class="chart-wrap" id="chart-reality"></div>
+    </div>
+  </section>
+
+  <!-- 7. REALITY (chaotic line, type 2 - prolonged depression then brief mania) -->
+  <section class="slide chartslide" data-name="reality-type2">
+    <div class="pad">
+      <div class="label-in">Bipolar disorder</div>
+      <h3>My understanding</h3>
+      <div class="chart-wrap" id="chart-reality-type2"></div>
+    </div>
+  </section>
+
+  <!-- 8. REALITY (chaotic line, type 3 - flat, extreme rise to psychosis, collapse, ends low) -->
+  <section class="slide chartslide" data-name="reality-type3">
+    <div class="pad">
+      <div class="label-in">Bipolar disorder</div>
+      <h3>My understanding</h3>
+      <div class="chart-wrap" id="chart-reality-type3"></div>
+    </div>
+  </section>
+
+  <!-- 8. ONE SLICE ONLY -->
+  <section class="slide statement wordbath" data-name="one-slice">
+    <div class="pad">
+      <div class="label-in">Bipolar disorder</div>
+      <h3>What is bipolar disorder?</h3>
+      <p>Highly heritable, lifelong vulnerability that destabilises mood regulation. Compromised prefrontal-limbic regulation, hypersensitivity to dopaminergic effects, intracellular signalling, circadian biology. Kindling then degeneration. Highly complex. Many overlaps with other psychiatric conditions such as schizophrenia and major depression</p>
+    </div>
+  </section>
+
+  <!-- SECTION: DYSREGULATION & WELLNESS MANAGEMENT (title-page style) -->
+  <section class="slide title" data-name="section-dysregulation">
+    <div class="pad">
+      <h1>Dysregulation &amp; Wellness Management</h1>
+    </div>
+  </section>
+
+  <!-- 10. MEDICATION (chart + three-words title) -->
+  <section class="slide chartslide" data-name="treatment-regulation">
+    <div class="pad">
+      <div class="label-in">Dysregulation &amp; Wellness Management</div>
+      <div class="threewords title stack"><span class="on blue">Medication</span><span class="off">Support</span><span class="off">Regulation</span></div>
+      <div class="chart-wrap" id="chart-treatment"></div>
+    </div>
+  </section>
+
+  <!-- 11. SUPPORT (bespoke chart: blue line, red excursions, yellow markers) -->
+  <section class="slide chartslide" data-name="support">
+    <div class="pad">
+      <div class="label-in">Dysregulation &amp; Wellness Management</div>
+      <div class="threewords title stack"><span class="off">Medication</span><span class="on yellow">Support</span><span class="off">Regulation</span></div>
+      <div class="chart-wrap" id="chart-support"></div>
+    </div>
+  </section>
+
+  <!-- 12. REGULATION (bespoke chart: blue line, red excursions, green arrows) -->
+  <section class="slide chartslide" data-name="regulation">
+    <div class="pad">
+      <div class="label-in">Dysregulation &amp; Wellness Management</div>
+      <div class="threewords title stack"><span class="off">Medication</span><span class="off">Support</span><span class="on green">Regulation</span></div>
+      <div class="chart-wrap headroom" id="chart-regulation"></div>
+    </div>
+  </section>
+
+  <!-- REGULATORS AND DYSREGULATORS (theme titles only; detail in notes) -->
+  <section class="slide regtable" data-name="regulators-dysregulators">
+    <div class="pad">
+      <div class="label-in">Dysregulation &amp; Wellness Management</div>
+      <h3>Regulators and Dysregulators</h3>
+      <ul class="themes">
+        <li>Sleep</li>
+        <li>Rhythm</li>
+        <li>Stress</li>
+        <li>People</li>
+        <li>Substances</li>
+        <li>Therapy &amp; Integration</li>
+        <li>Other surprising things</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PATHOLOGISING HAPPINESS (title + image only; prose in notes) -->
+  <section class="slide chartslide" data-name="pathologising-happiness">
+    <div class="pad">
+      <div class="label-in">Dysregulation &amp; Wellness Management</div>
+      <h3>Pathologising Happiness</h3>
+      <div class="chart-wrap" id="chart-pathologising"></div>
+    </div>
+  </section>
+
+  <!-- SECTION: AI (title-page style) -->
+  <section class="slide title" data-name="section-ai">
+    <div class="pad">
+      <h1>AI</h1>
+    </div>
+  </section>
+
+  <!-- AI: TRANSFORMATIVE SHIFTS IN WORLDVIEW OR CORE BELIEFS -->
+  <section class="slide ph" data-name="ai-core-beliefs">
+    <div class="pad">
+      <div class="label-in">AI</div>
+      <h2 style="color:#e8503a">Transformative Shifts in Worldview or Core Beliefs</h2>
+    </div>
+  </section>
+
+  <!-- AI: INTEGRATION (pairs with core beliefs, regulating side) -->
+  <section class="slide ph" data-name="ai-integration">
+    <div class="pad">
+      <div class="label-in">AI</div>
+      <h2 style="color:#6bbf73">Integration</h2>
+    </div>
+  </section>
+
+  <!-- AI: ADDICTION -->
+  <section class="slide ph" data-name="ai-addiction">
+    <div class="pad">
+      <div class="label-in">AI</div>
+      <h2 style="color:#e8503a">Addiction</h2>
+    </div>
+  </section>
+
+  <!-- AI: MANAGING ADDICTION -->
+  <section class="slide ph" data-name="ai-managing-addiction">
+    <div class="pad">
+      <div class="label-in">AI</div>
+      <h2 style="color:#6bbf73">Managing Addiction</h2>
+    </div>
+  </section>
+
+  <!-- AI: GRANDIOSITY & MALADAPTIVE CREATIVITY (dysregulating side) -->
+  <section class="slide ph" data-name="ai-grandiosity">
+    <div class="pad">
+      <div class="label-in">AI</div>
+      <h2 style="color:#e8503a">Grandiosity</h2>
+    </div>
+  </section>
+
+  <!-- AI: EXTERNAL GROUNDING & SHARED MODELS (regulating side) -->
+  <section class="slide ph" data-name="ai-external-grounding">
+    <div class="pad">
+      <div class="label-in">AI</div>
+      <h2 style="color:#6bbf73">External Grounding &amp; Shared Models</h2>
+    </div>
+  </section>
+
+  <!-- AI: AGGRESSION & COMPETITIVENESS (dysregulating side) -->
+  <section class="slide ph" data-name="ai-aggression">
+    <div class="pad">
+      <div class="label-in">AI</div>
+      <h2 style="color:#e8503a">Aggression &amp; Competitiveness</h2>
+    </div>
+  </section>
+
+  <!-- AI: EMPATHY & FUN (regulating side) -->
+  <section class="slide ph" data-name="ai-empathy">
+    <div class="pad">
+      <div class="label-in">AI</div>
+      <h2 style="color:#6bbf73">Empathy &amp; Fun</h2>
+    </div>
+  </section>
+
+  <!-- AI: ATTENTIONAL LENG T'CHE (dysregulating side) -->
+  <section class="slide ph" data-name="ai-attention">
+    <div class="pad">
+      <div class="label-in">AI</div>
+      <h2 style="color:#e8503a">Attentional Leng T'Che</h2>
+    </div>
+  </section>
+
+  <!-- AI: FOCUS (regulating side) -->
+  <section class="slide ph" data-name="ai-focus">
+    <div class="pad">
+      <div class="label-in">AI</div>
+      <h2 style="color:#6bbf73">Focus</h2>
+    </div>
+  </section>
+
+  <!-- AI: PRESSURED SPEAKING (dysregulating side) -->
+  <section class="slide ph" data-name="ai-pressured-speaking">
+    <div class="pad">
+      <div class="label-in">AI</div>
+      <h2 style="color:#e8503a">Pressured Speaking</h2>
+    </div>
+  </section>
+
+  <!-- AI: SIGNAL TO NOISE (regulating side) -->
+  <section class="slide ph" data-name="ai-signal-to-noise">
+    <div class="pad">
+      <div class="label-in">AI</div>
+      <h2 style="color:#6bbf73">Signal to Noise</h2>
+    </div>
+  </section>
+
+  <!-- AI: MALADAPTIVE CREATIVITY (dysregulating side; right-arrow reveals simple then complex diagram) -->
+  <section class="slide ph" data-name="ai-maladaptive-creativity" data-reveal="true">
+    <div class="pad">
+      <div class="label-in">AI</div>
+      <h2 style="color:#e8503a">Maladaptive Creativity</h2>
+      <div class="diagram-stack">
+        <iframe src="drafts/mental-models/shared-mental-models.html" class="revealable diagram simple" title="Shared mental models - simple" loading="lazy"></iframe>
+        <iframe src="drafts/mental-models/shared-mental-models-complex.html" class="revealable diagram complex" title="Shared mental models - complex" loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI: SHARED MODELS & COLLABORATION (regulating side) -->
+  <section class="slide ph" data-name="ai-shared-models">
+    <div class="pad">
+      <div class="label-in">AI</div>
+      <h2 style="color:#6bbf73">Shared Models &amp; Collaboration</h2>
+    </div>
+  </section>
+
+  <!-- ENDING RECAP (bookend - title hero + AI-section recap table) -->
+  <section class="slide regtable recap-hero" data-name="ai-ipsrt">
+    <div class="pad">
+      <h3>Bipolar Disorder, Dysregulation &amp; AI</h3>
+      <table class="two-col">
+        <tbody>
+          <tr>
+            <td class="dys">Transformative Shifts in Worldview or Core Beliefs</td>
+            <td class="reg">Integration</td>
+          </tr>
+          <tr>
+            <td class="dys">Addiction</td>
+            <td class="reg">Managing Addiction</td>
+          </tr>
+          <tr>
+            <td class="dys">Grandiosity</td>
+            <td class="reg">External Grounding &amp; Shared Models</td>
+          </tr>
+          <tr>
+            <td class="dys">Aggression &amp; Competitiveness</td>
+            <td class="reg">Empathy &amp; Fun</td>
+          </tr>
+          <tr>
+            <td class="dys">Attentional Leng T'Che</td>
+            <td class="reg">Focus</td>
+          </tr>
+          <tr>
+            <td class="dys">Pressured Speaking</td>
+            <td class="reg">Signal to Noise</td>
+          </tr>
+          <tr>
+            <td class="dys">Maladaptive Creativity</td>
+            <td class="reg">Shared Models &amp; Collaboration</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ENDING - "good at coding and bad at prose" (right-click to reveal each item) -->
+  <section class="slide jokes" data-name="ai-titles" data-reveal="true">
+    <div class="pad">
+      <div class="label-in">ending</div>
+      <h3>Awful words</h3>
+      <ul>
+        <li class="revealable">Tokens Are Cocaine</li>
+        <li class="revealable">How I Learned to Stop Shipping and Love the Spec</li>
+        <li class="revealable">Hypomania-Driven Development</li>
+        <li class="revealable">Engineering With a Brain on Fire</li>
+        <li class="revealable">The Magic and Madness of Agentic Engineering</li>
+        <li class="revealable">THREE AGENTS, FOUR WORKTREES, TWO LAPTOPS, NO SLEEP. CODE SHIPPED. MARRIAGE DIDN'T.</li>
+      </ul>
+      <blockquote class="revealable">Lesson noted: drop drug metaphors, drop wonder-framing on a clinical topic, drop puns on engineering acronyms, treat psychiatric vocabulary with the same care as production-incident vocabulary.</blockquote>
+    </div>
+  </section>
+
+  <!-- THANKS (title-page style, LinkedIn QR on the right) -->
+  <section class="slide title split" data-name="thanks">
+    <div class="pad">
+      <div class="lead">
+        <h1>Thanks</h1>
+        <div class="meta" style="position:static;left:auto;bottom:auto;margin:24px 0 0">Be kind, have fun, thank-you</div>
+        <div class="meta" style="position:static;left:auto;bottom:auto;margin:14px 0 0">Dave Kerr · <a href="https://github.com/dwmkerr">github.com/dwmkerr</a> · <a href="https://linkedin.com/in/dwmkerr">linkedin.com/in/dwmkerr</a> · <a href="https://dwmkerr.com">dwmkerr.com</a></div>
+      </div>
+      <div class="art">
+        <div class="frame">
+          <img src="images/linkedin-qr.svg" alt="LinkedIn QR for dwmkerr">
+        </div>
+        <div class="caption">linkedin.com/in/dwmkerr</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- chrome -->
+<div class="pageno" id="pageno">01 / 30</div>
+
+<!-- speaker notes panel (Up arrow shows, Down arrow hides) -->
+<div class="notes" id="notes" aria-hidden="true">
+  <div class="notes-label" id="notes-label">Speaker notes</div>
+  <div class="notes-body" id="notes-body"></div>
+</div>
+
+<script>
+/* ============================================================================
+ * MOOD CHART GENERATOR (adapted from drafts/mood-chart-lab.html, dark palette)
+ * Perception = simple sine. Reality = chaotic Catmull-Rom through control points.
+ * ==========================================================================*/
+const GEO = {
+  width: 900, height: 260, padX: 36, padY: 24,
+  get plotLeft()  { return this.padX; },
+  get plotRight() { return this.width - this.padX; },
+  get plotW()     { return this.plotRight - this.plotLeft; },
+  get baselineY() { return this.height / 2; },
+  get amp()       { return (this.height / 2) - this.padY; },
+};
+function px(nx) { return GEO.plotLeft + nx * GEO.plotW; }
+function py(ny) { return GEO.baselineY - ny * GEO.amp; }
+
+function perceptionPath() {
+  const SAMPLES = 240, CYCLES = 3.5, AMP_N = 0.16;
+  let d = "";
+  for (let i = 0; i <= SAMPLES; i++) {
+    const t = i / SAMPLES;
+    const ny = AMP_N * Math.sin(t * CYCLES * 2 * Math.PI);
+    d += (i === 0 ? "M" : "L") + px(t).toFixed(2) + " " + py(ny).toFixed(2) + " ";
+  }
+  return d.trim();
+}
+
+// Reality: erupts in the middle/right, eases home at the far right.
+const REALITY_POINTS = [
+  { x: 0.00, y:  0.00 }, { x: 0.06, y:  0.10 }, { x: 0.12, y: -0.06 },
+  { x: 0.19, y:  0.12 }, { x: 0.26, y: -0.10 }, { x: 0.32, y:  0.18 },
+  { x: 0.37, y:  0.78 }, { x: 0.41, y: -0.55 }, { x: 0.45, y:  0.95 },
+  { x: 0.49, y: -0.30 }, { x: 0.52, y:  0.42 }, { x: 0.56, y: -0.92 },
+  { x: 0.60, y:  0.62 }, { x: 0.64, y: -0.48 }, { x: 0.68, y:  0.88 },
+  { x: 0.73, y: -0.20 }, { x: 0.77, y:  0.50 }, { x: 0.81, y: -0.66 },
+  { x: 0.86, y:  0.30 }, { x: 0.91, y: -0.14 }, { x: 0.96, y:  0.08 },
+  { x: 1.00, y:  0.00 },
+];
+
+// Type 2: drifts down into a prolonged depressive low (long flat stretch),
+// climbs out, dips again, then a BRIEF sharp spike up into mania (narrow in x),
+// then straight back down toward baseline. The asymmetry - long depression,
+// short mania - is the point.
+const REALITY_POINTS_TYPE2 = [
+  { x: 0.00, y:  0.00 }, { x: 0.06, y: -0.08 }, { x: 0.12, y: -0.32 },
+  { x: 0.18, y: -0.58 },                                   // drifting down
+  { x: 0.25, y: -0.67 }, { x: 0.33, y: -0.68 }, { x: 0.41, y: -0.67 },
+  { x: 0.49, y: -0.66 }, { x: 0.57, y: -0.66 },            // long flat low
+  { x: 0.64, y: -0.34 }, { x: 0.69, y: -0.10 },            // climbs out
+  { x: 0.74, y: -0.34 }, { x: 0.78, y: -0.12 },            // dips again
+  { x: 0.83, y:  0.92 },                                   // brief sharp manic spike
+  { x: 0.88, y:  0.20 },                                   // straight back down
+  { x: 0.94, y: -0.06 }, { x: 1.00, y:  0.00 },
+];
+
+// Type 3: long stretch near baseline with only a moderate sway, then an
+// extreme prolonged rise into psychosis (near the top) with rapid cycling at
+// the high level, then a severe collapse into deep depression. Does NOT return
+// to baseline - it ends down, in a much lower place.
+const REALITY_POINTS_TYPE3 = [
+  { x: 0.00, y:  0.00 }, { x: 0.07, y:  0.08 }, { x: 0.14, y: -0.06 },
+  { x: 0.21, y:  0.07 }, { x: 0.28, y: -0.05 }, { x: 0.35, y:  0.06 },
+  { x: 0.40, y: -0.04 },                                   // long flat near baseline, moderate sway
+  { x: 0.46, y:  0.55 }, { x: 0.51, y:  0.98 },            // extreme rise into psychosis
+  { x: 0.55, y:  0.86 }, { x: 0.58, y:  0.99 }, { x: 0.61, y:  0.84 },
+  { x: 0.64, y:  0.98 }, { x: 0.67, y:  0.85 }, { x: 0.70, y:  0.97 },
+  { x: 0.73, y:  0.88 },                                   // prolonged high with rapid cycling
+  { x: 0.78, y:  0.20 }, { x: 0.84, y: -0.55 },            // severe collapse
+  { x: 0.90, y: -0.85 }, { x: 0.95, y: -0.92 }, { x: 1.00, y: -0.90 }, // ends deep down, not baseline
+];
+
+// Treatment: same kind of line but kept more within bounds - swings are
+// damped, as if each excursion is corrected back toward baseline.
+const TREATMENT_POINTS = [
+  { x: 0.00, y:  0.00 }, { x: 0.08, y:  0.14 }, { x: 0.15, y: -0.10 },
+  { x: 0.23, y:  0.34 }, { x: 0.29, y:  0.05 }, { x: 0.37, y: -0.38 },
+  { x: 0.44, y: -0.08 }, { x: 0.51, y:  0.40 }, { x: 0.57, y:  0.06 },
+  { x: 0.64, y: -0.34 }, { x: 0.70, y: -0.05 }, { x: 0.77, y:  0.30 },
+  { x: 0.84, y:  0.04 }, { x: 0.91, y: -0.18 }, { x: 1.00, y:  0.00 },
+];
+
+function catmullRomPath(pts) {
+  if (pts.length < 2) return "";
+  const P = pts.map((p) => ({ x: px(p.x), y: py(p.y) }));
+  let d = `M ${P[0].x.toFixed(2)} ${P[0].y.toFixed(2)} `;
+  for (let i = 0; i < P.length - 1; i++) {
+    const p0 = P[i - 1] || P[i];
+    const p1 = P[i];
+    const p2 = P[i + 1];
+    const p3 = P[i + 2] || p2;
+    const c1x = p1.x + (p2.x - p0.x) / 6, c1y = p1.y + (p2.y - p0.y) / 6;
+    const c2x = p2.x - (p3.x - p1.x) / 6, c2y = p2.y - (p3.y - p1.y) / 6;
+    d += `C ${c1x.toFixed(2)} ${c1y.toFixed(2)}, ${c2x.toFixed(2)} ${c2y.toFixed(2)}, ${p2.x.toFixed(2)} ${p2.y.toFixed(2)} `;
+  }
+  return d.trim();
+}
+
+const SVG_NS = "http://www.w3.org/2000/svg";
+function el(name, attrs) {
+  const node = document.createElementNS(SVG_NS, name);
+  for (const k in attrs) node.setAttribute(k, attrs[k]);
+  return node;
+}
+
+function renderMoodChart(targetEl, config) {
+  const cfg = Object.assign(
+    { perception: true, reality: true, baseline: true, perceptionFaint: false,
+      realityPoints: REALITY_POINTS,
+      // lineColor overrides the reality stroke colour; amplitudeScale damps the
+      // reality line toward baseline (1 = full, 0.4 = held much nearer centre).
+      lineColor: "#e8503a", amplitudeScale: 1,
+      // ghost: draw a faint dotted full-amplitude reality line behind the main
+      // line (the "before treatment" shape). false, or a colour string.
+      ghost: false },
+    config || {}
+  );
+  const svg = el("svg", {
+    viewBox: `0 0 ${GEO.width} ${GEO.height}`,
+    preserveAspectRatio: "xMidYMid meet", role: "img",
+  });
+  if (cfg.baseline) {
+    svg.appendChild(el("line", {
+      x1: GEO.plotLeft, y1: GEO.baselineY, x2: GEO.plotRight, y2: GEO.baselineY,
+      stroke: "#3a4049", "stroke-width": 1, "stroke-dasharray": "4 5", opacity: 0.9,
+    }));
+  }
+  if (cfg.perception) {
+    svg.appendChild(el("path", {
+      d: perceptionPath(), fill: "none", stroke: "#cfcabb",
+      "stroke-width": 2, "stroke-linecap": "round", "stroke-linejoin": "round",
+      opacity: cfg.perceptionFaint ? 0.32 : 1,
+    }));
+  }
+  // Ghost: faint dotted full-amplitude reality line, drawn first so it sits
+  // behind the main line (the "before treatment" shape).
+  if (cfg.ghost && cfg.reality) {
+    svg.appendChild(el("path", {
+      d: catmullRomPath(cfg.realityPoints), fill: "none",
+      stroke: typeof cfg.ghost === "string" ? cfg.ghost : "#8a8578",
+      "stroke-width": 2, "stroke-dasharray": "2 6", opacity: 0.35,
+      "stroke-linecap": "round", "stroke-linejoin": "round",
+    }));
+  }
+  if (cfg.reality) {
+    const pts = cfg.amplitudeScale === 1
+      ? cfg.realityPoints
+      : cfg.realityPoints.map((p) => ({ x: p.x, y: p.y * cfg.amplitudeScale }));
+    svg.appendChild(el("path", {
+      d: catmullRomPath(pts), fill: "none", stroke: cfg.lineColor,
+      "stroke-width": 2.5, "stroke-linecap": "round", "stroke-linejoin": "round",
+    }));
+  }
+  targetEl.appendChild(svg);
+}
+
+// Perception slide: sine only.
+renderMoodChart(document.getElementById("chart-perception"),
+  { perception: true, reality: false });
+// Reality slide: chaotic red line on its own (no perception sine, no key).
+renderMoodChart(document.getElementById("chart-reality"),
+  { perception: false, reality: true });
+// Reality type 2 slide: red line only, prolonged low then brief sharp mania.
+renderMoodChart(document.getElementById("chart-reality-type2"),
+  { perception: false, reality: true, realityPoints: REALITY_POINTS_TYPE2 });
+// Reality type 3 slide: red line only, flat then extreme psychosis rise then
+// severe collapse, ending deep in depression (not at baseline).
+renderMoodChart(document.getElementById("chart-reality-type3"),
+  { perception: false, reality: true, realityPoints: REALITY_POINTS_TYPE3 });
+// Wellness slide: the type-1 chaotic shape, but blue and damped to ~40%
+// amplitude - medication anchoring mood, held much closer to baseline. A faint
+// dotted full-amplitude ghost behind shows the "before treatment" chaos.
+renderMoodChart(document.getElementById("chart-treatment"),
+  { perception: false, reality: true, realityPoints: REALITY_POINTS,
+    lineColor: "#4c8dd6", amplitudeScale: 0.4, ghost: "#8a8578" });
+
+// --- PEAK CHART: bespoke two-colour line shared by Support and Regulation ---
+// Mostly blue and damped near baseline, turning red over two excursions: a big
+// up-peak (mania) and a later down-peak (depression). A markerFn callback adds
+// the per-slide peak decorations (yellow circles, or green regulation arrows).
+function renderPeakChart(target, markerFn) {
+  if (!target) return;
+
+  // Control points in normalised space (x 0..1, y -1..1; +1 top). Mostly small
+  // sway near baseline, with one tall up-peak and one deep down-peak.
+  const PTS = [
+    { x: 0.00, y:  0.00 }, { x: 0.07, y:  0.10 }, { x: 0.14, y: -0.08 },
+    { x: 0.21, y:  0.06 },
+    { x: 0.28, y:  0.40 }, { x: 0.33, y:  0.86 }, { x: 0.38, y:  0.40 }, // up-peak (mania)
+    { x: 0.45, y:  0.04 }, { x: 0.52, y: -0.10 }, { x: 0.58, y:  0.08 }, // back to damped blue
+    { x: 0.66, y: -0.40 }, { x: 0.72, y: -0.84 }, { x: 0.78, y: -0.40 }, // down-peak (depression)
+    { x: 0.85, y: -0.06 }, { x: 0.92, y:  0.08 }, { x: 1.00, y:  0.00 }, // settle back to blue
+  ];
+
+  // x-windows (normalised) over which the line is red, and the peak markers.
+  const UP   = { lo: 0.28, hi: 0.38, mx: 0.33, my: 0.86 };  // mania excursion
+  const DOWN = { lo: 0.66, hi: 0.78, mx: 0.72, my: -0.84 }; // depression excursion
+
+  // Sample the Catmull-Rom spline at fine resolution into pixel-space points so
+  // we can recolour by x-window with the segments lying exactly on one curve.
+  function sampleSpline(pts, perSeg) {
+    const out = [];
+    for (let i = 0; i < pts.length - 1; i++) {
+      const p0 = pts[i - 1] || pts[i];
+      const p1 = pts[i];
+      const p2 = pts[i + 1];
+      const p3 = pts[i + 2] || p2;
+      for (let s = 0; s < perSeg; s++) {
+        const t = s / perSeg, t2 = t * t, t3 = t2 * t;
+        // Catmull-Rom basis (tension 0.5, matching the cubic used elsewhere).
+        const nx = 0.5 * ((2 * p1.x) + (-p0.x + p2.x) * t +
+          (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * t2 +
+          (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * t3);
+        const ny = 0.5 * ((2 * p1.y) + (-p0.y + p2.y) * t +
+          (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * t2 +
+          (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * t3);
+        out.push({ nx, ny });
+      }
+    }
+    const last = pts[pts.length - 1];
+    out.push({ nx: last.x, ny: last.y });
+    return out;
+  }
+
+  const samples = sampleSpline(PTS, 24);
+  const colourFor = (nx) =>
+    (nx >= UP.lo && nx <= UP.hi) || (nx >= DOWN.lo && nx <= DOWN.hi) ? "#e8503a" : "#4c8dd6";
+
+  const svg = el("svg", {
+    viewBox: `0 0 ${GEO.width} ${GEO.height}`,
+    preserveAspectRatio: "xMidYMid meet", role: "img",
+  });
+
+  // dashed baseline (same as the generator)
+  svg.appendChild(el("line", {
+    x1: GEO.plotLeft, y1: GEO.baselineY, x2: GEO.plotRight, y2: GEO.baselineY,
+    stroke: "#3a4049", "stroke-width": 1, "stroke-dasharray": "4 5", opacity: 0.9,
+  }));
+
+  // Build contiguous same-colour polyline runs. Each run overlaps the previous
+  // point so colour changes join seamlessly.
+  let runColour = colourFor(samples[0].nx);
+  let run = [samples[0]];
+  function flush() {
+    if (run.length < 2) return;
+    const d = run.map((p, k) =>
+      (k === 0 ? "M" : "L") + px(p.nx).toFixed(2) + " " + py(p.ny).toFixed(2)).join(" ");
+    svg.appendChild(el("path", {
+      d, fill: "none", stroke: runColour,
+      "stroke-width": 2.5, "stroke-linecap": "round", "stroke-linejoin": "round",
+    }));
+  }
+  for (let k = 1; k < samples.length; k++) {
+    const c = colourFor(samples[k].nx);
+    if (c !== runColour) {
+      run.push(samples[k]);   // include the boundary point so segments meet
+      flush();
+      runColour = c;
+      run = [samples[k]];
+    } else {
+      run.push(samples[k]);
+    }
+  }
+  flush();
+
+  // Per-slide peak decorations.
+  if (markerFn) markerFn(svg, UP, DOWN);
+
+  target.appendChild(svg);
+}
+
+// Support slide: yellow people-markers above the up-peak, below the down-peak.
+renderPeakChart(document.getElementById("chart-support"), (svg, UP, DOWN) => {
+  svg.appendChild(el("circle", { cx: px(UP.mx), cy: py(UP.my) - 16, r: 6, fill: "#f2c94c" }));
+  svg.appendChild(el("circle", { cx: px(DOWN.mx), cy: py(DOWN.my) + 16, r: 6, fill: "#f2c94c" }));
+});
+
+// Pathologising Happiness slide: modelled on the support chart but SIMPLER -
+// one peak, no trough. A gentle blue wave near baseline rises into a single
+// peak; as it climbs the line turns red (the warning); one big green down-arrow
+// at the top of the red peak regulates it; then it returns to the gentle blue
+// wave. No dots, no other arrows.
+(function renderPathologisingChart() {
+  const target = document.getElementById("chart-pathologising");
+  if (!target) return;
+  const BLUE = "#4c8dd6", RED = "#e8503a", GREEN = "#6bbf73";
+
+  // gentle sway near baseline, rise to a single peak, back to a gentle sway
+  const PTS = [
+    { x: 0.00, y:  0.00 }, { x: 0.08, y:  0.08 }, { x: 0.16, y: -0.06 },
+    { x: 0.24, y:  0.07 }, { x: 0.31, y: -0.04 },
+    { x: 0.38, y:  0.30 }, { x: 0.44, y:  0.70 }, { x: 0.50, y:  0.92 }, // climb to the peak
+    { x: 0.56, y:  0.70 }, { x: 0.62, y:  0.30 },                        // back down
+    { x: 0.69, y:  0.04 }, { x: 0.77, y: -0.07 }, { x: 0.85, y:  0.06 },
+    { x: 0.93, y: -0.05 }, { x: 1.00, y:  0.02 },                        // gentle blue wave
+  ];
+  // x-window over which the line is red (the warning around the peak); peak apex.
+  const PEAK = { lo: 0.38, hi: 0.62, mx: 0.50, my: 0.92 };
+
+  function sampleSpline(pts, perSeg) {
+    const out = [];
+    for (let i = 0; i < pts.length - 1; i++) {
+      const p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || p2;
+      for (let s = 0; s < perSeg; s++) {
+        const t = s / perSeg, t2 = t * t, t3 = t2 * t;
+        const nx = 0.5 * ((2 * p1.x) + (-p0.x + p2.x) * t +
+          (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * t2 +
+          (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * t3);
+        const ny = 0.5 * ((2 * p1.y) + (-p0.y + p2.y) * t +
+          (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * t2 +
+          (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * t3);
+        out.push({ nx, ny });
+      }
+    }
+    const last = pts[pts.length - 1];
+    out.push({ nx: last.x, ny: last.y });
+    return out;
+  }
+  const samples = sampleSpline(PTS, 24);
+  const colourFor = (nx) => (nx >= PEAK.lo && nx <= PEAK.hi) ? RED : BLUE;
+
+  const svg = el("svg", {
+    viewBox: `0 0 ${GEO.width} ${GEO.height}`,
+    preserveAspectRatio: "xMidYMid meet", role: "img",
+  });
+  svg.appendChild(el("line", {
+    x1: GEO.plotLeft, y1: GEO.baselineY, x2: GEO.plotRight, y2: GEO.baselineY,
+    stroke: "#3a4049", "stroke-width": 1, "stroke-dasharray": "4 5", opacity: 0.9,
+  }));
+
+  // contiguous same-colour runs so the red peak joins the blue wave seamlessly
+  let runColour = colourFor(samples[0].nx);
+  let run = [samples[0]];
+  function flush() {
+    if (run.length < 2) return;
+    const d = run.map((p, k) =>
+      (k === 0 ? "M" : "L") + px(p.nx).toFixed(2) + " " + py(p.ny).toFixed(2)).join(" ");
+    svg.appendChild(el("path", {
+      d, fill: "none", stroke: runColour,
+      "stroke-width": 2.5, "stroke-linecap": "round", "stroke-linejoin": "round",
+    }));
+  }
+  for (let k = 1; k < samples.length; k++) {
+    const c = colourFor(samples[k].nx);
+    if (c !== runColour) { run.push(samples[k]); flush(); runColour = c; run = [samples[k]]; }
+    else run.push(samples[k]);
+  }
+  flush();
+
+  target.appendChild(svg);
+})();
+
+// Regulation slide: PORT OF regulation-lab.html version 10 ("hard ramp, dense,
+// thin" - 18 paired opposing arrows, steep size ramp, slim shafts). Everything
+// below is scoped to this chart: its own geometry (with vertical HEADROOM so the
+// tall mania peak and deep trough plus their arrows are never clipped), its own
+// mood line (the lab's shape: sway, mania peak, small dip, second smaller peak,
+// deep depression trough, recovery up at the end), and the paired-arrow engine.
+// It deliberately does NOT touch the deck's global GEO or the type-3 slide.
+(function renderRegulationChart() {
+  const target = document.getElementById("chart-regulation");
+  if (!target) return;
+
+  const RED = "#e8503a";    // dysregulator (pushes in the mood's direction)
+  const GREEN = "#6bbf73";  // regulator (pushes back toward centre)
+  const LINE = "#e8503a";
+
+  // Local geometry with headroom (matches the lab exactly).
+  const HEADROOM = 104;
+  const RGEO = {
+    width: 900, plotH: 260, padX: 36, padY: 24,
+    get height()    { return this.plotH + HEADROOM * 2; },
+    get plotLeft()  { return this.padX; },
+    get plotRight() { return this.width - this.padX; },
+    get plotW()     { return this.plotRight - this.plotLeft; },
+    get baselineY() { return HEADROOM + this.plotH / 2; },
+    get amp()       { return (this.plotH / 2) - this.padY; },
+  };
+  const rpx = (nx) => RGEO.plotLeft + nx * RGEO.plotW;
+  const rpy = (ny) => RGEO.baselineY - ny * RGEO.amp;
+
+  // The lab's mood line (different shape, scoped here only).
+  const PTS = [
+    { x: 0.00, y:  0.00 }, { x: 0.06, y:  0.07 }, { x: 0.12, y: -0.06 },
+    { x: 0.18, y:  0.08 }, { x: 0.24, y: -0.05 }, { x: 0.30, y:  0.05 },
+    { x: 0.35, y: -0.03 },                                 // gentle sway near baseline
+    { x: 0.42, y:  0.55 }, { x: 0.49, y:  0.98 },          // rise to the mania peak
+    { x: 0.55, y:  0.70 },                                 // small dip
+    { x: 0.62, y:  0.82 },                                 // second, smaller peak (cycling)
+    { x: 0.69, y:  0.30 }, { x: 0.75, y: -0.35 },          // descent
+    { x: 0.82, y: -0.88 }, { x: 0.87, y: -0.95 },          // deep depression trough
+    { x: 0.93, y: -0.55 }, { x: 1.00, y: -0.10 },          // recovery up at the end
+  ];
+
+  // Catmull-Rom path in this chart's pixel space.
+  function rPath(pts) {
+    if (pts.length < 2) return "";
+    const P = pts.map((p) => ({ x: rpx(p.x), y: rpy(p.y) }));
+    let d = `M ${P[0].x.toFixed(2)} ${P[0].y.toFixed(2)} `;
+    for (let i = 0; i < P.length - 1; i++) {
+      const p0 = P[i - 1] || P[i], p1 = P[i], p2 = P[i + 1], p3 = P[i + 2] || p2;
+      const c1x = p1.x + (p2.x - p0.x) / 6, c1y = p1.y + (p2.y - p0.y) / 6;
+      const c2x = p2.x - (p3.x - p1.x) / 6, c2y = p2.y - (p3.y - p1.y) / 6;
+      d += `C ${c1x.toFixed(2)} ${c1y.toFixed(2)}, ${c2x.toFixed(2)} ${c2y.toFixed(2)}, ${p2.x.toFixed(2)} ${p2.y.toFixed(2)} `;
+    }
+    return d.trim();
+  }
+
+  // Spline sampler -> normalised points, so we can read line height at any x.
+  function sampleSpline(p, perSeg) {
+    const out = [];
+    for (let i = 0; i < p.length - 1; i++) {
+      const p0 = p[i - 1] || p[i], p1 = p[i], p2 = p[i + 1], p3 = p[i + 2] || p2;
+      for (let s = 0; s < perSeg; s++) {
+        const t = s / perSeg, t2 = t * t, t3 = t2 * t;
+        const nx = 0.5 * ((2 * p1.x) + (-p0.x + p2.x) * t +
+          (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * t2 +
+          (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * t3);
+        const ny = 0.5 * ((2 * p1.y) + (-p0.y + p2.y) * t +
+          (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * t2 +
+          (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * t3);
+        out.push({ nx, ny });
+      }
+    }
+    const last = p[p.length - 1];
+    out.push({ nx: last.x, ny: last.y });
+    return out;
+  }
+  const SAMPLES = sampleSpline(PTS, 24);
+  function lineYAt(nx) {
+    let best = SAMPLES[0];
+    for (const s of SAMPLES) if (Math.abs(s.nx - nx) < Math.abs(best.nx - nx)) best = s;
+    return best.ny;
+  }
+
+  // Base canvas: dashed baseline + red mood line.
+  const svg = el("svg", {
+    viewBox: `0 0 ${RGEO.width} ${RGEO.height}`,
+    preserveAspectRatio: "xMidYMid meet", role: "img",
+  });
+  svg.appendChild(el("line", {
+    x1: RGEO.plotLeft, y1: RGEO.baselineY, x2: RGEO.plotRight, y2: RGEO.baselineY,
+    stroke: "#3a4049", "stroke-width": 1, "stroke-dasharray": "4 5", opacity: 0.9,
+  }));
+  svg.appendChild(el("path", {
+    d: rPath(PTS), fill: "none", stroke: LINE,
+    "stroke-width": 2.5, "stroke-linecap": "round", "stroke-linejoin": "round",
+  }));
+
+  // Crisp chevron arrow: vertical shaft + chevron head, cx, yFrom -> yTo.
+  function vArrow(svg, cx, yFrom, yTo, colour, strength, opts) {
+    opts = opts || {};
+    const dir = Math.sign(yTo - yFrom) || 1;
+    const w = (opts.minW != null ? opts.minW : 1.4) + strength * (opts.wScale != null ? opts.wScale : 2.2);
+    const head = (opts.minHead != null ? opts.minHead : 3.5) + strength * (opts.headScale != null ? opts.headScale : 5.0);
+    const opacity = opts.opacity != null ? opts.opacity : Math.min(1, 0.4 + strength * 0.6);
+    const shaftTo = yTo - dir * head;
+    svg.appendChild(el("line", {
+      x1: cx, y1: yFrom, x2: cx, y2: shaftTo,
+      stroke: colour, "stroke-width": w, "stroke-linecap": "round", opacity,
+    }));
+    const back = -dir * head;
+    svg.appendChild(el("polyline", {
+      points: `${cx - head},${yTo + back} ${cx},${yTo} ${cx + head},${yTo + back}`,
+      fill: "none", stroke: colour, "stroke-width": w,
+      "stroke-linecap": "round", "stroke-linejoin": "round", opacity,
+    }));
+  }
+
+  // Paired-arrow engine: at each x, the red dysregulator points in the mood's
+  // direction, the regulator points the opposite way (toward centre); both grow
+  // together with |ny|.
+  function pairedArrows(svg, opts) {
+    const {
+      xs, regColour = GREEN, place = "stacked", draw = vArrow,
+      floor = 0.12, ramp = 1.0, maxLen = 64, minLen = 9, gap = 6,
+    } = opts;
+    xs.forEach((nx) => {
+      const ny = lineYAt(nx);
+      const up = ny >= 0;
+      const mag = Math.min(1, Math.abs(ny));
+      const strength = Math.min(1, floor + Math.pow(mag, ramp) * (1 - floor));
+      const len = minLen + strength * (maxLen - minLen);
+      const yLine = rpy(ny);
+      const pushDir = up ? -1 : 1;       // RED direction
+      const regDir = -pushDir;           // regulator opposes
+      const cx = rpx(nx);
+      if (place === "stacked") {
+        const redBase = yLine + pushDir * gap;
+        draw(svg, cx, redBase, redBase + pushDir * len, RED, strength);
+        const regBase = yLine + regDir * gap;
+        draw(svg, cx, regBase, regBase + regDir * len, regColour, strength);
+      }
+    });
+  }
+
+  function spread(a, b, n) {
+    const out = [];
+    for (let i = 0; i < n; i++) out.push(a + (b - a) * (i / (n - 1)));
+    return out;
+  }
+
+  // VERSION 10: 18 pairs, steep ramp, slim shafts.
+  pairedArrows(svg, { xs: spread(0.06, 0.98, 18), regColour: GREEN, place: "stacked",
+    maxLen: 60, minLen: 6, ramp: 2.2, floor: 0.06,
+    draw: (svg2, cx, yF, yT, c, s) => vArrow(svg2, cx, yF, yT, c, s,
+      { minW: 1.1, wScale: 1.6, minHead: 3, headScale: 4 }) });
+
+  target.appendChild(svg);
+})();
+
+// --- NAV --------------------------------------------------------------------
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let i = 0;
+const pageno = document.getElementById('pageno');
+const stage = document.querySelector('.stage');
+
+// Speaker notes are stored per slide in the `data-notes` attribute on each
+// <section class="slide ...">. Edit them inline in the markup above.
+const notesPanel = document.getElementById('notes');
+const notesLabel = document.getElementById('notes-label');
+const notesBody = document.getElementById('notes-body');
+
+function updateNotes() {
+  notesLabel.textContent = 'Notes · ' + (slides[i].dataset.name || '');
+  notesBody.textContent = slides[i].dataset.notes || '(no notes)';
+}
+
+function show(idx) {
+  // reset progressive-reveal state on any reveal-slide we are leaving, so it
+  // starts fresh next time it becomes active.
+  if (slides[i] && slides[i].dataset.reveal === 'true') {
+    slides[i].querySelectorAll('.revealable.revealed').forEach((r) => r.classList.remove('revealed'));
+  }
+  i = ((idx % total) + total) % total;
+  slides.forEach((s, k) => s.classList.toggle('active', k === i));
+  pageno.textContent = String(i + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+  if (notesPanel.classList.contains('show')) updateNotes();
+}
+
+// Reveal helpers, scoped to slides that opt in via data-reveal="true".
+// revealNext returns true if it revealed something (so nav should NOT advance);
+// revealPrev returns true if it un-revealed something (so nav should NOT go back).
+function revealNext() {
+  const cur = slides[i];
+  if (!cur || cur.dataset.reveal !== 'true') return false;
+  const next = cur.querySelector('.revealable:not(.revealed)');
+  if (!next) return false;
+  next.classList.add('revealed');
+  return true;
+}
+function revealPrev() {
+  const cur = slides[i];
+  if (!cur || cur.dataset.reveal !== 'true') return false;
+  const revealed = cur.querySelectorAll('.revealable.revealed');
+  if (!revealed.length) return false;
+  revealed[revealed.length - 1].classList.remove('revealed');
+  return true;
+}
+
+function showNotes() {
+  updateNotes();
+  notesPanel.classList.add('show');
+  notesPanel.setAttribute('aria-hidden', 'false');
+}
+function hideNotes() {
+  notesPanel.classList.remove('show');
+  notesPanel.setAttribute('aria-hidden', 'true');
+}
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    (stage.requestFullscreen || stage.webkitRequestFullscreen).call(stage);
+  } else {
+    (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+  }
+}
+
+document.addEventListener('keydown', e => {
+  // Right / Space / PageDown: on a reveal slide, advance the fragment first;
+  // only if no more fragments remain do we advance to the next slide.
+  if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+    e.preventDefault();
+    if (!revealNext()) show(i + 1);
+  }
+  // Left / PageUp: on a reveal slide, un-reveal the most recent fragment first;
+  // only if nothing is revealed do we go to the previous slide.
+  else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+    e.preventDefault();
+    if (!revealPrev()) show(i - 1);
+  }
+  else if (e.key === 'ArrowUp') { e.preventDefault(); showNotes(); }
+  else if (e.key === 'ArrowDown') { e.preventDefault(); hideNotes(); }
+  else if (e.key === 'f' || e.key === 'F') { e.preventDefault(); toggleFullscreen(); }
+  else if (e.key === 'Home') show(0);
+  else if (e.key === 'End') show(total - 1);
+});
+show(0);
+</script>
+</body>
+</html>
