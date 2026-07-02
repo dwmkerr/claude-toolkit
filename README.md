@@ -1,6 +1,6 @@
 # claude-toolkit
 
-General purpose Claude Code `toolkit` plugin for skill/hook/agent development, research, skill analysis, Github quality of life and more.
+Skills for problem sovling, software engineering, slide creation, agent development, quality of life and more. Also available at https://www.skills.sh/dwmkerr/claude-toolkit.
 
 ## Quickstart
 
