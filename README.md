@@ -23,33 +23,20 @@ Note that the `npx skills` installation method installs all skills. Use `--skill
 
 Here's a quick summary of the skills, grouped by what they're for (most broadly useful first).
 
-### Problem solving & research
-
 | Skill | Plugin | What it does |
 |-------|--------|-------------|
+| **Problem solving & research** | | |
 | [solve-problem](#solve-problem) | toolkit | Diagnose problems with an evidence-first method |
 | [research](#research) | toolkit | Research technical options across the web and GitHub repos |
-
-### Software engineering
-
-| Skill | Plugin | What it does |
-|-------|--------|-------------|
+| **Slides & presentations** | | |
+| [slides](#slides) | dwmkerr | Create Slidev or hand-built HTML slide decks |
+| **Software engineering** | | |
 | [shell-script-development](#shell-script-development) | toolkit | Write bash scripts with safe options and color output |
 | [makefile-development](#makefile-development) | toolkit | Create self-documenting Makefiles with consistent conventions |
 | [release-please-development](#release-please-development) | toolkit | Set up automated versioning and changelogs |
 | [drawio-diagram](#drawio-diagram) | dwmkerr | Generate draw.io architecture diagrams with a consistent style |
 | [project-setup](#project-setup) | dwmkerr | Create a new GitHub repo with standard configuration |
-
-### Slides & presentations
-
-| Skill | Plugin | What it does |
-|-------|--------|-------------|
-| [slides](#slides) | dwmkerr | Create Slidev or hand-built HTML slide decks |
-
-### Building for Claude Code
-
-| Skill | Plugin | What it does |
-|-------|--------|-------------|
+| **Building for Claude Code** | | |
 | [claude-code-skill-development](#claude-code-skill-development) | toolkit | Build SKILL.md files with progressive disclosure |
 | [agent-development](#agent-development) | toolkit | Create Claude Code agents with correct frontmatter and conventions |
 | [claude-code-slash-commands](#claude-code-slash-commands) | toolkit | Create custom slash commands with frontmatter and arguments |
@@ -60,11 +47,7 @@ Here's a quick summary of the skills, grouped by what they're for (most broadly 
 | [claude-code-agent-teams](#claude-code-agent-teams) | toolkit | Coordinate multiple Claude Code instances as a team |
 | [anthropic-evaluations](#anthropic-evaluations) | toolkit | Build evaluation suites and graders for coding agents |
 | [learn-and-improve](#learn-and-improve) | toolkit | Analyze sessions and fix config friction |
-
-### Personal workflow
-
-| Skill | Plugin | What it does |
-|-------|--------|-------------|
+| **Personal workflow** | | |
 | [my-repos](#my-repos) | dwmkerr | Locate and work with dwmkerr's repositories |
 
 <!-- vim-markdown-toc GFM -->
