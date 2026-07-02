@@ -329,7 +329,7 @@ Conference mode — from my [AI Native DevCon London 2026 talk](https://www.yout
 
 ![Example of the qblabs theme](./docs/images/slides-qblabs.png)
 
-> The `qblabs` theme is an approximation inspired by QuantumBlack's publicly available visual identity — not an official brand guide. The source deck is internal, so only this single slide is shown. See [the theme's attribution notes](./plugins/dwmkerr/skills/slides/themes/qblabs/README.md) for sources.
+> The `qblabs` theme is an approximation inspired by QuantumBlack's publicly available visual identity — not an official brand guide. The source deck is internal, so only this single slide is shown (bundled as [`qblabs-example-slide.html`](./plugins/dwmkerr/skills/slides/references/qblabs-example-slide.html)). See [the theme's attribution notes](./plugins/dwmkerr/skills/slides/themes/qblabs/README.md) for sources.
 
 ## Developer Guide
 

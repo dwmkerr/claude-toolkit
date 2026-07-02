@@ -211,6 +211,8 @@ Style inspired by QuantumBlack's publicly available visual identity. All colors,
 - [github.com/mckinsey/qbstyles](https://github.com/mckinsey/qbstyles) — matplotlib theme, dark bg `#0C1C23`
 - [brandfetch.com/mckinsey.com](https://brandfetch.com/mckinsey.com) — public brand colors
 
+For an example slide in this style, see [`references/qblabs-example-slide.html`](references/qblabs-example-slide.html).
+
 **Setup**: Copy `themes/qblabs/` into the slides directory, then:
 
 ```markdown
