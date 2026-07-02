@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.7](https://github.com/dwmkerr/claude-toolkit/compare/v0.1.6...v0.1.7) (2026-07-02)
+
+
+### Features
+
+* **slides:** add conference style mode with hand-built HTML reference ([#59](https://github.com/dwmkerr/claude-toolkit/issues/59)) ([5934476](https://github.com/dwmkerr/claude-toolkit/commit/59344766971b0949ed42b6f2907d4e4573426293))
+* solve-problem - read-the-definition lesson + worked example ([#66](https://github.com/dwmkerr/claude-toolkit/issues/66)) ([90432d7](https://github.com/dwmkerr/claude-toolkit/commit/90432d71bddaad48ee80294c56c15b8bad7757b1))
+* **toolkit:** add solve-problem skill ([#61](https://github.com/dwmkerr/claude-toolkit/issues/61)) ([87fdd38](https://github.com/dwmkerr/claude-toolkit/commit/87fdd389c1a589242df8c24caa140ebc5d071355))
+
 ## [0.1.6](https://github.com/dwmkerr/claude-toolkit/compare/v0.1.5...v0.1.6) (2026-04-15)
 
 
