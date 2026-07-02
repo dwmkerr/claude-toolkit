@@ -19,9 +19,9 @@ Now open your coding agent and try it out, eg:
 
 Note that the `npx skills` installation method installs all skills. Use `--skill <name>` to pick only what you want. All of the skills are listed below.
 
-## Skills at a glance
+## Skills
 
-A one-line description of every skill. Full details below.
+Here's a quick summary of the skills.
 
 | Plugin | Skill | What it does |
 |--------|-------|-------------|
