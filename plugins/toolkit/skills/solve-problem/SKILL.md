@@ -87,8 +87,17 @@ wrong change, a side effect), and only re-observing the symptom catches that.
 If the symptom persists, the fix — or the diagnosis behind it — was wrong. Do not
 patch again from the same reasoning; return to move 2 with more instrumentation.
 
+Re-observe the **exact symptom the user reported — not a proxy.** A related error
+clearing or a secondary signal going green is not the symptom going away. One cause
+cleared is not the symptom cleared; if it persists, another cause remains — return
+to observing.
+
 ## Anti-rush rules
 
+- **Read the definition before the surroundings.** When something misbehaves, the
+  artifact that *defines* it — its config, frontmatter, schema, or source — is
+  usually the cheapest, most decisive evidence. Read it before theorizing from
+  menus, labels, dashboards, or error text, which are downstream surfaces.
 - No proposal before the problem is **seen first-hand** and a cause is **evidenced**.
 - At least two hypotheses before testing any.
 - Evidence — not memory or assumption — confirms a cause. Prefer a check that could
@@ -100,6 +109,9 @@ patch again from the same reasoning; return to move 2 with more instrumentation.
   a race," "it only happens without X" — these are the reporter's model of the bug,
   often wrong even when plausible. Test them like any other hypothesis; never adopt
   them as the starting fact.
+- **Surface signals are hypotheses too.** A menu label, status badge, error string,
+  or dashboard number is the system's *rendering* of its state, not the state
+  itself. Confirm against the underlying definition/source, not the surface.
 - **A constant is a clue.** An exact, repeating number (the same 15s three times)
   is a deadline or an interval, not how long the work took — work varies, limits
   don't. When cheap checks can't separate causes, **change the conditions** to make
