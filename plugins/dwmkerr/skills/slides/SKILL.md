@@ -248,7 +248,7 @@ A hand-built HTML conference deck. **No framework, no Vue, no Slidev, no build s
 
 If the user wants a quick scaffold from a README, or wants Markdown-driven content with Slidev's built-in layouts, use **Slidev mode** instead.
 
-For a complete real-world example of a finished conference deck (structure, slide markup, notes sheet), see [`references/conference-example/`](references/conference-example/README.md) — the deck from a real AI Native DevCon talk.
+For a complete real-world example of a finished conference deck (structure, slide markup), see [`references/conference-example.html`](references/conference-example.html) — the final deck from a real AI Native DevCon talk.
 
 ### Setup flow
 
