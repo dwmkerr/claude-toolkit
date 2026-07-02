@@ -19,6 +19,32 @@ Now open your coding agent and try it out, eg:
 
 Note that the `npx skills` installation method installs all skills. Use `--skill <name>` to pick only what you want. All of the skills are listed below.
 
+## Skills at a glance
+
+A one-line description of every skill. Full details below.
+
+| Plugin | Skill | What it does |
+|--------|-------|-------------|
+| toolkit | [agent-development](#agent-development) | Create Claude Code agents with correct frontmatter and conventions |
+| toolkit | [anthropic-evaluations](#anthropic-evaluations) | Build evaluation suites and graders for coding agents |
+| toolkit | [claude-code-agent-teams](#claude-code-agent-teams) | Coordinate multiple Claude Code instances as a team |
+| toolkit | [claude-code-hook-development](#claude-code-hook-development) | Write hooks that run before or after events |
+| toolkit | [claude-code-memory-and-rules](#claude-code-memory-and-rules) | Set up CLAUDE.md, rules, and auto memory |
+| toolkit | [claude-code-plugin-development](#claude-code-plugin-development) | Bundle commands, agents, skills, and hooks into a plugin |
+| toolkit | [claude-code-skill-development](#claude-code-skill-development) | Build SKILL.md files with progressive disclosure |
+| toolkit | [claude-code-slash-commands](#claude-code-slash-commands) | Create custom slash commands with frontmatter and arguments |
+| toolkit | [claude-code-statusline-development](#claude-code-statusline-development) | Build a custom statusline for git, context, and cost |
+| toolkit | [learn-and-improve](#learn-and-improve) | Analyze sessions and fix config friction |
+| toolkit | [makefile-development](#makefile-development) | Create self-documenting Makefiles with consistent conventions |
+| toolkit | [release-please-development](#release-please-development) | Set up automated versioning and changelogs |
+| toolkit | [research](#research) | Research technical options across the web and GitHub repos |
+| toolkit | [shell-script-development](#shell-script-development) | Write bash scripts with safe options and color output |
+| toolkit | [solve-problem](#solve-problem) | Diagnose problems with an evidence-first method |
+| dwmkerr | [drawio-diagram](#drawio-diagram) | Generate draw.io architecture diagrams with a consistent style |
+| dwmkerr | [my-repos](#my-repos) | Locate and work with dwmkerr's repositories |
+| dwmkerr | [project-setup](#project-setup) | Create a new GitHub repo with standard configuration |
+| dwmkerr | [slides](#slides) | Create Slidev or hand-built HTML slide decks |
+
 <!-- vim-markdown-toc GFM -->
 
 - [The `toolkit` Plugin](#the-toolkit-plugin)
@@ -329,6 +355,12 @@ Conference mode — from my [AI Native DevCon London 2026 talk](https://www.yout
 ![Example of the qblabs theme](./docs/images/slides-qblabs.png)
 
 > The `qblabs` theme is an approximation inspired by QuantumBlack's publicly available visual identity — not an official brand guide. The source deck is internal, so only this single slide is shown (bundled as [`qblabs-example-slide.html`](./plugins/dwmkerr/skills/slides/references/qblabs-example-slide.html)). See [the theme's attribution notes](./plugins/dwmkerr/skills/slides/themes/qblabs/README.md) for sources.
+
+A `dwmkerr.com` style template is also included: a light, off-white standalone HTML slide with a shell-style header, a `# timeline` heading, and four columns. Use it as a starting point for personal, blog-flavoured decks (bundled as [`dwmkerr-com-timeline-slide.html`](./plugins/dwmkerr/skills/slides/references/dwmkerr-com-timeline-slide.html)).
+
+![dwmkerr.com timeline slide template](./docs/images/slides-dwmkerr-timeline.png)
+
+**Keyboard controls** - the standalone HTML slides (both the `dwmkerr.com` template and the `qblabs` exemplar) are editable in the browser: press `E` to edit any text, `Cmd/Ctrl+S` to save (downloads the edited HTML), and `Esc` to exit edit mode.
 
 ## Developer Guide
 
