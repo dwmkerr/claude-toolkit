@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Vibe coding vs Agentic engineering</title>
+<link rel="icon" type="image/x-icon" href="https://mckinsey.github.io/agents-at-scale-ark/favicon.ico" />
+<meta name="viewport" content="width=1920, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --slate-900:#141721; --slate-950:#10121b; --slate-800:#181b26;
+    --mist-50:#ffffff; --mist-50-88:#ffffffe0; --mist-50-60:#ffffff99;
+    --mist-50-50:#ffffff80; --mist-50-24:#ffffff3d; --mist-50-16:#ffffff29;
+    --mist-50-12:#ffffff1f; --mist-50-06:#ffffff0f;
+    --qb-accent:#00a9f4; --human:#00a9f4; --agent:#c8a2ff; --handover:#6fe5c2; --warn:#f59e0b;
+    --font-d:'Inter',sans-serif; --font-m:'Roboto Mono',ui-monospace,monospace;
+  }
+
+  html, body { background:#0a0c12; color:#fff; margin:0; height:100%; }
+  body { font-family: var(--font-d); display:flex; align-items:center; justify-content:center; min-height:100vh; }
+  .stage { width:1920px; height:1080px; transform-origin: top left; }
+
+  .slide {
+    width:1920px; height:1080px; background:var(--slate-900); color:var(--mist-50-88);
+    font-family:var(--font-d); font-feature-settings:"ss01","cv11";
+    position:relative; overflow:hidden; letter-spacing:-0.005em;
+  }
+  .slide::before { content:""; position:absolute; inset:0; pointer-events:none;
+    background:
+      radial-gradient(ellipse 1100px 700px at 18% 65%, rgba(0,169,244,0.07), transparent 70%),
+      radial-gradient(ellipse 900px 600px at 95% 8%, rgba(34,81,255,0.06), transparent 65%),
+      linear-gradient(180deg, var(--slate-800) 0%, var(--slate-900) 45%, var(--slate-950) 100%);
+  }
+  .slide::after { content:""; position:absolute; inset:0; pointer-events:none;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,0.022) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,0.022) 1px, transparent 1px);
+    background-size:80px 80px;
+    -webkit-mask-image: radial-gradient(ellipse 1500px 950px at 50% 60%, #000 30%, transparent 80%);
+            mask-image: radial-gradient(ellipse 1500px 950px at 50% 60%, #000 30%, transparent 80%);
+  }
+
+  .s-top { position:absolute; top:56px; left:64px; right:64px;
+    display:flex; justify-content:space-between; align-items:center; z-index:3; }
+  .s-rule { position:absolute; top:128px; left:64px; right:64px;
+    height:1px; background:var(--mist-50-12); z-index:3; }
+
+  .lockup { display:flex; align-items:center; gap:16px; }
+  .lockup .mark { display:flex; align-items:center; gap:14px; font-weight:500; font-size:26px;
+    letter-spacing:-0.015em; color:var(--mist-50); }
+  .lockup .mark .qb { width:34px; height:34px; display:block; flex:none; }
+  .lockup .divider { width:1px; height:24px; background:var(--mist-50-24); }
+  .lockup .product { font-weight:500; font-size:26px; letter-spacing:-0.015em; color:#fff; }
+
+  .s-meta-by { font-family:var(--font-d); font-weight:400; font-size:15px;
+    letter-spacing:0.14em; text-transform:uppercase; color:var(--mist-50-50); }
+
+  .s-foot { position:absolute; left:64px; right:64px; bottom:48px;
+    display:flex; justify-content:space-between; align-items:center; z-index:3;
+    font-family:var(--font-m); font-size:13px; letter-spacing:0.08em;
+    text-transform:uppercase; color:var(--mist-50-50); }
+  .s-foot .num { color:var(--mist-50); font-weight:500; }
+  .s-foot .sep { color:var(--mist-50-24); padding:0 10px; }
+  /* Inline Prev/Next links — very faint at rest, brighten on hover.
+     Disabled (no neighbour in this direction) renders invisibly. */
+  .deck-link { color:var(--mist-50-24); text-decoration:none; cursor:pointer;
+    transition: color 160ms ease, opacity 160ms ease; }
+  .deck-link:hover { color:var(--mist-50-88); }
+  .deck-link[aria-disabled="true"] { opacity:0; pointer-events:none; }
+
+  .s-body { position:absolute; left:64px; right:64px; top:180px; bottom:96px; z-index:3; }
+  .s-body-inner { position:relative; height:100%; }
+
+  .sect-title { display:flex; align-items:baseline; gap:22px; margin:0;
+    transition: opacity 220ms ease; }
+  .sect-title h2 { margin:0; font-weight:200; font-size:54px; letter-spacing:-0.035em;
+    color:#fff; line-height:0.95; white-space:nowrap; }
+  .sect-title h2 em { font-style:normal; font-weight:500; }
+  .sect-title h2 em.warn { color:var(--warn); }
+  .sect-title h2 em.accent { color:var(--qb-accent); }
+  .sect-title .vs { font-family:var(--font-d); font-weight:300; font-style:italic;
+    font-size:22.68px; color:var(--mist-50-60); letter-spacing:-0.01em; line-height:1; }
+
+  .row { display:grid; grid-template-columns:repeat(6, 1fr); gap:0;
+    transition: opacity 220ms ease; }
+  .cell { padding-right:18px; padding-top:14px; border-top:2px solid transparent;
+    transition: opacity 220ms ease, color 220ms ease; }
+  .cell .micro { font-family:var(--font-m); font-size:12px; letter-spacing:3px;
+    transition: color 220ms ease; }
+  .cell .step { margin-top:12px; font-weight:300; color:#fff;
+    letter-spacing:-0.01em; line-height:1.15; transition: color 220ms ease; }
+  .cell .note { margin-top:10px; font-size:18px; color:var(--mist-50-60);
+    line-height:1.4; font-weight:300; transition: color 220ms ease; }
+
+  .row-vibe .cell      { border-top-color:var(--warn); }
+  .row-vibe .cell.empty{ border-top-color:transparent; }
+  .row-vibe .micro     { color:var(--warn); }
+  .row-vibe .step      { font-size:30px; }
+  .row-agentic .step   { font-size:28px; }
+
+  .mode-human    { border-top-color:var(--human); }
+  .mode-human    .micro { color:var(--human); }
+  .mode-agent    { border-top-color:var(--agent); }
+  .mode-agent    .micro { color:var(--agent); }
+  .mode-handover { border-top-color:var(--handover); }
+  .mode-handover .micro { color:var(--handover); }
+
+  .corner-card { position:absolute; top:0; right:0; width:600px;
+    padding:20px 24px; border:1px solid var(--mist-50-12); background:var(--mist-50-06); }
+  .corner-card .label-warn   { font-family:var(--font-m); font-size:11px; letter-spacing:3px;
+    color:rgba(245,158,11,0.62); font-style:italic; transition: color 220ms ease; }
+  .corner-card .label-accent { font-family:var(--font-m); font-size:11px; letter-spacing:3px;
+    color:var(--qb-accent); transition: color 220ms ease; }
+  .corner-card .label-row    { display:flex; align-items:baseline; gap:12px; margin-bottom:8px; }
+  .corner-card .desc         { font-size:17px; color:var(--mist-50-60); line-height:1.4;
+    font-weight:300; transition: color 220ms ease; }
+  .corner-card .desc em      { font-style:normal; color:#fff; }
+  .corner-card .divider      { height:1px; background:var(--mist-50-12); margin:12px 0; }
+  .corner-card .desc.spaced  { margin-bottom:14px; }
+  .corner-card .corner-block { transition: opacity 220ms ease; }
+
+  /* Heads stretch right:0 so the hover hit zone covers the full title band,
+     not only the letterforms. Without this, hovering near the agentic h2 but
+     off the glyphs falls through to the vibe row underneath and the wrong
+     zone activates. padding-block widens the vertical target. The hairline
+     borders on the agentic head visually anchor the zone hit area. */
+  .at-v-head { position:absolute; top:0px;   left:0; right:0; padding-block:8px; }
+  .at-v-row  { position:absolute; top:84px;  left:0; right:0; }
+  .at-conn   { position:absolute; top:262px; left:0;
+    transition: opacity 220ms ease; }
+  .at-a-head { position:absolute; top:412px; left:0; right:0; padding-block:8px; }
+  .at-a-row  { position:absolute; top:504px; left:0; right:0; }
+
+  /* ===============================================================
+     ITER 3 — ZONE-LEVEL HOVER
+     The two halves of the slide behave as zones. Hovering anywhere in
+     the vibe zone (title, row, corner block, or even the hatched
+     connector caption) lifts the whole vibe zone and dims agentic.
+     Vice versa for the agentic zone. JavaScript handles the cross-
+     element synchronisation since the elements aren't DOM siblings.
+     =============================================================== */
+  .zone-vibe-dim    .at-v-head,
+  .zone-vibe-dim    .row-vibe .cell:not(.empty),
+  .zone-vibe-dim    .corner-block.vibe,
+  .zone-vibe-dim    .at-conn               { opacity: 0.55; }
+  .zone-agentic-dim .at-a-head,
+  .zone-agentic-dim .row-agentic .cell,
+  .zone-agentic-dim .corner-block.agentic  { opacity: 0.55; }
+
+  .zone-vibe-active    .row-vibe .cell:not(.empty) .note { color: var(--mist-50-88); }
+  .zone-vibe-active    .corner-block.vibe   .label-warn   { color: rgba(245,158,11,1); font-style: italic; }
+  .zone-vibe-active    .corner-block.vibe   .desc         { color: var(--mist-50-88); }
+
+  .zone-agentic-active .row-agentic .cell .note          { color: var(--mist-50-88); }
+  .zone-agentic-active .corner-block.agentic .label-accent { color: #6bd0ff; }
+  .zone-agentic-active .corner-block.agentic .desc         { color: var(--mist-50-88); }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="slide" data-screen-label="01 — Vibe coding vs Agentic engineering">
+
+    <div class="s-top">
+      <div class="lockup">
+        <div class="mark">
+          <svg class="qb" viewBox="0 0 150 150" aria-hidden="true">
+            <polygon fill="var(--qb-accent)"
+              points="126.35 109.39 111.91 134.6 109.22 136.21 80.3 136.21 80.3 128.82 106.72 128.82 119.94 105.72 126.35 109.39" />
+            <polygon fill="#ffffff"
+              points="145.39 72.88 145.39 76.01 134.82 94.42 128.46 90.74 137.75 74.45 106.63 20.07 44.42 20.07 13.25 74.45 44.42 128.82 62.53 128.82 62.53 136.21 41.88 136.21 39.23 134.65 39.04 134.35 5.61 76.01 5.61 72.88 39.48 14.15 41.88 12.68 109.12 12.68 111.81 14.3 112.01 14.59 145.39 72.88" />
+          </svg>
+          <span>QuantumBlack</span>
+        </div>
+        <div class="divider"></div>
+        <span class="product">Agentic Engineering</span>
+      </div>
+      <div class="s-meta-by">AI by McKinsey</div>
+    </div>
+    <div class="s-rule"></div>
+
+    <div class="s-body">
+      <div class="s-body-inner" id="bodyInner">
+
+        <aside class="corner-card">
+          <div class="corner-block vibe" data-zone="vibe">
+            <div class="label-row"><span class="label-warn">VIBE CODING</span></div>
+            <div class="desc spaced">Ideally suited to rapidly experimenting with ideas, building multiple prototypes, and gathering feedback. Typically unconstrained and often ungrounded — speed prioritised over durability or maintainability. Can be a powerful input to the early stages of agentic engineering.</div>
+          </div>
+          <div class="divider"></div>
+          <div class="corner-block agentic" data-zone="agentic">
+            <div class="label-row"><span class="label-accent">AGENTIC ENGINEERING</span></div>
+            <div class="desc">Ideally suited to durable, maintainable, robust product developments grounded in organizational standards.</div>
+          </div>
+        </aside>
+
+        <div class="at-v-head sect-title" data-zone="vibe">
+          <h2>Vibe&nbsp;<em class="warn">coding</em></h2>
+          <span class="vs">vs</span>
+        </div>
+
+        <div class="at-v-row row row-vibe" data-zone="vibe">
+          <div class="cell">
+            <div class="micro">01 · HUMAN ↔ AGENT</div>
+            <div class="step">Ideate</div>
+            <div class="note">Rapid open-ended quick discussions on ideas.</div>
+          </div>
+          <div class="cell">
+            <div class="micro">02 · HUMAN ↔ AGENT</div>
+            <div class="step">Prototype</div>
+            <div class="note">Create a working version as quickly as possible.</div>
+          </div>
+          <div class="cell">
+            <div class="micro">03 · HUMAN ↔ AGENT</div>
+            <div class="step">Iterate</div>
+            <div class="note">Gather feedback and improve.</div>
+          </div>
+          <div class="cell empty"></div>
+          <div class="cell empty"></div>
+          <div class="cell empty"></div>
+        </div>
+
+        <svg class="at-conn" width="1792" height="130" viewBox="0 0 1792 130"
+             style="overflow:visible; pointer-events:none;">
+          <defs>
+            <pattern id="vibe-hatch-v7" width="14" height="14"
+                     patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+              <line x1="0" y1="0" x2="0" y2="14" stroke="rgba(245,158,11,0.18)" stroke-width="1" />
+            </pattern>
+          </defs>
+          <rect x="0" y="0" width="896" height="130" fill="url(#vibe-hatch-v7)" />
+          <line x1="1"   y1="0" x2="1"   y2="130" stroke="rgba(245,158,11,0.75)" stroke-width="1.25" stroke-dasharray="5 4" />
+          <line x1="895" y1="0" x2="895" y2="130" stroke="rgba(245,158,11,0.75)" stroke-width="1.25" stroke-dasharray="5 4" />
+          <foreignObject x="40" y="39" width="816" height="71.5">
+            <div xmlns="http://www.w3.org/1999/xhtml" style="
+              font-family:Inter,sans-serif; font-weight:300; font-style:italic;
+              font-size:17px; color:rgba(245,158,11,0.55);
+              line-height:1.4; text-align:center; letter-spacing:-0.005em;">
+              Real-time vibe coding between product and tech is well suited to the exploration phase of agentic engineering.
+            </div>
+          </foreignObject>
+          <path d="M -5 124 L 1 130 L 7 124"      stroke="rgba(245,158,11,0.85)" stroke-width="1.25" fill="none" />
+          <path d="M 889 124 L 895 130 L 901 124" stroke="rgba(245,158,11,0.85)" stroke-width="1.25" fill="none" />
+        </svg>
+
+        <div class="at-a-head sect-title" data-zone="agentic">
+          <h2>Agentic&nbsp;<em class="accent">engineering</em></h2>
+        </div>
+
+        <div class="at-a-row row row-agentic" data-zone="agentic">
+          <div class="cell mode-human">
+            <div class="micro">01 · HUMAN-LED</div>
+            <div class="step">Explore &amp; Challenge</div>
+            <div class="note">Discuss ideas, explore the problem space, challenge assumptions — divergent thinking.</div>
+          </div>
+          <div class="cell mode-human">
+            <div class="micro">02 · HUMAN-LED</div>
+            <div class="step">Design &amp; Specify</div>
+            <div class="note">Eliminate ambiguity, detail specifications, create contracts — convergent thinking.</div>
+          </div>
+          <div class="cell mode-handover">
+            <div class="micro">03 · HUMAN ↔ AGENT</div>
+            <div class="step">Plan &amp; Architect</div>
+            <div class="note">Decompose and sequence into steps. Create the test plan, the implementation plan, and the verification strategy.</div>
+          </div>
+          <div class="cell mode-agent">
+            <div class="micro">04 · AGENT LED</div>
+            <div class="step">Implement</div>
+            <div class="note">Test-driven (red/green) methodology; implementation grounded in organisational standards. Orchestrated across parallel streams. Drives robustness and quality.</div>
+          </div>
+          <div class="cell mode-agent">
+            <div class="micro">05 · AGENT LED</div>
+            <div class="step">Verify &amp; Red Team</div>
+            <div class="note">Unit, integration, and trend testing; threat modelling; deliberately adversarial attacks via multiple models.</div>
+          </div>
+          <div class="cell mode-agent">
+            <div class="micro">06 · AGENT LED</div>
+            <div class="step">Provision &amp; Release</div>
+            <div class="note">Ephemeral environments for acceptance. Change manifests. Release notes. Ship or schedule.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="s-foot">
+      <div><span class="num">01</span>&nbsp;&nbsp;&nbsp;QB Agentic Engineering</div>
+      <div></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  // Viewport fit.
+  (function fit() {
+    const stage = document.getElementById('stage');
+    function apply() {
+      const sx = window.innerWidth  / 1920;
+      const sy = window.innerHeight / 1080;
+      const s  = Math.min(sx, sy);
+      stage.style.transform = `scale(${s})`;
+      stage.style.position  = 'absolute';
+      stage.style.left = ((window.innerWidth  - 1920 * s) / 2) + 'px';
+      stage.style.top  = ((window.innerHeight - 1080 * s) / 2) + 'px';
+    }
+    apply();
+    window.addEventListener('resize', apply);
+  })();
+
+  // Zone-level hover (pointer-position model).
+  // Previous element-based mouseenter handlers missed gaps between the
+  // absolute children (notably the right end of the agentic row, where the
+  // last cell's content is shorter than the row track). We now hit-test
+  // against pointer coords inside .s-body-inner and split it into vibe vs
+  // agentic regions. Coords map to the unscaled 1792x804 slide-body box.
+  //   - Corner-card column (x > 1192): card splits vibe (top) / agentic
+  //     (bottom) at y=210 (just below the in-card divider).
+  //   - Main body (x <= 1192): vibe row + connector live above y=390,
+  //     agentic head + row live below.
+  (function zones() {
+    const body = document.getElementById('bodyInner');
+    function setZone(z) {
+      body.classList.toggle('zone-vibe-active',    z === 'vibe');
+      body.classList.toggle('zone-agentic-dim',    z === 'vibe');
+      body.classList.toggle('zone-agentic-active', z === 'agentic');
+      body.classList.toggle('zone-vibe-dim',       z === 'agentic');
+    }
+    function clear() {
+      body.classList.remove('zone-vibe-active','zone-agentic-active','zone-vibe-dim','zone-agentic-dim');
+    }
+    function zoneFor(slideX, slideY) {
+      if (slideX > 1192) return slideY < 210 ? 'vibe' : 'agentic';
+      return slideY < 390 ? 'vibe' : 'agentic';
+    }
+    body.addEventListener('pointermove', e => {
+      const rect = body.getBoundingClientRect();
+      if (!rect.width) return;
+      const slideX = ((e.clientX - rect.left) / rect.width)  * 1792;
+      const slideY = ((e.clientY - rect.top)  / rect.height) * 804;
+      setZone(zoneFor(slideX, slideY));
+    });
+    body.addEventListener('pointerleave', clear);
+  })();
+
+  // Keyboard nav — arrow keys / PageUp/Down / Space follow the inline
+  // deck-link anchors in the footer. Disabled links are skipped, so
+  // end-of-deck arrows are no-ops.
+  (function keys() {
+    document.addEventListener('keydown', e => {
+      const t = e.target;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+      let dir;
+      switch (e.key) {
+        case 'ArrowLeft':
+        case 'PageUp':   dir = 'Previous slide'; break;
+        case 'ArrowRight':
+        case 'PageDown': dir = 'Next slide'; break;
+        case ' ':        dir = e.shiftKey ? 'Previous slide' : 'Next slide'; break;
+        default: return;
+      }
+      const link = document.querySelector(`a.deck-link[aria-label="${dir}"]:not([aria-disabled="true"])`);
+      if (link && link.href) { e.preventDefault(); location.href = link.href; }
+    });
+  })();
+</script>
+</body>
+</html>

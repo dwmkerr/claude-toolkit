@@ -211,6 +211,8 @@ Style inspired by QuantumBlack's publicly available visual identity. All colors,
 - [github.com/mckinsey/qbstyles](https://github.com/mckinsey/qbstyles) — matplotlib theme, dark bg `#0C1C23`
 - [brandfetch.com/mckinsey.com](https://brandfetch.com/mckinsey.com) — public brand colors
 
+For an example slide in this style, see [`references/qblabs-example-slide.html`](references/qblabs-example-slide.html).
+
 **Setup**: Copy `themes/qblabs/` into the slides directory, then:
 
 ```markdown
@@ -247,6 +249,8 @@ A hand-built HTML conference deck. **No framework, no Vue, no Slidev, no build s
 - Deploys to GitHub Pages via a `gh-pages` worktree, with separate public URLs for the deck and for the phone-readable notes sheet.
 
 If the user wants a quick scaffold from a README, or wants Markdown-driven content with Slidev's built-in layouts, use **Slidev mode** instead.
+
+For a complete real-world example of a finished conference deck (structure, slide markup), see [`references/conference-example.html`](references/conference-example.html) — the final deck from a real AI Native DevCon talk.
 
 ### Setup flow
 
