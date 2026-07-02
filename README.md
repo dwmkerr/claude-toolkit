@@ -319,13 +319,17 @@ This skill runs as a subagent (`context: fork`) as only the final output is need
 - **Conference mode** — hand-built HTML deck with no framework or build step: dark typographic theme, right-arrow progressive reveal, in-deck speaker notes, a phone teleprompter sheet, and GitHub Pages deploy
 - Supports custom Slidev themes (includes `qblabs`, inspired by QuantumBlack's public visual identity)
 
-Conference mode:
+Conference mode — from my [AI Native DevCon London 2026 talk](https://www.youtube.com/watch?v=ACL7_EsfIio) ([blog post](https://dwmkerr.com/bipolar-dysregulation-and-ai/)):
 
-![Example of a conference-mode slide](./docs/images/slides-conference.png)
+![Conference-mode title slide](./docs/images/slides-conference.png)
+
+![Conference-mode chart slide](./docs/images/slides-conference-chart.png)
 
 `qblabs` theme:
 
 ![Example of the qblabs theme](./docs/images/slides-qblabs.png)
+
+> The `qblabs` theme is an approximation inspired by QuantumBlack's publicly available visual identity — not an official brand guide. The source deck is internal, so only this single slide is shown. See [the theme's attribution notes](./plugins/dwmkerr/skills/slides/themes/qblabs/README.md) for sources.
 
 ## Developer Guide
 
