@@ -4,14 +4,23 @@ Skills for problem sovling, software engineering, slide creation, agent developm
 
 ## Quickstart
 
-Add the marketplace and install:
+Install using `npx`:
+
+```bash
+npx skills add dwmkerr/claude-toolkit                        # all skills
+npx skills add dwmkerr/claude-toolkit --skill solve-problem  # a single skill
+```
+
+Note: this installs all skills, including the personal `dwmkerr` ones (`my-repos`, `project-setup`, `slides`, `drawio-diagram`). Use `--skill <name>` to pick only what you want.
+
+To install specifically for Claude, as it was originally setup, add the marketplace and install:
 
 ```
 /plugin marketplace add dwmkerr/claude-toolkit
 /plugin install toolkit@claude-toolkit
 ```
 
-If commands don't appear, enable and restart:
+If commands don't appear, use `/reload-plugins` or enable and restart:
 
 ```
 /plugin enable toolkit@claude-toolkit
@@ -20,16 +29,7 @@ If commands don't appear, enable and restart:
 # rm -rf ~/.claude/plugins/cache
 ```
 
-## Install via `npx skills`
-
-The skills also install without the plugin via [`npx skills`](https://github.com/vercel-labs/skills) (or [`openskills`](https://github.com/numman-ali/openskills)), which copies `SKILL.md` folders into `.claude/skills/` and works with Claude Code, Cursor, Codex, and other agents:
-
-```bash
-npx skills add dwmkerr/claude-toolkit                        # all skills
-npx skills add dwmkerr/claude-toolkit --skill solve-problem  # a single skill
-```
-
-> Note: this installs **all** skills, including the personal `dwmkerr` ones (`my-repos`, `project-setup`, `slides`, `drawio-diagram`). Use `--skill <name>` to pick only what you want.
+The [Developer Guide](#developer-guide) explains how to make your own version, update, etc.
 
 <!-- vim-markdown-toc GFM -->
 
