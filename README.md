@@ -11,25 +11,13 @@ npx skills add dwmkerr/claude-toolkit                        # all skills
 npx skills add dwmkerr/claude-toolkit --skill solve-problem  # a single skill
 ```
 
-Note: this installs all skills, including the personal `dwmkerr` ones (`my-repos`, `project-setup`, `slides`, `drawio-diagram`). Use `--skill <name>` to pick only what you want.
+Now open your coding agent and try it out, eg:
 
-To install specifically for Claude, as it was originally setup, add the marketplace and install:
+> ```Use the problem solving skill to work out why my dashboard is failing```
 
-```
-/plugin marketplace add dwmkerr/claude-toolkit
-/plugin install toolkit@claude-toolkit
-```
+> ```Use the slides skill to create a conference presentation style slide on agentic engineering```
 
-If commands don't appear, use `/reload-plugins` or enable and restart:
-
-```
-/plugin enable toolkit@claude-toolkit
-
-# Or bust the cache in a terminal if stuff's still not loading...
-# rm -rf ~/.claude/plugins/cache
-```
-
-The [Developer Guide](#developer-guide) explains how to make your own version, update, etc.
+Note that the `npx skills` installation method installs all skills. Use `--skill <name>` to pick only what you want. All of the skills are listed below.
 
 <!-- vim-markdown-toc GFM -->
 
@@ -343,6 +331,24 @@ Conference mode — from my [AI Native DevCon London 2026 talk](https://www.yout
 > The `qblabs` theme is an approximation inspired by QuantumBlack's publicly available visual identity — not an official brand guide. The source deck is internal, so only this single slide is shown (bundled as [`qblabs-example-slide.html`](./plugins/dwmkerr/skills/slides/references/qblabs-example-slide.html)). See [the theme's attribution notes](./plugins/dwmkerr/skills/slides/themes/qblabs/README.md) for sources.
 
 ## Developer Guide
+
+### Claude Code Setup
+
+To install specifically for Claude, as it was originally setup, add the marketplace and install:
+
+```
+/plugin marketplace add dwmkerr/claude-toolkit
+/plugin install toolkit@claude-toolkit
+```
+
+If commands don't appear, use `/reload-plugins` or enable and restart:
+
+```
+/plugin enable toolkit@claude-toolkit
+
+# Or bust the cache in a terminal if stuff's still not loading...
+# rm -rf ~/.claude/plugins/cache
+```
 
 ### Local Development
 
