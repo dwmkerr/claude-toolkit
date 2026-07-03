@@ -1,0 +1,330 @@
+<!doctype html>
+<!--
+  ============================================================================
+  dwmkerr.com - TIMELINE TEMPLATE (reusable slide)
+  ============================================================================
+
+  A single 1920x1080 presentation slide: a horizontal timeline with four
+  phase columns beneath it. Off-white paper, faint grid, one green accent.
+
+  KEYBOARD SHORTCUTS
+    E                enter edit mode (make text editable in place)
+    Esc              exit edit mode
+    Cmd/Ctrl + S     save a copy of the slide (downloads slide.html)
+
+  Edit mode turns every element with class "ed" into an editable field:
+  the title comment, both intro paragraphs, the five timeline tick labels,
+  and each column's window label / number / title / note. Type directly,
+  then press Cmd/Ctrl+S to download the edited slide. The "E" shortcut is
+  ignored while you are already typing in a field, so it never inserts an
+  "e" by accident.
+
+  HOW TO CHANGE THE TITLE
+    Edit the text inside <span class="comment ed"># slide title</span>.
+
+  HOW TO RELABEL THE TIMELINE
+    Edit the five <div class="tl-month ed"> labels (t0 ... t4). The green
+    nodes and faint ticks are positioned by inline left:% values; adjust
+    those percentages if you want uneven segments.
+
+  HOW TO DUPLICATE A COLUMN
+    Copy a whole <div class="phase"> ... </div> block. The .phases grid is
+    grid-template-columns:repeat(4,1fr); change the 4 to match your count.
+    Bump the green number (01, 02, ...) in the new column.
+
+  HOW TO DELETE THE "press E to edit" HINT
+    Remove the <div id="hint"> ... </div> element near the bottom of <body>.
+
+  Vanilla HTML/CSS/JS, no dependencies. No em-dashes used.
+  ============================================================================
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>dwmkerr - timeline template</title>
+<meta name="viewport" content="width=1920, initial-scale=1" />
+<style>
+  :root {
+    --paper:#faf9f6;
+    --ink:#24292f;
+    --muted:#6e7681;
+    --faint:#d8d5cd;
+    --green:#1a7f37;
+    --font-sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --font-mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  html, body { margin:0; height:100%; background:#eceae4; }
+  body { font-family:var(--font-sans); display:flex; align-items:center; justify-content:center; min-height:100vh; overflow:hidden; }
+
+  .stage { width:1920px; height:1080px; transform-origin:top left; }
+
+  .slide {
+    position:relative; width:1920px; height:1080px; overflow:hidden;
+    background:var(--paper);
+    color:var(--ink);
+  }
+  /* faint graph-paper gridlines, whisper-light; fade in from top-left and
+     dissolve toward the bottom-right so the grid never competes with content */
+  .slide .grid {
+    position:absolute; inset:0; pointer-events:none;
+    background-image:
+      linear-gradient(to right, rgba(216,213,205,0.45) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(216,213,205,0.45) 1px, transparent 1px);
+    background-size:80px 80px;
+    background-position:0 0;
+    -webkit-mask-image:linear-gradient(to bottom right, rgba(0,0,0,0.9), rgba(0,0,0,0) 78%);
+            mask-image:linear-gradient(to bottom right, rgba(0,0,0,0.9), rgba(0,0,0,0) 78%);
+  }
+
+  .frame { position:absolute; left:120px; right:120px; top:88px; bottom:80px; }
+
+  /* header prompt motif */
+  .prompt { font-family:var(--font-mono); font-size:26px; letter-spacing:-0.005em; line-height:1; }
+  .prompt .dollar { color:var(--green); font-weight:600; }
+  .prompt .path { color:var(--ink); font-weight:700; }
+  .prompt .comment { color:var(--muted); font-weight:400; }
+
+  .h-rule { margin-top:26px; height:1px; background:var(--faint); }
+
+  /* intro paragraphs - readable measure */
+  .intro { margin-top:34px; display:flex; gap:80px; max-width:1560px; }
+  .intro p { margin:0; font-size:21px; line-height:1.6; color:var(--ink); font-weight:400; max-width:730px; }
+  .intro em { font-style:normal; font-weight:600; color:var(--ink); }
+
+  /* section label */
+  .sect-label { margin-top:56px; font-family:var(--font-mono); font-size:16px; letter-spacing:0.01em; color:var(--muted); }
+  .sect-label .hash { color:var(--green); font-weight:600; }
+
+  /* ---- timeline ---- */
+  .timeline { position:relative; margin-top:34px; height:60px; }
+  .timeline .line {
+    position:absolute; left:0; right:0; top:30px; height:1px; background:var(--faint);
+  }
+  /* boundary labels sit above the line */
+  .tl-month {
+    position:absolute; top:0; transform:translateX(-50%);
+    font-family:var(--font-mono); font-size:15px; letter-spacing:0.02em; color:var(--ink); white-space:nowrap;
+  }
+  .tl-month:first-of-type { transform:translateX(0); }
+  .tl-month.end { transform:translateX(-100%); }
+  /* green node markers on the line at each boundary */
+  .tl-node {
+    position:absolute; top:30px; width:9px; height:9px; border-radius:50%;
+    background:var(--green); transform:translate(-50%,-50%);
+  }
+  .tl-node:first-of-type { transform:translate(0,-50%); }
+  .tl-node.end { transform:translate(-100%,-50%); }
+  /* faint intermediate ticks */
+  .tl-tick {
+    position:absolute; top:25px; width:1px; height:10px; background:var(--faint); transform:translateX(-50%);
+  }
+
+  /* ---- phases aligned under segments ---- */
+  .phases { margin-top:14px; display:grid; grid-template-columns:repeat(4,1fr); gap:0; }
+  .phase { padding:0 40px; }
+  .phase:first-child { padding-left:0; }
+  .phase:last-child { padding-right:0; }
+
+  .phase .window {
+    font-family:var(--font-mono); font-size:14px; letter-spacing:0.02em; color:var(--muted);
+  }
+  .phase .num {
+    font-family:var(--font-mono); font-size:14px; color:var(--green); font-weight:600; margin-right:8px;
+  }
+  .phase h3 {
+    margin:14px 0 0; font-weight:600; font-size:25px; letter-spacing:-0.01em; line-height:1.12; color:var(--ink);
+    padding-bottom:16px; border-bottom:1px solid var(--faint);
+  }
+  .phase .note {
+    margin:16px 0 0; font-size:16px; line-height:1.55; color:var(--ink); font-weight:400;
+  }
+
+  /* footer meta */
+  .foot {
+    position:absolute; left:120px; right:120px; bottom:40px;
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:var(--font-mono); font-size:13px; letter-spacing:0.02em; color:var(--muted);
+  }
+  .foot .brand { color:var(--green); font-weight:600; }
+  .foot .sep { color:var(--faint); padding:0 10px; }
+
+  /* editable affordance: subtle outline only while in edit mode */
+  body.editing .ed {
+    outline:1px dashed rgba(26,127,55,0.5);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+  body.editing .ed:focus {
+    outline:1px solid var(--green);
+    background:rgba(26,127,55,0.05);
+  }
+
+  /* bottom-right status pill / hint (screen chrome, not slide content) */
+  .status {
+    position:fixed; right:18px; bottom:16px; z-index:20;
+    font-family:var(--font-mono); font-size:12px; letter-spacing:0.04em;
+    display:none; align-items:center; gap:8px;
+    padding:7px 12px; border:1px solid var(--faint); border-radius:999px;
+    background:rgba(250,249,246,0.92); color:var(--muted);
+  }
+  body.editing .status { display:inline-flex; }
+  .status .dot { width:8px; height:8px; border-radius:50%; background:#d9a441; }
+  body.editing .status .dot { background:var(--green); }
+
+  #hint {
+    position:fixed; right:18px; bottom:16px; z-index:19;
+    font-family:var(--font-mono); font-size:12px; letter-spacing:0.04em; color:var(--muted);
+    opacity:0.55;
+  }
+  body.editing #hint { display:none; }
+</style>
+</head>
+<body>
+<div class="stage" id="stage">
+  <div class="slide">
+    <div class="grid"></div>
+    <div class="frame">
+      <div class="prompt">
+        <span class="dollar">$</span> <span class="path">~/dwmkerr</span> <span class="comment ed"># slide title</span>
+      </div>
+      <div class="h-rule"></div>
+
+      <div class="intro">
+        <p class="ed">A short introduction line for this slide goes here. Keep it to one or two sentences, and use <em>emphasis</em> for the few words that matter most.</p>
+        <p class="ed">A second supporting sentence can go here, or leave this column empty.</p>
+      </div>
+
+      <div class="sect-label"><span class="hash">#</span> timeline</div>
+
+      <!-- four equal segments; boundaries at 0 / 25 / 50 / 75 / 100% -->
+      <div class="timeline">
+        <div class="line"></div>
+
+        <!-- boundary labels (edit these) + green nodes -->
+        <div class="tl-month ed" style="left:0%;">t0</div>
+        <div class="tl-month ed" style="left:25%;">t1</div>
+        <div class="tl-month ed" style="left:50%;">t2</div>
+        <div class="tl-month ed" style="left:75%;">t3</div>
+        <div class="tl-month end ed" style="left:100%;">t4</div>
+
+        <div class="tl-node" style="left:0%;"></div>
+        <div class="tl-node" style="left:25%;"></div>
+        <div class="tl-node" style="left:50%;"></div>
+        <div class="tl-node" style="left:75%;"></div>
+        <div class="tl-node end" style="left:100%;"></div>
+
+        <!-- faint intermediate ticks, two per segment -->
+        <div class="tl-tick" style="left:8.333%;"></div>
+        <div class="tl-tick" style="left:16.667%;"></div>
+        <div class="tl-tick" style="left:33.333%;"></div>
+        <div class="tl-tick" style="left:41.667%;"></div>
+        <div class="tl-tick" style="left:58.333%;"></div>
+        <div class="tl-tick" style="left:66.667%;"></div>
+        <div class="tl-tick" style="left:83.333%;"></div>
+        <div class="tl-tick" style="left:91.667%;"></div>
+      </div>
+
+      <div class="phases">
+        <div class="phase">
+          <div class="window ed">phase one</div>
+          <h3><span class="num ed">01</span><span class="ed">Column 1</span></h3>
+          <p class="note ed">Supporting text for this column goes here. Replace with your own content.</p>
+        </div>
+        <div class="phase">
+          <div class="window ed">phase two</div>
+          <h3><span class="num ed">02</span><span class="ed">Column 2</span></h3>
+          <p class="note ed">Supporting text for this column goes here. Replace with your own content.</p>
+        </div>
+        <div class="phase">
+          <div class="window ed">phase three</div>
+          <h3><span class="num ed">03</span><span class="ed">Column 3</span></h3>
+          <p class="note ed">Supporting text for this column goes here. Replace with your own content.</p>
+        </div>
+        <div class="phase">
+          <div class="window ed">phase four</div>
+          <h3><span class="num ed">04</span><span class="ed">Column 4</span></h3>
+          <p class="note ed">Supporting text for this column goes here. Replace with your own content.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot">
+      <div><span class="brand">dwmkerr.com</span></div>
+      <div>t0 <span class="sep">-</span> t4</div>
+    </div>
+  </div>
+</div>
+
+<!-- edit-mode status pill (shown only while editing) -->
+<div class="status"><span class="dot"></span>EDIT MODE&nbsp;&nbsp;&middot;&nbsp;&nbsp;&#8984;S SAVE&nbsp;&nbsp;&middot;&nbsp;&nbsp;ESC DONE</div>
+<!-- subtle idle hint; delete this element to remove it -->
+<div id="hint">press E to edit</div>
+
+<script>
+  // scale the fixed 1920x1080 stage to fit any viewport
+  function fit() {
+    var s = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+    var stage = document.getElementById('stage');
+    stage.style.transform = 'scale(' + s + ')';
+    stage.style.left = ((window.innerWidth - 1920 * s) / 2) + 'px';
+    stage.style.top = ((window.innerHeight - 1080 * s) / 2) + 'px';
+    stage.style.position = 'absolute';
+  }
+  window.addEventListener('resize', fit);
+  fit();
+
+  // ---- edit / save mode ----
+  var editing = false;
+  var editables = document.querySelectorAll('.ed');
+
+  function setEditing(on) {
+    editing = on;
+    document.body.classList.toggle('editing', on);
+    editables.forEach(function (el) { el.contentEditable = on ? 'true' : 'false'; });
+    if (!on && document.activeElement && document.activeElement.blur) {
+      document.activeElement.blur();
+    }
+  }
+
+  function isTyping() {
+    var el = document.activeElement;
+    return el && (el.isContentEditable || el.tagName === 'INPUT' || el.tagName === 'TEXTAREA');
+  }
+
+  function saveCopy() {
+    // capture the live DOM (including any edits) and download it
+    var html = '<!doctype html>\n' + document.documentElement.outerHTML;
+    var blob = new Blob([html], { type: 'text/html' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'slide.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+  }
+
+  document.addEventListener('keydown', function (e) {
+    // Cmd/Ctrl+S saves, even with a field focused
+    if ((e.metaKey || e.ctrlKey) && (e.key === 's' || e.key === 'S')) {
+      e.preventDefault();
+      saveCopy();
+      return;
+    }
+    // Esc exits edit mode
+    if (e.key === 'Escape' && editing) {
+      e.preventDefault();
+      setEditing(false);
+      return;
+    }
+    // E enters edit mode, but never while already typing
+    if ((e.key === 'e' || e.key === 'E') && !editing && !isTyping()
+        && !e.metaKey && !e.ctrlKey && !e.altKey) {
+      e.preventDefault();
+      setEditing(true);
+    }
+  });
+</script>
+</body>
+</html>

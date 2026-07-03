@@ -19,46 +19,42 @@ Now open your coding agent and try it out, eg:
 
 Note that the `npx skills` installation method installs all skills. Use `--skill <name>` to pick only what you want. All of the skills are listed below.
 
-<!-- vim-markdown-toc GFM -->
+## Skills
 
-- [The `toolkit` Plugin](#the-toolkit-plugin)
-    - [Commands](#commands)
-        - [`/toolkit:agent-history`](#toolkitagent-history)
-        - [`/toolkit:ghpr`](#toolkitghpr)
-        - [`/toolkit:skill-history`](#toolkitskill-history)
-    - [Skills](#skills)
-        - [`agent-development`](#agent-development)
-        - [`anthropic-evaluations`](#anthropic-evaluations)
-        - [`claude-code-agent-teams`](#claude-code-agent-teams)
-        - [`claude-code-hook-development`](#claude-code-hook-development)
-        - [`claude-code-memory-and-rules`](#claude-code-memory-and-rules)
-        - [`claude-code-plugin-development`](#claude-code-plugin-development)
-        - [`claude-code-skill-development`](#claude-code-skill-development)
-        - [`claude-code-slash-commands`](#claude-code-slash-commands)
-        - [`claude-code-statusline-development`](#claude-code-statusline-development)
-        - [`learn-and-improve`](#learn-and-improve)
-        - [`makefile-development`](#makefile-development)
-        - [`release-please-development`](#release-please-development)
-        - [`research`](#research)
-        - [`shell-script-development`](#shell-script-development)
-        - [`solve-problem`](#solve-problem)
-    - [Agents](#agents)
-        - [`researcher`](#researcher)
-- [The `dwmkerr` Plugin](#the-dwmkerr-plugin)
-    - [Commands](#commands-1)
-        - [`/dwmkerr:next`](#dwmkerrnext)
-    - [Skills](#skills-1)
-        - [`drawio-diagram`](#drawio-diagram)
-        - [`my-repos`](#my-repos)
-        - [`project-setup`](#project-setup)
-        - [`slides`](#slides)
-- [Developer Guide](#developer-guide)
-    - [Claude Code Setup](#claude-code-setup)
-    - [Local Development](#local-development)
-- [Further Reading](#further-reading)
-- [License](#license)
+A quick summary of everything in the toolkit, grouped by what it's for (most broadly useful first). 24 in total - 19 skills, 4 commands, and 1 agent.
 
-<!-- vim-markdown-toc -->
+| Name | Plugin | What it does |
+|------|--------|-------------|
+| **Problem solving & research** | | |
+| [solve-problem](#solve-problem) | toolkit | Diagnose problems with an evidence-first method |
+| [research](#research) | toolkit | Research technical options across the web and GitHub repos |
+| [researcher](#researcher) | toolkit | Agent - searches the web and clones repos to gather evidence |
+| **Slides & presentations** | | |
+| [slides](#slides) | dwmkerr | Create Slidev or hand-built HTML slide decks |
+| **Agent use** | | |
+| [learn-and-improve](#learn-and-improve) | toolkit | Review a session and improve skills, config, and settings for next time |
+| [/toolkit:agent-history](#toolkitagent-history) | toolkit | Command - list the agents spawned in a session |
+| [/toolkit:skill-history](#toolkitskill-history) | toolkit | Command - show which skills were invoked, to spot missed ones |
+| **Software engineering** | | |
+| [shell-script-development](#shell-script-development) | toolkit | Write bash scripts with safe options and color output |
+| [makefile-development](#makefile-development) | toolkit | Create self-documenting Makefiles with consistent conventions |
+| [release-please-development](#release-please-development) | toolkit | Set up automated versioning and changelogs |
+| [drawio-diagram](#drawio-diagram) | dwmkerr | Generate draw.io architecture diagrams with a consistent style |
+| [project-setup](#project-setup) | dwmkerr | Create a new GitHub repo with standard configuration |
+| [/toolkit:ghpr](#toolkitghpr) | toolkit | Command - open or create a PR for the current branch |
+| **Building for Claude Code** | | |
+| [claude-code-skill-development](#claude-code-skill-development) | toolkit | Build SKILL.md files with progressive disclosure |
+| [agent-development](#agent-development) | toolkit | Create Claude Code agents with correct frontmatter and conventions |
+| [claude-code-slash-commands](#claude-code-slash-commands) | toolkit | Create custom slash commands with frontmatter and arguments |
+| [claude-code-hook-development](#claude-code-hook-development) | toolkit | Write hooks that run before or after events |
+| [claude-code-plugin-development](#claude-code-plugin-development) | toolkit | Bundle commands, agents, skills, and hooks into a plugin |
+| [claude-code-statusline-development](#claude-code-statusline-development) | toolkit | Build a custom statusline for git, context, and cost |
+| [claude-code-memory-and-rules](#claude-code-memory-and-rules) | toolkit | Set up CLAUDE.md, rules, and auto memory |
+| [claude-code-agent-teams](#claude-code-agent-teams) | toolkit | Coordinate multiple Claude Code instances as a team |
+| [anthropic-evaluations](#anthropic-evaluations) | toolkit | Build evaluation suites and graders for coding agents |
+| **Personal workflow** | | |
+| [my-repos](#my-repos) | dwmkerr | Locate and work with dwmkerr's repositories |
+| [/dwmkerr:next](#dwmkerrnext) | dwmkerr | Command - suggest what to work on next, or wrap up a session |
 
 ## The `toolkit` Plugin
 
@@ -330,6 +326,12 @@ Conference mode — from my [AI Native DevCon London 2026 talk](https://www.yout
 ![Example of the qblabs theme](./docs/images/slides-qblabs.png)
 
 > The `qblabs` theme is an approximation inspired by QuantumBlack's publicly available visual identity — not an official brand guide. The source deck is internal, so only this single slide is shown (bundled as [`qblabs-example-slide.html`](./plugins/dwmkerr/skills/slides/references/qblabs-example-slide.html)). See [the theme's attribution notes](./plugins/dwmkerr/skills/slides/themes/qblabs/README.md) for sources.
+
+A `dwmkerr.com` style template is also included: a light, off-white standalone HTML slide with a shell-style header, a `# timeline` heading, and four columns. Use it as a starting point for personal, blog-flavoured decks (bundled as [`dwmkerr-com-timeline-slide.html`](./plugins/dwmkerr/skills/slides/references/dwmkerr-com-timeline-slide.html)).
+
+![dwmkerr.com timeline slide template](./docs/images/slides-dwmkerr-timeline.png)
+
+**Keyboard controls** - the standalone HTML slides (both the `dwmkerr.com` template and the `qblabs` exemplar) are editable in the browser: press `E` to edit any text, `Cmd/Ctrl+S` to save (downloads the edited HTML), and `Esc` to exit edit mode.
 
 ## Developer Guide
 
