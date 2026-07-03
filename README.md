@@ -53,6 +53,7 @@ Note that the `npx skills` installation method installs all skills. Use `--skill
         - [`project-setup`](#project-setup)
         - [`slides`](#slides)
 - [Developer Guide](#developer-guide)
+    - [Claude Code Setup](#claude-code-setup)
     - [Local Development](#local-development)
 - [Further Reading](#further-reading)
 - [License](#license)
@@ -352,29 +353,52 @@ If commands don't appear, use `/reload-plugins` or enable and restart:
 
 ### Local Development
 
+**Installing**
+
 Clone and install from local source:
 
 ```bash
 git clone https://github.com/dwmkerr/claude-toolkit.git
 cd claude-toolkit
+
+# Install at user level for claude code.
 claude plugin marketplace add ./
 claude plugin install toolkit@claude-toolkit
+claude plugin install dwmkerr@claude-toolkit
+
+# Install at user level for opencode (all skills; copies into ~/.agents/skills).
+npx skills add ./ -g -a opencode
 ```
 
-If you change the files, bump the version with `make bump`, bust the cache and reinstall then re-open Claude. There might be a cleaner way but this seems to work consistently:
-Bust the cache and reinstall:
+**Updating**
+
+If you change the files, bump the version with `make bump`, then run `/reload-plugins`.
+
+If you have issues, bust the cache and reinstall then re-open Claude.
 
 ```bash
 make bump
 rm -rf ~/.claude/plugins/cache/claude-toolkit && claude plugin install toolkit@claude-toolkit
 ```
 
+To update OpenCode (`skills update` only refreshes remote sources, so for a local
+clone just re-run the install — it overwrites the copied skills):
+
+```bash
+npx skills add ./ -g -a opencode -y
+```
+
 Uninstall with:
 
 ```bash
+# Claude Code (uninstall the plugins, then drop the local marketplace).
+claude plugin uninstall toolkit@claude-toolkit
+claude plugin uninstall dwmkerr@claude-toolkit
 claude plugin marketplace remove claude-toolkit
-```
 
+# OpenCode (one skill, or `npx skills manage` to pick interactively).
+npx skills remove <skill> -g -y
+```
 
 ## Further Reading
 
