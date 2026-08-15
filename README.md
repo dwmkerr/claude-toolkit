@@ -17,6 +17,8 @@ Now open your coding agent and try it out, eg:
 
 > ```Use the slides skill to create a conference presentation style slide on agentic engineering```
 
+The maintained slides skill now has [its own repository](https://github.com/dwmkerr/slides). Install it separately with `npx skills add dwmkerr/slides`.
+
 Note that the `npx skills` installation method installs all skills. Use `--skill <name>` to pick only what you want. All of the skills are listed below.
 
 ## Skills
@@ -30,7 +32,7 @@ A quick summary of everything in the toolkit, grouped by what it's for (most bro
 | [research](#research) | toolkit | Research technical options across the web and GitHub repos |
 | [researcher](#researcher) | toolkit | Agent - searches the web and clones repos to gather evidence |
 | **Slides & presentations** | | |
-| [slides](#slides) | dwmkerr | Create Slidev or hand-built HTML slide decks |
+| [slides](https://github.com/dwmkerr/slides) | standalone | Create, present, and collaboratively edit hand-built HTML slide decks |
 | **Agent use** | | |
 | [learn-and-improve](#learn-and-improve) | toolkit | Review a session and improve skills, config, and settings for next time |
 | [/toolkit:agent-history](#toolkitagent-history) | toolkit | Command - list the agents spawned in a session |
@@ -307,31 +309,24 @@ This skill runs as a subagent (`context: fork`) as only the final output is need
 
 ![Screenshot of the Project Setup skill](./docs/project-setup/project-setup-skill-screenshot.png)
 
-#### `slides`
+#### [`slides`](https://github.com/dwmkerr/slides)
 
-> Create slides for this project
+> Create a deck comparing three coding agent harnesses
 
-- **Slidev mode (default)** — scaffolds a [Slidev](https://sli.dev) markdown deck in `./slides/`, generating title and content slides from the README or a prompt, with `Makefile` targets for dev server, build, and PDF export
-- **Conference mode** — hand-built HTML deck with no framework or build step: dark typographic theme, right-arrow progressive reveal, in-deck speaker notes, a phone teleprompter sheet, and GitHub Pages deploy
-- Supports custom Slidev themes (includes `qblabs`, inspired by QuantumBlack's public visual identity)
+The updated slides skill is now maintained independently at [github.com/dwmkerr/slides](https://github.com/dwmkerr/slides), so it can evolve separately from this toolkit. Install it directly:
 
-Conference mode — from my [AI Native DevCon London 2026 talk](https://www.youtube.com/watch?v=ACL7_EsfIio) ([blog post](https://dwmkerr.com/bipolar-dysregulation-and-ai/)). The final deck is bundled as a readable example: [`conference-example.html`](./plugins/dwmkerr/skills/slides/references/conference-example.html).
+```bash
+npx skills add dwmkerr/slides
+```
 
-![Conference-mode title slide](./docs/images/slides-conference.png)
+<a href="https://github.com/dwmkerr/slides"><img src="https://raw.githubusercontent.com/dwmkerr/slides/main/site/assets/hero.gif" alt="QuantumBlack-inspired, conference, and dwmkerr.com slide styles followed by browser edit mode" width="100%"></a>
 
-![Conference-mode chart slide](./docs/images/slides-conference-chart.png)
+- Dependency-free, hand-built HTML
+- QuantumBlack-inspired, conference, and `dwmkerr.com` styles
+- Arrow-key navigation, progressive reveals, fullscreen, notes, and teleprompter view
+- Browser editing, comments, and live-save through the local slides server
 
-`qblabs` theme:
-
-![Example of the qblabs theme](./docs/images/slides-qblabs.png)
-
-> The `qblabs` theme is an approximation inspired by QuantumBlack's publicly available visual identity — not an official brand guide. The source deck is internal, so only this single slide is shown (bundled as [`qblabs-example-slide.html`](./plugins/dwmkerr/skills/slides/references/qblabs-example-slide.html)). See [the theme's attribution notes](./plugins/dwmkerr/skills/slides/themes/qblabs/README.md) for sources.
-
-A `dwmkerr.com` style template is also included: a light, off-white standalone HTML slide with a shell-style header, a `# timeline` heading, and four columns. Use it as a starting point for personal, blog-flavoured decks (bundled as [`dwmkerr-com-timeline-slide.html`](./plugins/dwmkerr/skills/slides/references/dwmkerr-com-timeline-slide.html)).
-
-![dwmkerr.com timeline slide template](./docs/images/slides-dwmkerr-timeline.png)
-
-**Keyboard controls** - the standalone HTML slides (both the `dwmkerr.com` template and the `qblabs` exemplar) are editable in the browser: press `E` to edit any text, `Cmd/Ctrl+S` to save (downloads the edited HTML), and `Esc` to exit edit mode.
+The older bundled copy remains in this repository for existing plugin installations; the standalone repository is the maintained version.
 
 ## Developer Guide
 
