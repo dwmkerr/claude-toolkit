@@ -23,7 +23,7 @@ Note that the `npx skills` installation method installs all skills. Use `--skill
 
 ## Skills
 
-A quick summary of everything in the toolkit, grouped by what it's for (most broadly useful first). 24 in total - 19 skills, 4 commands, and 1 agent.
+A quick summary of everything in the toolkit, grouped by what it's for (most broadly useful first). 25 in total - 20 skills, 4 commands, and 1 agent.
 
 | Name | Plugin | What it does |
 |------|--------|-------------|
@@ -56,6 +56,7 @@ A quick summary of everything in the toolkit, grouped by what it's for (most bro
 | [anthropic-evaluations](#anthropic-evaluations) | toolkit | Build evaluation suites and graders for coding agents |
 | **Personal workflow** | | |
 | [my-repos](#my-repos) | dwmkerr | Locate and work with dwmkerr's repositories |
+| [pdf-sign](#pdf-sign) | dwmkerr | Sign PDF forms with a signature image - checkboxes, dates, and fields |
 | [/dwmkerr:next](#dwmkerrnext) | dwmkerr | Command - suggest what to work on next, or wrap up a session |
 
 ## The `toolkit` Plugin
@@ -295,6 +296,16 @@ Opinionated plugin with my personal workflows and conventions. You're welcome to
 - Checks local first, stashes changes if needed for branch switching
 - Uses `gh` CLI to find remote repos if not local
 - Clones missing repos to the standard location
+
+#### `pdf-sign`
+
+> Sign this claim form with my signature and today's date
+
+- Overlays a signature image, ticks checkboxes, and fills date/name/phone fields
+- Works on digital PDFs (text search) and scanned PDFs (OCR via tesseract)
+- Asks where the signature image is - never assumes or stores a location
+- Converts white-background signature scans to transparent PNG so underlying text stays visible
+- Renders and visually verifies each page; always writes to a new file
 
 #### `project-setup`
 
