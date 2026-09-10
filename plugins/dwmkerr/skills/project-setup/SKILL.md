@@ -18,6 +18,7 @@ Create a new GitHub repository with standard dwmkerr project configuration.
 5. **GitHub Pages** enabled (Actions-based deployment)
 6. **MIT License**
 7. **Basic README** with intro and quickstart
+8. **Sponsor badge and funding metadata** - `.github/FUNDING.yml`, a "thanks | donate" badge in the README, and a `funding` field in `package.json` when present
 
 ## Setup Process
 
@@ -108,10 +109,12 @@ SOFTWARE.
 
 ### 5. Create README
 
-Follow this pattern:
+Follow this pattern. The badge row sits directly under the title, and the sponsor badge is always the last badge in that row:
 
 ```markdown
 # <repo-name>
+
+[![Donate](https://img.shields.io/badge/thanks-donate-ea4aaa?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/dwmkerr/sponsorships?frequency=one-time&amount=5)
 
 <One-line description of what this project does.>
 
@@ -125,6 +128,8 @@ Example:
 ```markdown
 # my-awesome-tool
 
+[![Donate](https://img.shields.io/badge/thanks-donate-ea4aaa?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/dwmkerr/sponsorships?frequency=one-time&amount=5)
+
 CLI tool for automating deployment workflows.
 
 ## Quickstart
@@ -137,7 +142,32 @@ my-awesome-tool init
 \`\`\`
 ```
 
-### 6. Set Up Release Please (Optional)
+### 6. Add Funding Metadata
+
+Every public repo carries the same three pieces of funding metadata. The badge is the only ask in the README; do not add a "please sponsor" sentence.
+
+Create `.github/FUNDING.yml`:
+
+```yaml
+# Support 'GitHub Sponsors' funding.
+github: dwmkerr
+```
+
+The README badge from step 5 links to the one-time tab of the sponsors page.
+
+If the project has a `package.json`, add the `funding` field:
+
+```bash
+jq '.funding = {"type": "github", "url": "https://github.com/sponsors/dwmkerr"}' package.json > package.json.tmp && mv package.json.tmp package.json
+```
+
+If the README uses a `<p align="center">` header block instead of a plain badge row, use the HTML anchor form as the last `<a>` in the badge paragraph:
+
+```html
+<a href="https://github.com/sponsors/dwmkerr/sponsorships?frequency=one-time&amount=5"><img src="https://img.shields.io/badge/thanks-donate-ea4aaa?logo=githubsponsors&logoColor=white" alt="Donate"></a>
+```
+
+### 7. Set Up Release Please (Optional)
 
 Release Please automates version bumps and changelogs from conventional commits. Skip this step if the project doesn't need automated releases.
 
@@ -174,11 +204,11 @@ Both flags are required to stay in the 0.1.x line. Without `bump-patch-for-minor
 
 If the project has a version file (e.g. `package.json`), set its version to `0.1.0` to match the manifest.
 
-### 7. Initial Commit
+### 8. Initial Commit
 
 ```bash
-git add LICENSE README.md
-# Include release-please files only if step 6 was done
+git add LICENSE README.md .github/FUNDING.yml
+# Include release-please files only if step 7 was done
 git add release-please-config.json .release-please-manifest.json 2>/dev/null || true
 git commit -m "chore: initial project setup"
 git push -u origin main
