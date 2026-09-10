@@ -18,7 +18,7 @@ Create a new GitHub repository with standard dwmkerr project configuration.
 5. **GitHub Pages** enabled (Actions-based deployment)
 6. **MIT License**
 7. **Basic README** with intro and quickstart
-8. **Sponsor badge and funding metadata** - `.github/FUNDING.yml`, a "buy me a coffee" badge in the README, and a `funding` field in `package.json` when present
+8. **Sponsor badge and funding metadata** - `.github/FUNDING.yml`, a "thanks | donate" badge in the README, and a `funding` field in `package.json` when present
 
 ## Setup Process
 
@@ -114,7 +114,7 @@ Follow this pattern. The badge row sits directly under the title, and the sponso
 ```markdown
 # <repo-name>
 
-[![Buy me a coffee](https://img.shields.io/badge/thanks-buy%20me%20a%20coffee-ea4aaa?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/dwmkerr?frequency=one-time)
+[![Donate](https://img.shields.io/badge/thanks-donate-ea4aaa?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/dwmkerr/sponsorships?frequency=one-time&amount=5)
 
 <One-line description of what this project does.>
 
@@ -128,7 +128,7 @@ Example:
 ```markdown
 # my-awesome-tool
 
-[![Buy me a coffee](https://img.shields.io/badge/thanks-buy%20me%20a%20coffee-ea4aaa?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/dwmkerr?frequency=one-time)
+[![Donate](https://img.shields.io/badge/thanks-donate-ea4aaa?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/dwmkerr/sponsorships?frequency=one-time&amount=5)
 
 CLI tool for automating deployment workflows.
 
@@ -164,7 +164,7 @@ jq '.funding = {"type": "github", "url": "https://github.com/sponsors/dwmkerr"}'
 If the README uses a `<p align="center">` header block instead of a plain badge row, use the HTML anchor form as the last `<a>` in the badge paragraph:
 
 ```html
-<a href="https://github.com/sponsors/dwmkerr?frequency=one-time"><img src="https://img.shields.io/badge/thanks-buy%20me%20a%20coffee-ea4aaa?logo=githubsponsors&logoColor=white" alt="Buy me a coffee"></a>
+<a href="https://github.com/sponsors/dwmkerr/sponsorships?frequency=one-time&amount=5"><img src="https://img.shields.io/badge/thanks-donate-ea4aaa?logo=githubsponsors&logoColor=white" alt="Donate"></a>
 ```
 
 ### 7. Set Up Release Please (Optional)
