@@ -1,0 +1,23 @@
+skill: toolkit:editable-html
+model: haiku
+
+tests:
+  - id: make-html-editable
+    prompt: "Make the html editable so I can fix the copy"
+    should_trigger: true
+
+  - id: edit-copy-in-browser
+    prompt: "Let me edit the text in the browser and watch my changes"
+    should_trigger: true
+
+  - id: live-edit-app
+    prompt: "Set up live edit for the app in dev mode so I can tweak wording"
+    should_trigger: true
+
+  - id: negative-pdf
+    prompt: "Convert this page to a PDF"
+    should_trigger: false
+
+  - id: negative-code
+    prompt: "Write a function to parse JSON"
+    should_trigger: false
