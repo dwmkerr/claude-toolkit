@@ -23,7 +23,7 @@ Note that the `npx skills` installation method installs all skills. Use `--skill
 
 ## Skills
 
-A quick summary of everything in the toolkit, grouped by what it's for (most broadly useful first). 25 in total - 20 skills, 4 commands, and 1 agent.
+A quick summary of everything in the toolkit, grouped by what it's for (most broadly useful first). 26 in total - 21 skills, 4 commands, and 1 agent.
 
 | Name | Plugin | What it does |
 |------|--------|-------------|
@@ -39,6 +39,7 @@ A quick summary of everything in the toolkit, grouped by what it's for (most bro
 | [/toolkit:skill-history](#toolkitskill-history) | toolkit | Command - show which skills were invoked, to spot missed ones |
 | **Software engineering** | | |
 | [shell-script-development](#shell-script-development) | toolkit | Write bash scripts with safe options and color output |
+| [editable-html](#editable-html) | toolkit | Edit page copy in the browser while the agent applies it to source |
 | [makefile-development](#makefile-development) | toolkit | Create self-documenting Makefiles with consistent conventions |
 | [release-please-development](#release-please-development) | toolkit | Set up automated versioning and changelogs |
 | [drawio-diagram](#drawio-diagram) | dwmkerr | Generate draw.io architecture diagrams with a consistent style |
@@ -187,6 +188,15 @@ See [github.com/dwmkerr/effective-shell](https://github.com/dwmkerr/effective-sh
 After running this example, you'll have a statusline similar to the below:
 
 ![Example of statusline output](./docs/statusline/gitinfocontext-statusline-screenshot.png)
+
+#### `editable-html`
+
+> Make the html editable so I can fix the copy
+
+- Press `e` on the page, click any text and type; each edit is queued to `edits.jsonl`
+- The agent watches the queue and applies the change to the real source, including templates and generated files
+- Static mode serves any HTML file with the overlay injected; app mode adds a dev-only API route
+- Localhost only, and the overlay never ships with the page
 
 #### `learn-and-improve`
 
