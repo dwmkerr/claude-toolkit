@@ -23,7 +23,7 @@ Note that the `npx skills` installation method installs all skills. Use `--skill
 
 ## Skills
 
-A quick summary of everything in the toolkit, grouped by what it's for (most broadly useful first). 26 in total - 21 skills, 4 commands, and 1 agent.
+A quick summary of everything in the toolkit, grouped by what it's for (most broadly useful first). 28 in total - 21 skills, 6 commands, and 1 agent.
 
 | Name | Plugin | What it does |
 |------|--------|-------------|
@@ -37,6 +37,8 @@ A quick summary of everything in the toolkit, grouped by what it's for (most bro
 | [learn-and-improve](#learn-and-improve) | toolkit | Review a session and improve skills, config, and settings for next time |
 | [/toolkit:agent-history](#toolkitagent-history) | toolkit | Command - list the agents spawned in a session |
 | [/toolkit:skill-history](#toolkitskill-history) | toolkit | Command - show which skills were invoked, to spot missed ones |
+| [/toolkit:vfast](#toolkitvfast-and-toolkitvvfast) | toolkit | Command - run a request on Sonnet |
+| [/toolkit:vvfast](#toolkitvfast-and-toolkitvvfast) | toolkit | Command - run a request on Haiku |
 | **Software engineering** | | |
 | [shell-script-development](#shell-script-development) | toolkit | Write bash scripts with safe options and color output |
 | [editable-html](#editable-html) | toolkit | Edit page copy in the browser while the agent applies it to source |
@@ -72,6 +74,15 @@ This plugin is general purpose and should be useful for anyone.
 
 - Searches session log for agent spawns
 - Shows timestamp, agent name, and task
+
+#### `/toolkit:vfast` and `/toolkit:vvfast`
+
+> /toolkit:vvfast check open bugs
+
+- `vfast` runs the request on Sonnet, `vvfast` on Haiku, via `model:` frontmatter
+- Applies to that one request only; the session model is unchanged
+- Use for quick lookups, triage, and simple edits
+- For full Opus quality with faster output, use the built-in `/fast` (fast mode) instead
 
 #### `/toolkit:ghpr`
 
